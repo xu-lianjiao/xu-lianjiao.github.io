@@ -1,0 +1,159 @@
+/* Basic Modern CSS stylesheet with Crossword Grid Support */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.main-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    max-width: 1200px;
+    /* Increased max width of layout container */
+    margin: 5vh auto;
+    padding: 20px;
+    align-items: center;
+    /* Center items vertically */
+}
+
+.left-panel {
+    flex: 4;
+    /* 40% space */
+}
+
+.right-panel {
+    flex: 6;
+    /* 60% space */
+    display: flex;
+    justify-content: flex-end;
+    /* Align grid to the right-hand margin */
+    container-type: inline-size;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Crossword Grid Styles */
+.crossword-grid {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    width: 100%;
+    max-width: min(650px, 80vh);
+    /* Increased grid size and viewport height limit */
+    aspect-ratio: 1 / 1;
+    border: 3px solid #000000;
+    /* Outer border */
+    background-color: #ffffff;
+    box-sizing: border-box;
+}
+
+.cell {
+    background-color: #ffffff;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    user-select: none;
+    border: 1px solid #000000;
+    /* 1px border on all sides, combining to make 2px grid lines */
+    box-sizing: border-box;
+    /* Crucial to keep dimensions exact */
+    min-width: 0;
+    /* Prevents content from expanding cell column width */
+    min-height: 0;
+    /* Prevents content from expanding cell row height */
+    overflow: hidden;
+    /* Prevents subpixel text height overflow */
+}
+
+.cell.black {
+    background-color: #000000;
+    border: 1px solid #000000;
+}
+
+.cell-number {
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    font-size: clamp(7px, 1.2cqi, 10px);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #000000;
+    line-height: 1;
+    font-weight: normal;
+}
+
+.cell-letter {
+    font-size: clamp(12px, 3.5cqi, 26px);
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    font-weight: bold;
+    color: #777;
+    /* Soft dark gray color for standard letters */
+    line-height: 1;
+}
+
+/* Crossword Link Cells */
+.crossword-link {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Red color for letters belonging to the nav categories */
+.crossword-link .cell-letter {
+    color: #2f5bfa;
+}
+
+/* Entire word highlighted yellow on hover */
+.crossword-link.highlight {
+    background-color: #fef08a;
+    /* Soft highlighter yellow */
+}
+
+/* Sidebar navigation */
+h1 {
+    font-size: 2.2rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+.back-link {
+    display: inline-block;
+    color: #666666;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.back-link:hover {
+    color: #333333;
+    text-decoration: underline;
+}
+
+/* Responsive adjustment for tablet/mobile screens */
+@media (max-width: 768px) {
+    .main-layout {
+        flex-direction: column;
+        margin: 20px auto;
+        gap: 30px;
+    }
+
+    .left-panel,
+    .right-panel {
+        flex: none;
+        width: 100%;
+        padding: 0;
+    }
+
+    .right-panel {
+        justify-content: center;
+        /* Center crossword grid on mobile */
+    }
+}
