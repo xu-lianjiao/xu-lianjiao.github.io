@@ -1,11 +1,33 @@
 /* Basic Modern CSS stylesheet with Crossword Grid Support */
+@font-face {
+    font-family: 'JXH';
+    src: url('fonts/jxhandwriting.woff2') format('woff2'),
+        url('fonts/jxhandwriting.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    /* Tells the browser to display fallback font until custom font loads */
+}
+
+@font-face {
+    font-family: 'JXXW';
+    src: url('fonts/jxxword.woff2') format('woff2'),
+        url('fonts/jxxword.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    /* Tells the browser to display fallback font until custom font loads */
+}
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'JXH', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #ffffff;
     color: #333333;
     line-height: 1.6;
     margin: 0;
     padding: 0;
+    font-size: 21px;
+    /* Increased by ~5pt (from 16px to 21px) */
 }
 
 .main-layout {
@@ -36,19 +58,51 @@ body {
     box-sizing: border-box;
 }
 
+/* Grid wrapper for absolute positioning of decorations */
+.grid-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: min(650px, 80vh);
+    aspect-ratio: 1 / 1;
+}
+
 /* Crossword Grid Styles */
 .crossword-grid {
     display: grid;
     grid-template-columns: repeat(15, 1fr);
     grid-template-rows: repeat(15, 1fr);
     width: 100%;
-    max-width: min(650px, 80vh);
-    /* Increased grid size and viewport height limit */
-    aspect-ratio: 1 / 1;
-    border: 3px solid #000000;
+    height: 100%;
+    border: 3px solid #1d2d44;
     /* Outer border */
     background-color: #ffffff;
     box-sizing: border-box;
+}
+
+/* Handdrawn Arrow Decoration */
+.arrow-decoration {
+    position: absolute;
+    left: -110px;
+    bottom: 30px;
+    width: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+    /* Let clicks pass through if any overlap */
+    color: #333333;
+}
+
+.handdrawn-arrow {
+    width: 70px;
+    height: 70px;
+}
+
+.arrow-text {
+    font-family: "JXH", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 20px;
+    margin-top: 5px;
+    white-space: nowrap;
 }
 
 .cell {
@@ -59,7 +113,7 @@ body {
     justify-content: center;
     text-decoration: none;
     user-select: none;
-    border: 1px solid #000000;
+    border: 1px solid #1d2d44;
     /* 1px border on all sides, combining to make 2px grid lines */
     box-sizing: border-box;
     /* Crucial to keep dimensions exact */
@@ -72,28 +126,30 @@ body {
 }
 
 .cell.black {
-    background-color: #000000;
-    border: 1px solid #000000;
+    background-color: #1d2d44;
+    border: 1px solid #1d2d44;
 }
 
 .cell-number {
     position: absolute;
     top: 2px;
     left: 4px;
-    font-size: clamp(7px, 1.2cqi, 10px);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    color: #000000;
+    font-size: clamp(8px, 1.6cqi, 12px);
+    font-family: Roboto, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #1d2d44;
     line-height: 1;
     font-weight: normal;
 }
 
 .cell-letter {
     font-size: clamp(12px, 3.5cqi, 26px);
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-    font-weight: bold;
-    color: #777;
+    font-family: Roboto, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+    color: #5881bb;
     /* Soft dark gray color for standard letters */
     line-height: 1;
+    margin-top: 0.25em;
+    /* Shift letter further down */
 }
 
 /* Crossword Link Cells */
@@ -102,9 +158,10 @@ body {
     transition: background-color 0.2s ease;
 }
 
-/* Red color for letters belonging to the nav categories */
+/* Color for letters belonging to the nav categories (regular blue link color) */
 .crossword-link .cell-letter {
-    color: #2f5bfa;
+    color: #0000ee;
+    font-weight: bold;
 }
 
 /* Entire word highlighted yellow on hover */
@@ -113,15 +170,21 @@ body {
     /* Soft highlighter yellow */
 }
 
+/* Highlight standard cells on hover (excluding black cells and link cells) */
+.cell:not(.black):not(.crossword-link):hover {
+    background-color: #f0f0f0;
+    /* Light gray highlight */
+}
+
 /* Sidebar navigation */
 h1 {
-    font-size: 2.2rem;
+    font-size: 2.2em;
     margin-top: 0;
     margin-bottom: 20px;
 }
 
 p {
-    font-size: 1.1rem;
+    font-size: 1.1em;
     margin-bottom: 25px;
 }
 
@@ -155,5 +218,9 @@ p {
     .right-panel {
         justify-content: center;
         /* Center crossword grid on mobile */
+    }
+
+    .arrow-decoration {
+        display: none;
     }
 }
