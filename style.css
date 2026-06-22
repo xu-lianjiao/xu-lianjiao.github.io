@@ -1,22 +1,21 @@
-/* Basic Modern CSS stylesheet with Crossword Grid Support */
 @font-face {
     font-family: 'JXH';
     src: url('fonts/jxhandwriting.woff2') format('woff2'),
         url('fonts/jxhandwriting.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-    font-display: swap;
-    /* Tells the browser to display fallback font until custom font loads */
+    font-display: block;
+    /* Tells the browser to wait for the custom font to render to prevent flashes */
 }
 
 @font-face {
     font-family: 'JXXW';
-    src: url('fonts/jxxword.woff2') format('woff2'),
-        url('fonts/jxxword.ttf') format('truetype');
+    src: url('fonts/jxxword-thick.woff2') format('woff2'),
+        url('fonts/jxxword-thick.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-    font-display: swap;
-    /* Tells the browser to display fallback font until custom font loads */
+    font-display: block;
+    /* Tells the browser to wait for the custom font to render to prevent flashes */
 }
 
 body {
@@ -143,7 +142,7 @@ body {
 
 .cell-letter {
     font-size: clamp(12px, 3.5cqi, 26px);
-    font-family: Roboto, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: "JXXW", Roboto, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     font-weight: 500;
     color: #5881bb;
     /* Soft dark gray color for standard letters */
@@ -223,4 +222,86 @@ p {
     .arrow-decoration {
         display: none;
     }
+}
+
+/* Subpage styling */
+.container {
+    max-width: 800px;
+    margin: 5vh auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.profile-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    margin: 20px 0;
+    display: block;
+}
+
+/* Subpage Navigation Bar */
+.subpage-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #eeeeee;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.subpage-nav a {
+    text-decoration: none;
+    color: #555555;
+    font-size: 20px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    padding: 5px 0;
+    border-bottom: 2px solid transparent;
+}
+
+.subpage-nav a:hover {
+    color: #000000;
+    border-bottom-color: #555555;
+}
+
+.subpage-nav a.active {
+    color: #0000ee;
+    border-bottom-color: #0000ee;
+    font-weight: bold;
+}
+
+/* JXXW Alternate Glyph Variant Classes */
+.variant-1 {
+    font-feature-settings: "ss01" 0, "ss02" 0;
+}
+
+.variant-2 {
+    font-feature-settings: "ss01" 1, "ss02" 0;
+}
+
+.variant-3 {
+    font-feature-settings: "ss02" 1, "ss01" 0;
+}
+
+/* Page transition: Quick fade in from below */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
 }
