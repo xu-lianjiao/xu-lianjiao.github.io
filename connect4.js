@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const tokensContainer = document.getElementById('tokens-container');
     const boardFrame = document.getElementById('board-frame');
     const columnsContainer = document.getElementById('columns-container');
-    const statusIndicator = document.getElementById('status-indicator');
-    const statusText = document.getElementById('status-text');
+    const statusIndicator = document.getElementById('status-indicator') || document.createElement('div');
+    const statusText = document.getElementById('status-text') || document.createElement('div');
     const resetBtn = document.getElementById('reset-btn');
 
     // Initialize the game
@@ -21,6 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
         currentPlayer = 1;
         isThinking = false;
         gameOver = false;
+
+        // Clear draw styling
+        const container = document.querySelector('.connect4-container');
+        if (container) {
+            container.classList.remove('draw');
+        }
+
+        // Clear confetti
+        const confettiContainer = document.getElementById('confetti-container');
+        if (confettiContainer) {
+            confettiContainer.innerHTML = '';
+        }
 
         // Clear dynamic elements
         tokensContainer.innerHTML = '';
@@ -94,14 +106,34 @@ document.addEventListener('DOMContentLoaded', () => {
         if (checkWin(board, currentPlayer)) {
             gameOver = true;
             isThinking = false;
+
+            // Highlight the winning 4-in-a-row after the drop animation completes (500ms delay)
+            const winCoords = getWinningCoords(board, currentPlayer);
+            if (winCoords) {
+                setTimeout(() => {
+                    winCoords.forEach(([r, c]) => {
+                        const cellIdx = r * COLS + c;
+                        const cell = boardFrame.children[cellIdx];
+                        if (cell) {
+                            cell.classList.add('winning');
+                        }
+                    });
+                }, 500);
+            }
+
+            // Celebration confetti if the player wins (currentPlayer === 1)
+            if (currentPlayer === 1) {
+                setTimeout(playConfetti, 500);
+            }
+
             setTimeout(() => {
                 statusIndicator.className = 'status-indicator';
                 if (currentPlayer === 1) {
                     statusIndicator.classList.add('red');
-                    statusText.textContent = "You win! 🎉";
+                    statusText.textContent = "You win!";
                 } else {
                     statusIndicator.classList.add('yellow');
-                    statusText.textContent = "AI wins! 🤖";
+                    statusText.textContent = "AI wins!";
                 }
             }, 350); // Slight delay for the drop animation to finish
             return;
@@ -111,9 +143,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!hasAvailableMoves()) {
             gameOver = true;
             isThinking = false;
+            const container = document.querySelector('.connect4-container');
+            if (container) {
+                container.classList.add('draw');
+            }
             setTimeout(() => {
                 statusIndicator.className = 'status-indicator';
-                statusText.textContent = "It's a draw! 🤝";
+                statusText.textContent = "It's a draw!";
             }, 350);
             return;
         }
@@ -197,12 +233,65 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     }
 
+    // Helper to get winning coordinates
+    function getWinningCoords(grid, player) {
+        // Horizontal check
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS - 3; c++) {
+                if (grid[r][c] === player &&
+                    grid[r][c + 1] === player &&
+                    grid[r][c + 2] === player &&
+                    grid[r][c + 3] === player) {
+                    return [[r, c], [r, c + 1], [r, c + 2], [r, c + 3]];
+                }
+            }
+        }
+
+        // Vertical check
+        for (let r = 0; r < ROWS - 3; r++) {
+            for (let c = 0; c < COLS; c++) {
+                if (grid[r][c] === player &&
+                    grid[r + 1][c] === player &&
+                    grid[r + 2][c] === player &&
+                    grid[r + 3][c] === player) {
+                    return [[r, c], [r + 1, c], [r + 2, c], [r + 3, c]];
+                }
+            }
+        }
+
+        // Diagonal up check (bottom-left to top-right)
+        for (let r = 3; r < ROWS; r++) {
+            for (let c = 0; c < COLS - 3; c++) {
+                if (grid[r][c] === player &&
+                    grid[r - 1][c + 1] === player &&
+                    grid[r - 2][c + 2] === player &&
+                    grid[r - 3][c + 3] === player) {
+                    return [[r, c], [r - 1, c + 1], [r - 2, c + 2], [r - 3, c + 3]];
+                }
+            }
+        }
+
+        // Diagonal down check (top-left to bottom-right)
+        for (let r = 0; r < ROWS - 3; r++) {
+            for (let c = 0; c < COLS - 3; c++) {
+                if (grid[r][c] === player &&
+                    grid[r + 1][c + 1] === player &&
+                    grid[r + 2][c + 2] === player &&
+                    grid[r + 3][c + 3] === player) {
+                    return [[r, c], [r + 1, c + 1], [r + 2, c + 2], [r + 3, c + 3]];
+                }
+            }
+        }
+
+        return null;
+    }
+
     // Custom utility evaluation function:
-    // yellow won is 10, red won is -10.
+    // yellow won is 1000, red won is -1000.
     // Otherwise: winConditions - lossConditions.
     function evaluateBoard(grid) {
-        if (checkWin(grid, 2)) return 10;
-        if (checkWin(grid, 1)) return -10;
+        if (checkWin(grid, 2)) return 1000;
+        if (checkWin(grid, 1)) return -1000;
 
         let winConditions = 0;
         let lossConditions = 0;
@@ -235,8 +324,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (Date.now() - startTime >= 5000) {
             return evaluateBoard(grid);
         }
-        if (checkWin(grid, 2)) return 10;
-        if (checkWin(grid, 1)) return -10;
+        if (checkWin(grid, 2)) return 1000 - depth;
+        if (checkWin(grid, 1)) return -1000 - depth;
 
         let isFull = true;
         for (let c = 0; c < COLS; c++) {
@@ -353,6 +442,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle board full state
     function handleBoardFull() {
         isThinking = false;
+        const container = document.querySelector('.connect4-container');
+        if (container) {
+            container.classList.add('draw');
+        }
         statusIndicator.className = 'status-indicator';
         statusText.textContent = "Board is full!";
     }
@@ -366,11 +459,64 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             if (currentPlayer === 1) {
                 statusIndicator.classList.add('red');
-                statusText.textContent = "Your turn (Red)";
+                statusText.textContent = "Your turn";
             } else {
                 statusIndicator.classList.add('yellow');
-                statusText.textContent = "AI's turn (Yellow)";
+                statusText.textContent = "AI's turn";
             }
+        }
+    }
+
+    // Play confetti celebration animation
+    function playConfetti() {
+        const container = document.getElementById('confetti-container');
+        if (!container) return;
+
+        const colors = ['#f54242', '#f5a442', '#f5eb42', '#42f554', '#42e6f5', '#a442f5', '#f542b9'];
+        const confettiCount = 130; // Increased count for a bigger explosion
+
+        for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti-piece';
+
+            // Random size between 6px and 12px
+            const size = Math.random() * 6 + 6;
+            confetti.style.width = `${size}px`;
+            confetti.style.height = `${size}px`;
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+            // Shoot out from just above the board in the center (relative to enlarged container offset by 150px)
+            const startX = 310 + (Math.random() * 60 - 30);
+            const startY = 140 + (Math.random() * 30 - 15);
+
+            // Angle: shoot upwards (-30 deg to 210 deg)
+            const angle = Math.random() * Math.PI * 1.2 + Math.PI * 1.9;
+            const velocity = Math.random() * 150 + 100; // Increased velocity for a wider blast
+
+            const midX = startX + Math.cos(angle) * velocity;
+            const midY = startY + Math.sin(angle) * velocity;
+
+            // Fall down below the board
+            const endX = midX + (Math.random() * 60 - 30);
+            const endY = midY + Math.random() * 150 + 120; // Increased falling distance
+
+            confetti.style.setProperty('--start-x', `${startX}px`);
+            confetti.style.setProperty('--start-y', `${startY}px`);
+            confetti.style.setProperty('--mid-x', `${midX}px`);
+            confetti.style.setProperty('--mid-y', `${midY}px`);
+            confetti.style.setProperty('--end-x', `${endX}px`);
+            confetti.style.setProperty('--end-y', `${endY}px`);
+
+            // Random delay and duration (speed halved: duration is doubled)
+            confetti.style.animationDelay = `${Math.random() * 0.25}s`;
+            confetti.style.animationDuration = `${Math.random() * 3.0 + 2.5}s`;
+
+            container.appendChild(confetti);
+
+            // Cleanup after animation completes
+            setTimeout(() => {
+                confetti.remove();
+            }, 6000);
         }
     }
 

@@ -6,8 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Julian's World</title>
         <link rel="icon" href="images/favicon (4).ico">
-        <link rel="preload" href="fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
-        <link rel="preload" href="fonts/jxxword.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="fonts/jxh.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="fonts/jxxword-thick.woff2" as="font" type="font/woff2" crossorigin>
         <link rel="stylesheet" href="style.css">
 </head>
 
@@ -16,9 +16,13 @@
                 <!-- Left Panel: 1/3 Width -->
                 <aside class="left-panel">
                         <h1>Julian Xiao</h1>
-                        <h2>Mathematics and Computer Science at the University of Oxford</h2>
+                        <h2>
+                                Mathematics & Computer Science
+                                <br> @ University of Oxford
+                        </h2>
                         <p>
                         <ul>
+                                <li>Ranked in top 10 of Class of '27</li>
                                 <li>USAMO/USAPhO alum</li>
                                 <li>New York Times crossword constructor</li>
                                 <li>Machine learning/data science researcher</li>
@@ -568,26 +572,20 @@
                         });
                 });
 
-                // --- 3. Alternate Glyph Variant Assignor ---
-                // for (let r = 0; r < 15; r++) {
-                //         for (let c = 0; c < 15; c++) {
-                //                 const cell = grid[r][c];
-                //                 if (cell.classList.contains('black')) continue;
+                // --- 3. Alternate Glyph Case Assignor ---
+                for (let r = 0; r < 15; r++) {
+                        for (let c = 0; c < 15; c++) {
+                                const cell = grid[r][c];
+                                if (cell.classList.contains('black')) continue;
 
-                //                 const letterSpan = cell.querySelector('.cell-letter');
-                //                 if (!letterSpan) continue;
+                                const letterSpan = cell.querySelector('.cell-letter');
+                                if (!letterSpan) continue;
 
-                //                 const val = (r + c) % 2;
-                //                 if (val === 0) {
-                //                         letterSpan.classList.add('variant-1');
-                //                 } else {
-                //                         letterSpan.classList.add('variant-2');
-                //                         // } else {
-                //                         //         letterSpan.classList.add('variant-3');
-                //                         // }
-                //                 }
-                //         }
-                // }
+                                if ((r + c) % 2 === 0) {
+                                        letterSpan.textContent = letterSpan.textContent.toLowerCase();
+                                }
+                        }
+                }
         </script>
 </body>
 

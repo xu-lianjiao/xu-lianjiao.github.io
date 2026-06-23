@@ -10,8 +10,8 @@
 
 @font-face {
     font-family: 'JXXW';
-    src: url('fonts/jxh2.woff2') format('woff2'),
-        url('fonts/jxh2.ttf') format('truetype');
+    src: url('fonts/jxxword-thick.woff2') format('woff2'),
+        url('fonts/jxxword-thick.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -356,94 +356,93 @@ p {
     max-width: 320px;
     text-align: center;
     background: transparent;
+    position: relative;
+    /* Contains the absolute positioned confetti container */
 }
 
 .game-controls {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    margin-top: 12px;
-    /* Placed under the board now */
-    gap: 8px;
+    margin-top: 15px;
 }
 
-.status-panel {
-    font-family: 'JXH', sans-serif;
-    font-size: 0.8em;
-    /* Scaled down */
-    color: #4a5568;
-    background: #f7fafc;
-    padding: 6px 12px;
-    border-radius: 20px;
-    flex-grow: 1;
-    text-align: left;
-    border: 1px solid #edf2f7;
+.c4-reset-btn {
+    background: #ffffff;
+    border: 2px solid #1d2d44;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    white-space: nowrap;
+    justify-content: center;
+    cursor: pointer;
+    color: #1d2d44;
+    transition: background-color 0.2s ease;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.c4-reset-btn:hover {
+    background-color: #f0f0f0;
+    /* Same gray shade as crossword grid hovering gray */
+}
+
+.c4-reset-btn:active {
+    background-color: #e2e8f0;
+}
+
+.c4-reset-btn svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+/* Confetti Celebration Styles */
+.confetti-container {
+    position: absolute;
+    top: -150px;
+    left: -150px;
+    width: calc(100% + 300px);
+    height: calc(100% + 300px);
+    pointer-events: none;
+    z-index: 10;
+    /* Renders in front of the board (.connect4-container has z-index: 2) */
     overflow: hidden;
-    text-overflow: ellipsis;
+    /* Clips confetti that goes beyond the active boundary area */
 }
 
-.status-indicator {
-    width: 10px;
-    /* Scaled down */
-    height: 10px;
+.confetti-piece {
+    position: absolute;
     border-radius: 50%;
-    display: inline-block;
-    flex-shrink: 0;
-    transition: background-color 0.3s ease;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(var(--start-x), var(--start-y)) scale(0);
+    animation-name: confetti-fall;
+    animation-timing-function: cubic-bezier(0.1, 0.8, 0.3, 1);
+    animation-fill-mode: forwards;
 }
 
-.status-indicator.red {
-    background-color: #e60000;
-    box-shadow: 0 0 6px rgba(230, 0, 0, 0.5);
-}
-
-.status-indicator.yellow {
-    background-color: #fcc419;
-    box-shadow: 0 0 6px rgba(252, 196, 25, 0.5);
-}
-
-.status-indicator.thinking {
-    background-color: #cbd5e0;
-    animation: pulse 1s infinite alternate;
-}
-
-@keyframes pulse {
-    from {
-        opacity: 0.4;
+@keyframes confetti-fall {
+    0% {
+        transform: translate(var(--start-x), var(--start-y)) scale(0);
+        opacity: 0;
     }
 
-    to {
+    10% {
         opacity: 1;
     }
-}
 
-.c4-btn {
-    font-family: 'JXH', sans-serif;
-    font-size: 0.75em;
-    /* Scaled down */
-    background-color: #1d2d44;
-    color: #ffffff;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 3px 5px rgba(29, 45, 68, 0.15);
-    flex-shrink: 0;
-}
+    25% {
+        transform: translate(var(--mid-x), var(--mid-y)) scale(1);
+        opacity: 1;
+    }
 
-.c4-btn:hover {
-    background-color: #2e4362;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(29, 45, 68, 0.2);
-}
-
-.c4-btn:active {
-    transform: translateY(0);
+    100% {
+        transform: translate(var(--end-x), var(--end-y)) scale(0.5);
+        opacity: 0;
+        /* Fades out slowly */
+    }
 }
 
 .connect4-container {
@@ -456,8 +455,13 @@ p {
     /* Scaled down outer frame */
     border-radius: 8px;
     box-shadow: 0 6px 20px rgba(87, 93, 104, 0.2);
-    overflow: hidden;
     box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.connect4-container.draw {
+    border-color: #e04c4c;
+    /* entire perimeter turns red on draw */
 }
 
 /* Base style for tokens */
@@ -469,6 +473,7 @@ p {
     height: 100%;
     z-index: 1;
     pointer-events: none;
+    overflow: hidden;
 }
 
 .token {
@@ -521,8 +526,24 @@ p {
 }
 
 .board-cell {
+    position: relative;
     /* Using radial gradient to carve out transparent circle in a blue cell, reduced radius by 10% */
     background: radial-gradient(circle, transparent 56%, #1a5fb4 57%);
+}
+
+.board-cell.winning::after {
+    content: '';
+    position: absolute;
+    width: 62%;
+    height: 62%;
+    top: 19%;
+    left: 19%;
+    border: 4px solid #e04c4c;
+    /* slightly desaturated red outline around winning circles */
+    border-radius: 50%;
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 5;
 }
 
 /* Interactive columns overlay for clicks and hover feedback */
@@ -542,17 +563,25 @@ p {
     background-color: transparent;
     transition: background-color 0.2s ease;
     height: 100%;
+    position: relative;
 }
 
 .column-overlay:hover {
     background-color: rgba(255, 255, 255, 0.06);
 }
 
-/* Add a visual hover preview of the active player's color at the top of the column */
-.column-overlay.hover-red:hover {
-    box-shadow: inset 0 4px 0 rgba(230, 0, 0, 0.4);
-}
-
-.column-overlay.hover-yellow:hover {
-    box-shadow: inset 0 4px 0 rgba(252, 196, 25, 0.4);
+/* Small red isosceles right triangle pointing down, same red as token (#ec6363) */
+.column-overlay.hover-red::after {
+    content: '';
+    position: absolute;
+    top: -18px;
+    /* Positioned slightly above the top border */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #ec6363;
+    pointer-events: none;
 }

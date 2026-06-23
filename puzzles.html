@@ -29,6 +29,7 @@
 
             <div class="puzzles-sidebar">
                 <div class="connect4-game fade-in-up">
+                    <div class="confetti-container" id="confetti-container"></div>
                     <div class="connect4-container">
                         <div class="tokens-container" id="tokens-container"></div>
                         <div class="board-frame" id="board-frame"></div>
@@ -36,11 +37,14 @@
                     </div>
 
                     <div class="game-controls">
-                        <div class="status-panel">
-                            <span class="status-indicator red" id="status-indicator"></span>
-                            <span id="status-text">Your turn (Red)</span>
-                        </div>
-                        <button id="reset-btn" class="c4-btn">Reset</button>
+                        <button id="reset-btn" class="c4-reset-btn" aria-label="Reset Game">
+                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                                <!-- Smoothed hand-drawn-ish bezier clockwise path -->
+                                <path d="M 88 63 C 86 78, 68 89, 48 89 C 28 89, 11 70, 11 48 C 11 27, 29 11, 51 11 C 62 11, 73 15, 77 23 L 94 41" />
+                                <!-- Smoothed hand-drawn-ish arrowhead -->
+                                <path d="M 93 18 L 94 41 L 72 43" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>
