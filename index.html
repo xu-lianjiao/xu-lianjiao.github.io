@@ -7,7 +7,7 @@
         <title>Julian's World</title>
         <link rel="icon" href="images/favicon (4).ico">
         <link rel="preload" href="fonts/jxh.woff2" as="font" type="font/woff2" crossorigin>
-        <link rel="preload" href="fonts/jxxword-thick.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="fonts/jxh2.woff2" as="font" type="font/woff2" crossorigin>
         <link rel="stylesheet" href="style.css">
 </head>
 
@@ -573,19 +573,21 @@
                 });
 
                 // --- 3. Alternate Glyph Case Assignor ---
-                for (let r = 0; r < 15; r++) {
-                        for (let c = 0; c < 15; c++) {
-                                const cell = grid[r][c];
-                                if (cell.classList.contains('black')) continue;
+                // only applicable for jxxword-thick
 
-                                const letterSpan = cell.querySelector('.cell-letter');
-                                if (!letterSpan) continue;
+                // for (let r = 0; r < 15; r++) {
+                //         for (let c = 0; c < 15; c++) {
+                //                 const cell = grid[r][c];
+                //                 if (cell.classList.contains('black')) continue;
 
-                                if ((r + c) % 2 === 0) {
-                                        letterSpan.textContent = letterSpan.textContent.toLowerCase();
-                                }
-                        }
-                }
+                //                 const letterSpan = cell.querySelector('.cell-letter');
+                //                 if (!letterSpan) continue;
+
+                //                 if ((r + c) % 2 === 0) {
+                //                         letterSpan.textContent = letterSpan.textContent.toLowerCase();
+                //                 }
+                //         }
+                // }
         </script>
 </body>
 
