@@ -221,7 +221,7 @@
                                                         class="cell-letter">U</span></a>
                                         <a href="puzzles.html" class="cell crossword-link" data-word="puzzles"><span
                                                         class="cell-number">40</span><span
-                                                        class="cell-letter">Z</span></a>
+                                                        class="cell-letter variant-1">Z</span></a>
                                         <a href="puzzles.html" class="cell crossword-link" data-word="puzzles"><span
                                                         class="cell-letter">Z</span></a>
                                         <a href="puzzles.html" class="cell crossword-link" data-word="puzzles"><span
@@ -569,24 +569,25 @@
                 });
 
                 // --- 3. Alternate Glyph Variant Assignor ---
-                for (let r = 0; r < 15; r++) {
-                        for (let c = 0; c < 15; c++) {
-                                const cell = grid[r][c];
-                                // if (cell.classList.contains('black')) continue;
+                // for (let r = 0; r < 15; r++) {
+                //         for (let c = 0; c < 15; c++) {
+                //                 const cell = grid[r][c];
+                //                 if (cell.classList.contains('black')) continue;
 
-                                const letterSpan = cell.querySelector('.cell-letter');
-                                // if (!letterSpan) continue;
+                //                 const letterSpan = cell.querySelector('.cell-letter');
+                //                 if (!letterSpan) continue;
 
-                                const val = (r + c) % 3;
-                                if (val === 0) {
-                                        letterSpan.classList.add('variant-1');
-                                } else if (val === 1) {
-                                        letterSpan.classList.add('variant-2');
-                                } else {
-                                        letterSpan.classList.add('variant-3');
-                                }
-                        }
-                }
+                //                 const val = (r + c) % 2;
+                //                 if (val === 0) {
+                //                         letterSpan.classList.add('variant-1');
+                //                 } else {
+                //                         letterSpan.classList.add('variant-2');
+                //                         // } else {
+                //                         //         letterSpan.classList.add('variant-3');
+                //                         // }
+                //                 }
+                //         }
+                // }
         </script>
 </body>
 

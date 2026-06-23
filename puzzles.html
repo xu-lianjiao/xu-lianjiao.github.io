@@ -7,6 +7,7 @@
     <title>Puzzles</title>
     <link rel="preload" href="fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css">
+    <script src="connect4.js" defer></script>
 </head>
 
 <body>
@@ -20,7 +21,30 @@
     </nav>
     <main class="container">
         <h1>Puzzles</h1>
-        <!-- Content goes here -->
+
+        <div class="puzzles-layout">
+            <div class="puzzles-main-content">
+                <p>Welcome to the puzzles page! More puzzles will be coming soon. In the meantime, try your hand at Connect Four against our minimax AI.</p>
+            </div>
+
+            <div class="puzzles-sidebar">
+                <div class="connect4-game fade-in-up">
+                    <div class="connect4-container">
+                        <div class="tokens-container" id="tokens-container"></div>
+                        <div class="board-frame" id="board-frame"></div>
+                        <div class="columns-container" id="columns-container"></div>
+                    </div>
+
+                    <div class="game-controls">
+                        <div class="status-panel">
+                            <span class="status-indicator red" id="status-indicator"></span>
+                            <span id="status-text">Your turn (Red)</span>
+                        </div>
+                        <button id="reset-btn" class="c4-btn">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 </body>
 

@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'JXH';
-    src: url('fonts/jxhandwriting.woff2') format('woff2'),
-        url('fonts/jxhandwriting.ttf') format('truetype');
+    src: url('fonts/jxh.woff2') format('woff2'),
+        url('fonts/jxh.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -10,8 +10,8 @@
 
 @font-face {
     font-family: 'JXXW';
-    src: url('fonts/jxxword-thick.woff2') format('woff2'),
-        url('fonts/jxxword-thick.ttf') format('truetype');
+    src: url('fonts/jxh2.woff2') format('woff2'),
+        url('fonts/jxh2.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -32,26 +32,27 @@ body {
 .main-layout {
     display: flex;
     flex-direction: row;
-    gap: 40px;
-    max-width: 1200px;
-    /* Increased max width of layout container */
+    gap: 50px;
+    max-width: 1150px;
     margin: 5vh auto;
     padding: 20px;
     align-items: center;
-    /* Center items vertically */
+    justify-content: center;
+    /* Center the contents so left and right outer margins are equal */
 }
 
 .left-panel {
-    flex: 4;
-    /* 40% space */
+    flex: 0 1 420px;
+    /* Size to content width (increased by 40px) */
+    min-width: 280px;
 }
 
 .right-panel {
-    flex: 6;
-    /* 60% space */
+    flex: 0 1 650px;
+    max-width: min(650px, 80vh);
+    /* Size to grid width */
     display: flex;
-    justify-content: flex-end;
-    /* Align grid to the right-hand margin */
+    justify-content: center;
     container-type: inline-size;
     padding: 10px;
     box-sizing: border-box;
@@ -82,7 +83,7 @@ body {
 .arrow-decoration {
     position: absolute;
     left: -110px;
-    bottom: 30px;
+    bottom: -10px;
     width: 90px;
     display: flex;
     flex-direction: column;
@@ -141,7 +142,7 @@ body {
 }
 
 .cell-letter {
-    font-size: clamp(12px, 3.5cqi, 26px);
+    font-size: clamp(17.28px, 5.04cqi, 37.44px);
     font-family: "JXXW", Roboto, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     font-weight: 500;
     color: #5881bb;
@@ -149,6 +150,7 @@ body {
     line-height: 1;
     margin-top: 0.25em;
     /* Shift letter further down */
+    font-feature-settings: "ss01" 1, "ss02" 0;
 }
 
 /* Crossword Link Cells */
@@ -185,6 +187,13 @@ h1 {
 p {
     font-size: 1.1em;
     margin-bottom: 25px;
+}
+
+.left-panel ul {
+    font-size: 25.33px;
+    /* Decreased by 2pt (to 19pt) */
+    padding-left: 20px;
+    /* Reduced indent by 20px */
 }
 
 .back-link {
@@ -295,6 +304,7 @@ p {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -304,4 +314,245 @@ p {
 .fade-in-up {
     opacity: 0;
     animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+/* ==========================================
+   Puzzles Page Layout Styles
+   ========================================== */
+.puzzles-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin-top: 30px;
+}
+
+.puzzles-main-content {
+    flex: 1;
+}
+
+.puzzles-sidebar {
+    width: 320px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .puzzles-layout {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .puzzles-sidebar {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+}
+
+/* ==========================================
+   Connect 4 Game Styles
+   ========================================== */
+.connect4-game {
+    margin: 0;
+    max-width: 320px;
+    text-align: center;
+    background: transparent;
+}
+
+.game-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    /* Placed under the board now */
+    gap: 8px;
+}
+
+.status-panel {
+    font-family: 'JXH', sans-serif;
+    font-size: 0.8em;
+    /* Scaled down */
+    color: #4a5568;
+    background: #f7fafc;
+    padding: 6px 12px;
+    border-radius: 20px;
+    flex-grow: 1;
+    text-align: left;
+    border: 1px solid #edf2f7;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.status-indicator {
+    width: 10px;
+    /* Scaled down */
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease;
+}
+
+.status-indicator.red {
+    background-color: #e60000;
+    box-shadow: 0 0 6px rgba(230, 0, 0, 0.5);
+}
+
+.status-indicator.yellow {
+    background-color: #fcc419;
+    box-shadow: 0 0 6px rgba(252, 196, 25, 0.5);
+}
+
+.status-indicator.thinking {
+    background-color: #cbd5e0;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        opacity: 0.4;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.c4-btn {
+    font-family: 'JXH', sans-serif;
+    font-size: 0.75em;
+    /* Scaled down */
+    background-color: #1d2d44;
+    color: #ffffff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 5px rgba(29, 45, 68, 0.15);
+    flex-shrink: 0;
+}
+
+.c4-btn:hover {
+    background-color: #2e4362;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(29, 45, 68, 0.2);
+}
+
+.c4-btn:active {
+    transform: translateY(0);
+}
+
+.connect4-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 7 / 6;
+    background-color: #29344d;
+    /* Back wall behind the grid cutouts */
+    border: 6px solid #4185d8;
+    /* Scaled down outer frame */
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(87, 93, 104, 0.2);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Base style for tokens */
+.tokens-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.token {
+    position: absolute;
+    width: calc(100% / 7 - 6px);
+    /* Scaled margins to match smaller size */
+    height: calc(100% / 6 - 6px);
+    border-radius: 50%;
+    left: calc(var(--col) * (100% / 7) + 3px);
+    top: calc(var(--row) * (100% / 6) + 3px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+}
+
+.token.red {
+    background-color: #ec6363;
+}
+
+.token.yellow {
+    background-color: #eeb85b;
+}
+
+/* Smooth falling straight animation with no bounce */
+.token.drop-animation {
+    animation: drop-straight 0.35s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+}
+
+@keyframes drop-straight {
+    0% {
+        transform: translateY(-400px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Blue board grid containing circular cutouts */
+.board-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+
+.board-cell {
+    /* Using radial gradient to carve out transparent circle in a blue cell, reduced radius by 10% */
+    background: radial-gradient(circle, transparent 56%, #1a5fb4 57%);
+}
+
+/* Interactive columns overlay for clicks and hover feedback */
+.columns-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.column-overlay {
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+    height: 100%;
+}
+
+.column-overlay:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Add a visual hover preview of the active player's color at the top of the column */
+.column-overlay.hover-red:hover {
+    box-shadow: inset 0 4px 0 rgba(230, 0, 0, 0.4);
+}
+
+.column-overlay.hover-yellow:hover {
+    box-shadow: inset 0 4px 0 rgba(252, 196, 25, 0.4);
 }
