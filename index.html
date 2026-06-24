@@ -6,9 +6,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Julian's World</title>
         <link rel="icon" href="images/favicon (4).ico">
-        <link rel="preload" href="fonts/jxh.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="fonts/jxh3.woff2" as="font" type="font/woff2" crossorigin>
         <link rel="preload" href="fonts/jxxword-thick.woff2" as="font" type="font/woff2" crossorigin>
         <link rel="stylesheet" href="style.css">
+        <script>
+                (function() {
+                        const fontTimeout = new Promise(resolve => setTimeout(resolve, 1500));
+                        const resourcesLoaded = Promise.all([
+                                document.fonts.ready,
+                                new Promise(resolve => window.addEventListener('load', resolve))
+                        ]);
+                        Promise.race([resourcesLoaded, fontTimeout]).then(() => {
+                                document.documentElement.classList.add('fonts-loaded');
+                        });
+                })();
+        </script>
 </head>
 
 <body>
@@ -22,10 +34,10 @@
                         </h2>
                         <p>
                         <ul>
-                                <li>Ranked in top 10 of Class of '27</li>
-                                <li>USAMO/USAPhO alum</li>
+                                <li>Ranked in top 10 of Class of 2027</li>
+                                <li>USAMO & USAPhO alum</li>
                                 <li>New York Times crossword constructor</li>
-                                <li>Machine learning/data science researcher</li>
+                                <li>Deep learning & data science researcher</li>
                                 <li>National maths contest founder</li>
                         </ul>
                         </p>
@@ -417,7 +429,7 @@
                                                 <path d="M 35 80 C 30 50, 45 30, 80 20" />
                                                 <path d="M 62 21 C 68 20, 75 20, 80 20 C 77 26, 73 32, 70 38" />
                                         </svg>
-                                        <span class="arrow-text">click here!</span>
+                                        <span class="arrow-text">click around!</span>
                                 </div>
                         </div>
                 </main>

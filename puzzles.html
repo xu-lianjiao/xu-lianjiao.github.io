@@ -8,6 +8,18 @@
     <link rel="preload" href="fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css">
     <script src="connect4.js" defer></script>
+    <script>
+        (function() {
+            const fontTimeout = new Promise(resolve => setTimeout(resolve, 1500));
+            const resourcesLoaded = Promise.all([
+                document.fonts.ready,
+                new Promise(resolve => window.addEventListener('load', resolve))
+            ]);
+            Promise.race([resourcesLoaded, fontTimeout]).then(() => {
+                document.documentElement.classList.add('fonts-loaded');
+            });
+        })();
+    </script>
 </head>
 
 <body>

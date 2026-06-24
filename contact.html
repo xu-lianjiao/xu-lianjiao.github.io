@@ -20,8 +20,212 @@
     </nav>
     <main class="container">
         <h1>Contact</h1>
-        <!-- Content goes here -->
+        <p class="contact-intro">If you'd like to get in touch, you can leave a private message below.</p>
+
+        <!-- 
+            PROTOTYPE NOTE:
+            This form is currently structured to run client-side for validation and local prototyping (messages are saved to localStorage).
+            To receive these messages privately as the website owner:
+            
+            1. Sign up for a free form-handling service (e.g., https://formspree.io or https://web3forms.com).
+            2. Get your unique form ID or access key.
+            3. Update the <form> attributes below:
+               action="https://formspree.io/f/YOUR_FORM_ID" method="POST"
+            
+            The JavaScript submission handler below is already set up to detect the presence of this action URL 
+            and automatically post the form data asynchronously (via AJAX/fetch) if you set it!
+        -->
+        <form class="contact-form" id="contact-form" novalidate>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                    <span class="error-message" id="name-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your email address" required>
+                    <span class="error-message" id="email-error"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Type your message here..." rows="4" required></textarea>
+                <span class="error-message" id="message-error"></span>
+            </div>
+            <button type="submit" class="contact-submit-btn">Send Message</button>
+        </form>
+
+        <!-- Success Message (hidden by default) -->
+        <div class="contact-success" id="contact-success" style="display: none;">
+            <div class="success-icon">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M 22 51 C 28 58, 33 66, 40 73 C 54 55, 68 37, 80 25" />
+                </svg>
+            </div>
+            <h2>Message Sent!</h2>
+            <p>Thank you for reaching out. I'll get back to you as soon as possible.</p>
+            <button type="button" class="contact-reset-btn" id="new-message-btn">Send another message</button>
+        </div>
     </main>
+
+    <script>
+        // Auto-expanding Textarea as user types
+        const messageArea = document.getElementById('message');
+        if (messageArea) {
+            messageArea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        }
+
+        // Email validation helper
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('email-error');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        function validateEmail() {
+            const emailVal = emailInput.value.trim();
+            if (emailVal === '') {
+                emailInput.classList.remove('invalid');
+                emailError.textContent = '';
+                return false;
+            } else if (!emailRegex.test(emailVal)) {
+                emailInput.classList.add('invalid');
+                emailError.textContent = 'Please enter a valid email format (e.g. name@domain.com)';
+                return false;
+            } else {
+                emailInput.classList.remove('invalid');
+                emailError.textContent = '';
+                return true;
+            }
+        }
+
+        if (emailInput) {
+            emailInput.addEventListener('input', validateEmail);
+            emailInput.addEventListener('blur', validateEmail);
+        }
+
+        // Form submission handling
+        const form = document.getElementById('contact-form');
+        const successCard = document.getElementById('contact-success');
+        const newMsgBtn = document.getElementById('new-message-btn');
+
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Validate all fields before sending
+                let isValid = true;
+
+                // Validate name
+                const nameInput = document.getElementById('name');
+                const nameError = document.getElementById('name-error');
+                if (nameInput.value.trim() === '') {
+                    nameInput.classList.add('invalid');
+                    nameError.textContent = 'Please enter your name.';
+                    isValid = false;
+                } else {
+                    nameInput.classList.remove('invalid');
+                    nameError.textContent = '';
+                }
+
+                // Validate email
+                if (!validateEmail()) {
+                    isValid = false;
+                }
+
+                // Validate message
+                const msgInput = document.getElementById('message');
+                const msgError = document.getElementById('message-error');
+                if (msgInput.value.trim() === '') {
+                    msgInput.classList.add('invalid');
+                    msgError.textContent = 'Please enter a message.';
+                    isValid = false;
+                } else {
+                    msgInput.classList.remove('invalid');
+                    msgError.textContent = '';
+                }
+
+                if (!isValid) return;
+
+                const action = form.getAttribute('action');
+                if (action && action.startsWith('http')) {
+                    // Send message via AJAX fetch to the active form handling service
+                    const submitBtn = form.querySelector('.contact-submit-btn');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Sending...';
+                    submitBtn.disabled = true;
+
+                    fetch(action, {
+                        method: 'POST',
+                        body: new FormData(form),
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            form.style.display = 'none';
+                            successCard.style.display = 'flex';
+                        } else {
+                            alert('Oops! There was a problem submitting your form. Please verify your service configuration.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error submitting form:', error);
+                        alert('Oops! There was a network problem submitting your form.');
+                    })
+                    .finally(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    });
+                } else {
+                    // Prototype fallback: Save to localStorage and log to console
+                    const formData = {
+                        name: nameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        message: msgInput.value.trim(),
+                        timestamp: new Date().toISOString()
+                    };
+
+                    let messages = JSON.parse(localStorage.getItem('contact_messages') || '[]');
+                    messages.push(formData);
+                    localStorage.setItem('contact_messages', JSON.stringify(messages));
+
+                    console.log('Saved message prototype to localStorage:', formData);
+
+                    // Show success screen
+                    form.style.display = 'none';
+                    successCard.style.display = 'flex';
+                }
+            });
+        }
+
+        if (newMsgBtn) {
+            newMsgBtn.addEventListener('click', function() {
+                // Reset form values
+                form.reset();
+                
+                // Clear any validation classes & messages
+                document.querySelectorAll('.contact-form input, .contact-form textarea').forEach(el => {
+                    el.classList.remove('invalid');
+                });
+                document.querySelectorAll('.error-message').forEach(el => {
+                    el.textContent = '';
+                });
+
+                // Reset textarea height
+                if (messageArea) {
+                    messageArea.style.height = 'auto';
+                }
+
+                // Toggle views
+                successCard.style.display = 'none';
+                form.style.display = 'flex';
+            });
+        }
+    </script>
 </body>
 
 </html>
