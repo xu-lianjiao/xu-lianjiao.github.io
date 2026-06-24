@@ -13,11 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let cells = null; // initialized after grid generation
     let gameOver = false;
     let aiTilesCount = 7;
+    let currentTurn = 'player';
+    const maxRackSize = 7;
+    const boardTypes = Array.from({ length: size }, () => Array(size).fill('normal'));
+    const boardCells = Array.from({ length: size }, () => Array(size).fill(null));
 
     const remainingEl = document.getElementById('mmabble-remaining');
     const bagEl = document.getElementById('mmabble-bag');
     const playBtn = document.getElementById('mmabble-play-btn');
-    
+
     // Scoreboard DOM Elements
     const scoreYouEl = document.getElementById('mmabble-score-you');
     const scoreAiEl = document.getElementById('mmabble-score-ai');
@@ -30,81 +34,138 @@ document.addEventListener('DOMContentLoaded', () => {
         if (scoreAiEl) scoreAiEl.textContent = scoreAi;
     }
 
-    // Scrabble Validation and Scoring Algorithm
-    function evaluatePlay() {
-        if (!cells) return { legal: false, score: 0 };
-        
-        // 1. Find all active cells on the board (tiles placed in the current turn)
-        const activeCells = Array.from(cells).filter(c => c.dataset.occupied === 'true' && c.dataset.active === 'true');
-        
-        // 2. Find all inactive occupied cells on the board (tiles placed in previous turns)
-        const inactiveCells = Array.from(cells).filter(c => c.dataset.occupied === 'true' && c.dataset.active === 'false');
-        
+    function createBoardStateFromDom() {
+        const state = {
+            board: Array.from({ length: size }, () => Array.from({ length: size }, () => ({
+                occupied: false,
+                active: false
+            }))),
+            scoreYou,
+            scoreAi,
+            playerRack: Array.from(slots || []).filter(slot => slot.querySelector('.mmabble-tile')).length,
+            aiRack: aiTilesCount,
+            bag: tilesInBag,
+            turn: currentTurn
+        };
+
+        for (let r = 0; r < size; r++) {
+            for (let c = 0; c < size; c++) {
+                const cell = boardCells[r][c];
+                if (!cell) continue;
+                state.board[r][c].occupied = cell.dataset.occupied === 'true';
+                state.board[r][c].active = cell.dataset.active === 'true';
+            }
+        }
+
+        return state;
+    }
+
+    function cloneState(state) {
+        return {
+            board: state.board.map(row => row.map(cell => ({
+                occupied: cell.occupied,
+                active: cell.active
+            }))),
+            scoreYou: state.scoreYou,
+            scoreAi: state.scoreAi,
+            playerRack: state.playerRack,
+            aiRack: state.aiRack,
+            bag: state.bag,
+            turn: state.turn
+        };
+    }
+
+    function countOccupiedTiles(state) {
+        let count = 0;
+        for (let r = 0; r < size; r++) {
+            for (let c = 0; c < size; c++) {
+                if (state.board[r][c].occupied) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    function getInactiveOccupiedCount(state) {
+        let count = 0;
+        for (let r = 0; r < size; r++) {
+            for (let c = 0; c < size; c++) {
+                const cell = state.board[r][c];
+                if (cell.occupied && !cell.active) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    function evaluateStatePlay(state) {
+        const activeCells = [];
+        const inactiveOccupied = getInactiveOccupiedCount(state);
+
+        for (let r = 0; r < size; r++) {
+            for (let c = 0; c < size; c++) {
+                if (state.board[r][c].occupied && state.board[r][c].active) {
+                    activeCells.push({ r, c });
+                }
+            }
+        }
+
         if (activeCells.length === 0) {
             return { legal: false, score: 0 };
         }
-        
-        // 3. First move must cover the center cell (4, 4)
-        const isFirstMove = (inactiveCells.length === 0);
+
+        const isFirstMove = inactiveOccupied === 0;
         if (isFirstMove) {
-            const centerOccupied = activeCells.some(c => c.dataset.row === '4' && c.dataset.col === '4');
+            const centerOccupied = activeCells.some(cell => cell.r === 4 && cell.c === 4);
             if (!centerOccupied) {
                 return { legal: false, score: 0 };
             }
         }
-        
-        // 4. Verify all active tiles are in a single row or single column
-        const rows = activeCells.map(c => parseInt(c.dataset.row));
-        const cols = activeCells.map(c => parseInt(c.dataset.col));
+
+        const rows = activeCells.map(cell => cell.r);
+        const cols = activeCells.map(cell => cell.c);
         const uniqueRows = [...new Set(rows)];
         const uniqueCols = [...new Set(cols)];
-        
+
         if (uniqueRows.length > 1 && uniqueCols.length > 1) {
             return { legal: false, score: 0 };
         }
-        
-        // 5. Check contiguous connection of active cells (no empty spaces between them)
-        // If they are row-aligned (same row)
+
         if (uniqueRows.length === 1) {
             const r = uniqueRows[0];
             const minC = Math.min(...cols);
             const maxC = Math.max(...cols);
             for (let c = minC; c <= maxC; c++) {
-                const cell = Array.from(cells).find(item => parseInt(item.dataset.row) === r && parseInt(item.dataset.col) === c);
-                if (!cell || cell.dataset.occupied !== 'true') {
+                if (!state.board[r][c].occupied) {
                     return { legal: false, score: 0 };
                 }
             }
-        }
-        // If they are col-aligned (same col)
-        else if (uniqueCols.length === 1) {
+        } else if (uniqueCols.length === 1) {
             const c = uniqueCols[0];
             const minR = Math.min(...rows);
             const maxR = Math.max(...rows);
             for (let r = minR; r <= maxR; r++) {
-                const cell = Array.from(cells).find(item => parseInt(item.dataset.row) === r && parseInt(item.dataset.col) === c);
-                if (!cell || cell.dataset.occupied !== 'true') {
+                if (!state.board[r][c].occupied) {
                     return { legal: false, score: 0 };
                 }
             }
         }
-        
-        // 6. Check connection to existing tiles (if not the first move)
+
         if (!isFirstMove) {
             let hasAdjacentConnection = false;
             for (const activeCell of activeCells) {
-                const r = parseInt(activeCell.dataset.row);
-                const c = parseInt(activeCell.dataset.col);
                 const neighbors = [
-                    { r: r + 1, c: c },
-                    { r: r - 1, c: c },
-                    { r: r, c: c + 1 },
-                    { r: r, c: c - 1 }
+                    { r: activeCell.r + 1, c: activeCell.c },
+                    { r: activeCell.r - 1, c: activeCell.c },
+                    { r: activeCell.r, c: activeCell.c + 1 },
+                    { r: activeCell.r, c: activeCell.c - 1 }
                 ];
                 for (const n of neighbors) {
-                    if (n.r >= 0 && n.r < 9 && n.c >= 0 && n.c < 9) {
-                        const neighborCell = Array.from(cells).find(item => parseInt(item.dataset.row) === n.r && parseInt(item.dataset.col) === n.c);
-                        if (neighborCell && neighborCell.dataset.occupied === 'true' && neighborCell.dataset.active === 'false') {
+                    if (n.r >= 0 && n.r < size && n.c >= 0 && n.c < size) {
+                        const neighborCell = state.board[n.r][n.c];
+                        if (neighborCell.occupied && !neighborCell.active) {
                             hasAdjacentConnection = true;
                             break;
                         }
@@ -112,97 +173,81 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 if (hasAdjacentConnection) break;
             }
-            
+
             if (!hasAdjacentConnection) {
                 return { legal: false, score: 0 };
             }
         }
-        
-        // 7. Find all formed words (sequences containing at least one active tile)
+
         const formedWords = [];
-        
-        // Horizontal scan
-        for (let r = 0; r < 9; r++) {
+
+        for (let r = 0; r < size; r++) {
             let startCol = null;
-            for (let c = 0; c <= 9; c++) {
-                const cell = (c < 9) ? Array.from(cells).find(item => parseInt(item.dataset.row) === r && parseInt(item.dataset.col) === c) : null;
-                if (cell && cell.dataset.occupied === 'true') {
+            for (let c = 0; c <= size; c++) {
+                const occupied = c < size ? state.board[r][c].occupied : false;
+                if (occupied) {
                     if (startCol === null) {
                         startCol = c;
                     }
-                } else {
-                    if (startCol !== null) {
-                        const length = c - startCol;
-                        if (length >= 2) {
-                            const segmentCells = [];
-                            for (let col = startCol; col < c; col++) {
-                                const sc = Array.from(cells).find(item => parseInt(item.dataset.row) === r && parseInt(item.dataset.col) === col);
-                                segmentCells.push(sc);
-                            }
-                            const hasActive = segmentCells.some(sc => sc.dataset.active === 'true');
-                            if (hasActive) {
-                                formedWords.push(segmentCells);
-                            }
+                } else if (startCol !== null) {
+                    const length = c - startCol;
+                    if (length >= 2) {
+                        const segment = [];
+                        for (let col = startCol; col < c; col++) {
+                            segment.push({ r, c: col });
                         }
-                        startCol = null;
+                        if (segment.some(cell => state.board[cell.r][cell.c].active)) {
+                            formedWords.push(segment);
+                        }
                     }
+                    startCol = null;
                 }
             }
         }
-        
-        // Vertical scan
-        for (let col = 0; col < 9; col++) {
+
+        for (let c = 0; c < size; c++) {
             let startRow = null;
-            for (let r = 0; r <= 9; r++) {
-                const cell = (r < 9) ? Array.from(cells).find(item => parseInt(item.dataset.row) === r && parseInt(item.dataset.col) === col) : null;
-                if (cell && cell.dataset.occupied === 'true') {
+            for (let r = 0; r <= size; r++) {
+                const occupied = r < size ? state.board[r][c].occupied : false;
+                if (occupied) {
                     if (startRow === null) {
                         startRow = r;
                     }
-                } else {
-                    if (startRow !== null) {
-                        const length = r - startRow;
-                        if (length >= 2) {
-                            const segmentCells = [];
-                            for (let row = startRow; row < r; row++) {
-                                const sc = Array.from(cells).find(item => parseInt(item.dataset.row) === row && parseInt(item.dataset.col) === col);
-                                segmentCells.push(sc);
-                            }
-                            const hasActive = segmentCells.some(sc => sc.dataset.active === 'true');
-                            if (hasActive) {
-                                formedWords.push(segmentCells);
-                            }
+                } else if (startRow !== null) {
+                    const length = r - startRow;
+                    if (length >= 2) {
+                        const segment = [];
+                        for (let row = startRow; row < r; row++) {
+                            segment.push({ r: row, c });
                         }
-                        startRow = null;
+                        if (segment.some(cell => state.board[cell.r][cell.c].active)) {
+                            formedWords.push(segment);
+                        }
                     }
+                    startRow = null;
                 }
             }
         }
-        
-        // If no word of length >= 2 is formed containing new tiles, then the play is invalid
+
         if (formedWords.length === 0) {
             return { legal: false, score: 0 };
         }
-        
-        // 8. Validate that all formed words have length 2 or 3 (words MM or MMM only)
+
         for (const word of formedWords) {
             if (word.length < 2 || word.length > 3) {
                 return { legal: false, score: 0 };
             }
         }
-        
-        // 9. Score calculation taking into account DL, TL, DW, TW, and center DW starting square
+
         let totalScore = 0;
         for (const word of formedWords) {
             let wordSum = 0;
             let wordMultiplier = 1;
-            
+
             for (const cell of word) {
-                let baseLetterVal = 3; // "M" is always worth 3 points
-                
-                // Bonuses are only applied if the cell was placed in the current turn (active)
-                if (cell.dataset.active === 'true') {
-                    const type = cell.dataset.type;
+                let baseLetterVal = 3;
+                if (state.board[cell.r][cell.c].active) {
+                    const type = boardTypes[cell.r][cell.c];
                     if (type === 'dl') {
                         baseLetterVal *= 2;
                     } else if (type === 'tl') {
@@ -213,28 +258,301 @@ document.addEventListener('DOMContentLoaded', () => {
                         wordMultiplier *= 3;
                     }
                 }
-                
                 wordSum += baseLetterVal;
             }
-            
+
             totalScore += wordSum * wordMultiplier;
         }
-        
+
         return { legal: true, score: totalScore };
+    }
+
+    function hasLegalMoves(state, side) {
+        const rackCount = side === 'player' ? state.playerRack : state.aiRack;
+        if (rackCount < 1) {
+            return false;
+        }
+
+        for (let r = 0; r < size; r++) {
+            for (let c = 0; c < size; c++) {
+                if (state.board[r][c].occupied) {
+                    continue;
+                }
+
+                state.board[r][c].occupied = true;
+                state.board[r][c].active = true;
+                const result = evaluateStatePlay(state);
+                state.board[r][c].occupied = false;
+                state.board[r][c].active = false;
+
+                if (result.legal) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    function generateSearchMoves(state, side) {
+        const rackCount = side === 'player' ? state.playerRack : state.aiRack;
+        if (rackCount < 1) {
+            return [];
+        }
+
+        const seen = new Set();
+        const moves = [];
+        function recordCandidate(cellsToPlace) {
+            if (cellsToPlace.length > rackCount) {
+                return;
+            }
+
+            for (const cell of cellsToPlace) {
+                if (state.board[cell.r][cell.c].occupied) {
+                    return;
+                }
+            }
+
+            const previous = [];
+            for (const cell of cellsToPlace) {
+                const boardCell = state.board[cell.r][cell.c];
+                previous.push({
+                    r: cell.r,
+                    c: cell.c,
+                    occupied: boardCell.occupied,
+                    active: boardCell.active
+                });
+                boardCell.occupied = true;
+                boardCell.active = true;
+            }
+
+            const result = evaluateStatePlay(state);
+
+            for (const cell of previous) {
+                state.board[cell.r][cell.c].occupied = cell.occupied;
+                state.board[cell.r][cell.c].active = cell.active;
+            }
+
+            if (!result.legal) {
+                return;
+            }
+
+            const key = cellsToPlace
+                .map(cell => `${cell.r},${cell.c}`)
+                .sort()
+                .join('|');
+            if (seen.has(key)) {
+                return;
+            }
+
+            seen.add(key);
+            moves.push({
+                cells: cellsToPlace.map(cell => ({ r: cell.r, c: cell.c })),
+                score: result.score
+            });
+        }
+
+        for (let r = 0; r < size; r++) {
+            for (let c = 0; c < size; c++) {
+                if (!state.board[r][c].occupied) {
+                    recordCandidate([{ r, c }]);
+                }
+            }
+        }
+
+        if (rackCount >= 2) {
+            for (let r = 0; r < size; r++) {
+                for (let c = 0; c < size - 1; c++) {
+                    recordCandidate([{ r, c }, { r, c: c + 1 }]);
+                }
+                for (let c = 0; c < size - 2; c++) {
+                    recordCandidate([{ r, c }, { r, c: c + 2 }]);
+                }
+            }
+
+            for (let c = 0; c < size; c++) {
+                for (let r = 0; r < size - 1; r++) {
+                    recordCandidate([{ r, c }, { r: r + 1, c }]);
+                }
+                for (let r = 0; r < size - 2; r++) {
+                    recordCandidate([{ r, c }, { r: r + 2, c }]);
+                }
+            }
+        }
+
+        if (rackCount >= 3) {
+            for (let r = 0; r < size; r++) {
+                for (let c = 0; c < size - 2; c++) {
+                    recordCandidate([
+                        { r, c },
+                        { r, c: c + 1 },
+                        { r, c: c + 2 }
+                    ]);
+                }
+            }
+
+            for (let c = 0; c < size; c++) {
+                for (let r = 0; r < size - 2; r++) {
+                    recordCandidate([
+                        { r, c },
+                        { r: r + 1, c },
+                        { r: r + 2, c }
+                    ]);
+                }
+            }
+        }
+
+        return moves;
+    }
+
+    function applyMoveToState(state, side, move) {
+        const next = cloneState(state);
+        const rackKey = side === 'player' ? 'playerRack' : 'aiRack';
+        const scoreKey = side === 'player' ? 'scoreYou' : 'scoreAi';
+
+        for (const cell of move.cells) {
+            next.board[cell.r][cell.c].occupied = true;
+            next.board[cell.r][cell.c].active = true;
+        }
+
+        const moveResult = evaluateStatePlay(next);
+        if (!moveResult.legal) {
+            return null;
+        }
+
+        next[scoreKey] += moveResult.score;
+
+        for (const cell of move.cells) {
+            next.board[cell.r][cell.c].active = false;
+        }
+
+        next[rackKey] -= move.cells.length;
+        const drawCount = Math.min(maxRackSize - next[rackKey], next.bag);
+        next[rackKey] += drawCount;
+        next.bag -= drawCount;
+
+        const opponent = side === 'player' ? 'ai' : 'player';
+        if (next[rackKey] === 0) {
+            if (side === 'player') {
+                next.scoreYou += 3 * next.aiRack;
+                next.scoreAi -= 3 * next.aiRack;
+            } else {
+                next.scoreAi += 3 * next.playerRack;
+                next.scoreYou -= 3 * next.playerRack;
+            }
+            next.turn = opponent;
+            next.terminal = true;
+            next.terminalReason = 'out';
+            return next;
+        }
+
+        next.turn = opponent;
+        if (!hasLegalMoves(next, opponent)) {
+            next.scoreYou -= 3 * next.playerRack;
+            next.scoreAi -= 3 * next.aiRack;
+            next.terminal = true;
+            next.terminalReason = 'stalemate';
+            return next;
+        }
+
+        next.terminal = false;
+        next.terminalReason = null;
+        return next;
+    }
+
+    function evaluateTerminalUtility(state) {
+        const spread = state.scoreAi - state.scoreYou;
+        if (state.scoreAi > state.scoreYou) {
+            return 1000 + spread;
+        }
+        if (state.scoreYou > state.scoreAi) {
+            return -1000 + spread;
+        }
+        return spread;
+    }
+
+    function minimax(state, depth, alpha, beta) {
+        const legalMoves = generateSearchMoves(state, state.turn);
+
+        if (legalMoves.length === 0) {
+            const terminalState = cloneState(state);
+            terminalState.scoreYou -= 3 * terminalState.playerRack;
+            terminalState.scoreAi -= 3 * terminalState.aiRack;
+            return {
+                value: evaluateTerminalUtility(terminalState),
+                move: null
+            };
+        }
+
+        if (depth === 0) {
+            return {
+                value: state.scoreAi - state.scoreYou,
+                move: null
+            };
+        }
+
+        const maximizing = state.turn === 'ai';
+        const orderedMoves = legalMoves.slice().sort((a, b) => {
+            return maximizing ? b.score - a.score : a.score - b.score;
+        });
+
+        let bestMove = null;
+
+        if (maximizing) {
+            let bestValue = -Infinity;
+            for (const move of orderedMoves) {
+                const nextState = applyMoveToState(state, 'ai', move);
+                if (!nextState) continue;
+
+                const value = nextState.terminal
+                    ? evaluateTerminalUtility(nextState)
+                    : minimax(nextState, depth - 1, alpha, beta).value;
+
+                if (value > bestValue) {
+                    bestValue = value;
+                    bestMove = move;
+                }
+                alpha = Math.max(alpha, bestValue);
+                if (beta <= alpha) {
+                    break;
+                }
+            }
+            return { value: bestValue, move: bestMove };
+        }
+
+        let bestValue = Infinity;
+        for (const move of orderedMoves) {
+            const nextState = applyMoveToState(state, 'player', move);
+            if (!nextState) continue;
+
+            const value = nextState.terminal
+                ? evaluateTerminalUtility(nextState)
+                : minimax(nextState, depth - 1, alpha, beta).value;
+
+            if (value < bestValue) {
+                bestValue = value;
+                bestMove = move;
+            }
+            beta = Math.min(beta, bestValue);
+            if (beta <= alpha) {
+                break;
+            }
+        }
+        return { value: bestValue, move: bestMove };
     }
 
     function updatePlayButtonState() {
         if (!playBtn) return;
-        
-        if (gameOver) {
+
+        if (gameOver || currentTurn !== 'player') {
             playBtn.disabled = true;
             if (playScoreEl) {
                 playScoreEl.textContent = '-';
             }
             return;
         }
-        
-        const result = evaluatePlay();
+
+        const result = evaluateStatePlay(createBoardStateFromDom());
         currentPlayScore = result.score;
         playBtn.disabled = !result.legal;
         if (playScoreEl) {
@@ -259,14 +577,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if ((r === 2 || r === 6) && (c === 2 || c === 6)) {
             return 'tl';
         }
-        // Double Letter (DL) - Light Blue
-        if ((r === 3 || r === 5) && (c === 3 || c === 5)) {
-            return 'dl';
-        }
         if ((r === 0 || r === 8) && c === 4) {
-            return 'dl';
+            return 'tl';
         }
         if ((c === 0 || c === 8) && r === 4) {
+            return 'tl';
+        }
+        // Double Letter (DL) - Light Blue
+        if ((r === 3 || r === 5) && (c === 3 || c === 5)) {
             return 'dl';
         }
         return 'normal';
@@ -277,17 +595,19 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let c = 0; c < size; c++) {
             const cell = document.createElement('div');
             const type = getCellType(r, c);
-            
+
             cell.className = 'mmabble-cell';
             if (type !== 'normal') {
                 cell.classList.add(type);
             }
-            
+
             cell.dataset.row = r;
             cell.dataset.col = c;
             cell.dataset.type = type;
             cell.dataset.active = 'true';
             cell.dataset.occupied = 'false';
+            boardTypes[r][c] = type;
+            boardCells[r][c] = cell;
 
             // If center starting square, add star SVG. Otherwise, add multiplier labels for bonus cells.
             if (type === 'start') {
@@ -302,7 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (type === 'dw') labelText = '2W';
                 else if (type === 'tl') labelText = '3L';
                 else if (type === 'dl') labelText = '2L';
-                
+
                 cell.innerHTML = `<span class="mmabble-cell-label">${labelText}</span>`;
             }
 
@@ -315,7 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set up Player Rack Slots and Tiles
     const rack = document.getElementById('mmabble-rack');
     const slots = rack.querySelectorAll('.mmabble-rack-slot');
-    
+
     // Drag-and-drop state variables
     let draggedTile = null;
     let originalParent = null;
@@ -325,23 +645,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Define drag and drop event handlers
     function onTilePointerDown(e) {
-        if (gameOver) return;
+        if (gameOver || currentTurn !== 'player') return;
         if (e.button !== 0) return; // Only allow left-clicks/standard presses
-        
+
         const tile = e.currentTarget;
         const parent = tile.parentElement;
-        
+
         // Only allow dragging if parent is NOT an inactive board cell
         if (parent.classList.contains('mmabble-cell') && parent.dataset.active === 'false') {
             return;
         }
-        
+
         draggedTile = tile;
         originalParent = parent;
         startX = e.clientX;
         startY = e.clientY;
         hasMoved = false;
-        
+
         // Get precise dimensions of the tile before detaching it
         const rect = tile.getBoundingClientRect();
         tile.style.width = rect.width + 'px';
@@ -349,40 +669,40 @@ document.addEventListener('DOMContentLoaded', () => {
         tile.style.position = 'fixed';
         tile.style.zIndex = '9999';
         tile.style.pointerEvents = 'none';
-        
+
         // Set inline --tile-size custom property to preserve font rendering of M and 3
         tile.style.setProperty('--tile-size', rect.width + 'px');
-        
+
         // Snap center of the tile directly to cursor position
         tile.style.left = (e.clientX - rect.width / 2) + 'px';
         tile.style.top = (e.clientY - rect.height / 2) + 'px';
-        
+
         // Set the global cursor to grabbing hand
         document.body.style.cursor = 'grabbing';
-        
+
         // Mark cell as unoccupied immediately when tile is lifted
         if (originalParent.classList.contains('mmabble-cell')) {
             originalParent.dataset.occupied = 'false';
         }
-        
+
         document.body.appendChild(tile);
-        
+
         window.addEventListener('pointermove', onTilePointerMove);
         window.addEventListener('pointerup', onTilePointerUp);
     }
 
     function onTilePointerMove(e) {
         if (!draggedTile) return;
-        
+
         const dx = e.clientX - startX;
         const dy = e.clientY - startY;
         if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
             hasMoved = true;
         }
-        
+
         const width = parseFloat(draggedTile.style.width);
         const height = parseFloat(draggedTile.style.height);
-        
+
         // Keep the tile centered under the cursor
         draggedTile.style.left = (e.clientX - width / 2) + 'px';
         draggedTile.style.top = (e.clientY - height / 2) + 'px';
@@ -390,24 +710,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function onTilePointerUp(e) {
         if (!draggedTile) return;
-        
+
         window.removeEventListener('pointermove', onTilePointerMove);
         window.removeEventListener('pointerup', onTilePointerUp);
-        
+
         const tile = draggedTile;
         const x = e.clientX;
         const y = e.clientY;
-        
+
         // Find element below cursor (with pointer-events none, it goes straight to board/rack)
         const elementBelow = document.elementFromPoint(x, y);
-        
+
         let cell = elementBelow ? elementBelow.closest('.mmabble-cell') : null;
         let rackContainer = elementBelow ? elementBelow.closest('.mmabble-rack-container') : null;
         let rackTiles = elementBelow ? elementBelow.closest('.mmabble-rack-tiles') : null;
         let rackSlot = elementBelow ? elementBelow.closest('.mmabble-rack-slot') : null;
-        
+
         let placed = false;
-        
+
         // If it was a simple click without significant movement
         if (!hasMoved) {
             if (originalParent.classList.contains('mmabble-cell')) {
@@ -441,7 +761,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
-        
+
         // 3. Fallback: return to original parent if not successfully placed
         if (!placed) {
             originalParent.appendChild(tile);
@@ -449,7 +769,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 originalParent.dataset.occupied = 'true';
             }
         }
-        
+
         // Reset all inline style rules to revert to stylesheet constraints
         tile.style.position = '';
         tile.style.zIndex = '';
@@ -459,33 +779,19 @@ document.addEventListener('DOMContentLoaded', () => {
         tile.style.top = '';
         tile.style.pointerEvents = '';
         tile.style.removeProperty('--tile-size');
-        
+
         // Reset global body cursor
         document.body.style.cursor = '';
-        
+
         draggedTile = null;
         originalParent = null;
-        
+
         updatePlayButtonState();
     }
 
     // Create 7 tiles with letter 'M' and value '3' on the rack slots
     for (let i = 0; i < 7; i++) {
-        const tile = document.createElement('div');
-        tile.className = 'mmabble-tile';
-        tile.id = `mmabble-tile-${i}`;
-        tile.innerHTML = `
-            <span class="mmabble-tile-letter">M</span>
-            <span class="mmabble-tile-value">3</span>
-        `;
-        
-        // Add drag and drop listeners
-        tile.addEventListener('pointerdown', onTilePointerDown);
-        tile.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevents click event from bubbling up to the cells
-        });
-        
-        slots[i].appendChild(tile);
+        slots[i].appendChild(createMmabbleTile(`mmabble-tile-${i}`));
     }
 
     // Find rightmost tile currently on the rack
@@ -512,13 +818,146 @@ document.addEventListener('DOMContentLoaded', () => {
         return null;
     }
 
+    function countPlayerRackTiles() {
+        return Array.from(slots).filter(slot => slot.querySelector('.mmabble-tile')).length;
+    }
+
+    function createMmabbleTile(idValue) {
+        const tile = document.createElement('div');
+        tile.className = 'mmabble-tile';
+        tile.id = idValue || `mmabble-tile-${Date.now()}-${Math.random()}`;
+        tile.innerHTML = `
+            <span class="mmabble-tile-letter">M</span>
+            <span class="mmabble-tile-value">3</span>
+        `;
+        tile.addEventListener('pointerdown', onTilePointerDown);
+        tile.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        return tile;
+    }
+
+    function fillPlayerRackToMax() {
+        const emptySlots = Array.from(slots).filter(slot => !slot.querySelector('.mmabble-tile'));
+        const slotsToReplenish = Math.min(emptySlots.length, tilesInBag);
+
+        for (let i = 0; i < slotsToReplenish; i++) {
+            emptySlots[i].appendChild(createMmabbleTile());
+        }
+
+        tilesInBag -= slotsToReplenish;
+    }
+
+    function lockActiveCells() {
+        const activeCells = Array.from(cells).filter(c => c.dataset.occupied === 'true' && c.dataset.active === 'true');
+        activeCells.forEach(cell => {
+            cell.dataset.active = 'false';
+            const tile = cell.querySelector('.mmabble-tile');
+            if (tile) {
+                tile.style.cursor = 'default';
+            }
+        });
+        return activeCells.length;
+    }
+
+    function applyGameOverScoring(reason, sideJustMoved) {
+        const playerRackTiles = countPlayerRackTiles();
+        if (reason === 'out') {
+            if (sideJustMoved === 'player') {
+                scoreYou += 3 * aiTilesCount;
+                scoreAi -= 3 * aiTilesCount;
+            } else {
+                scoreAi += 3 * playerRackTiles;
+                scoreYou -= 3 * playerRackTiles;
+            }
+            return;
+        }
+
+        scoreYou -= 3 * playerRackTiles;
+        scoreAi -= 3 * aiTilesCount;
+    }
+
+    function setGameOver(reason, sideJustMoved) {
+        gameOver = true;
+        currentTurn = 'player';
+        applyGameOverScoring(reason, sideJustMoved);
+        updateStatusDisplay();
+        updatePlayButtonState();
+        showGameOverOverlay();
+    }
+
+    function maybeAdvanceTurn(sideJustMoved) {
+        if (gameOver) {
+            return;
+        }
+
+        const sideRackTiles = sideJustMoved === 'player' ? countPlayerRackTiles() : aiTilesCount;
+        if (sideRackTiles === 0) {
+            setGameOver('out', sideJustMoved);
+            return;
+        }
+
+        const nextTurn = sideJustMoved === 'player' ? 'ai' : 'player';
+        const state = createBoardStateFromDom();
+        state.turn = nextTurn;
+
+        if (!hasLegalMoves(state, nextTurn)) {
+            setGameOver('stalemate', sideJustMoved);
+            return;
+        }
+
+        currentTurn = nextTurn;
+        updatePlayButtonState();
+
+        if (currentTurn === 'ai') {
+            window.setTimeout(runAiTurn, 100);
+        }
+    }
+
+    function commitAiMove(move) {
+        for (const cellPos of move.cells) {
+            const cell = boardCells[cellPos.r][cellPos.c];
+            const tile = createMmabbleTile();
+            cell.appendChild(tile);
+            cell.dataset.occupied = 'true';
+            cell.dataset.active = 'false';
+            tile.style.cursor = 'default';
+        }
+
+        scoreAi += move.score;
+        aiTilesCount -= move.cells.length;
+        const aiSlotsNeeded = Math.min(maxRackSize - aiTilesCount, tilesInBag);
+        aiTilesCount += aiSlotsNeeded;
+        tilesInBag -= aiSlotsNeeded;
+        tilesRemaining -= move.cells.length;
+    }
+
+    function runAiTurn() {
+        if (gameOver || currentTurn !== 'ai') {
+            return;
+        }
+
+        const state = createBoardStateFromDom();
+        state.turn = 'ai';
+        const search = minimax(state, 2, -Infinity, Infinity);
+        if (!search.move) {
+            setGameOver('stalemate', 'ai');
+            return;
+        }
+
+        commitAiMove(search.move);
+        updateStatusDisplay();
+        currentTurn = 'player';
+        maybeAdvanceTurn('ai');
+    }
+
     // Add Click Handlers for Interactive Cell-based Tile Placement
     cells.forEach(cell => {
         cell.addEventListener('click', () => {
-            if (gameOver) return;
+            if (gameOver || currentTurn !== 'player') return;
             // Only interact if cell is active
             if (cell.dataset.active !== 'true') return;
-            
+
             if (cell.dataset.occupied === 'true') {
                 // Clicked occupied cell: return its tile to leftmost empty slot on the rack
                 const existingTile = cell.querySelector('.mmabble-tile');
@@ -549,29 +988,18 @@ document.addEventListener('DOMContentLoaded', () => {
             // Delete all tiles currently on the page
             const allTiles = document.querySelectorAll('.mmabble-tile');
             allTiles.forEach(tile => tile.remove());
-            
+
             // Re-create the 7 initial tiles on the rack slots
             for (let i = 0; i < 7; i++) {
-                const tile = document.createElement('div');
-                tile.className = 'mmabble-tile';
-                tile.id = `mmabble-tile-${i}`;
-                tile.innerHTML = `
-                    <span class="mmabble-tile-letter">M</span>
-                    <span class="mmabble-tile-value">3</span>
-                `;
-                tile.addEventListener('pointerdown', onTilePointerDown);
-                tile.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                });
-                slots[i].appendChild(tile);
+                slots[i].appendChild(createMmabbleTile(`mmabble-tile-${i}`));
             }
-            
+
             // Reset all cells to unoccupied and active
             cells.forEach(c => {
                 c.dataset.occupied = 'false';
                 c.dataset.active = 'true';
             });
-            
+
             // Reset state variables to default values
             tilesRemaining = 40;
             tilesInBag = 26;
@@ -580,13 +1008,14 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPlayScore = 0;
             gameOver = false;
             aiTilesCount = 7;
-            
+            currentTurn = 'player';
+
             // Remove game over overlay if exists
             const overlay = board.querySelector('.mmabble-overlay');
             if (overlay) {
                 overlay.remove();
             }
-            
+
             updateStatusDisplay();
             updatePlayButtonState();
         });
@@ -595,148 +1024,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set up Play Button Interaction
     if (playBtn) {
         playBtn.addEventListener('click', () => {
-            if (gameOver) return;
-            
-            const result = evaluatePlay();
+            if (gameOver || currentTurn !== 'player') return;
+
+            const result = evaluateStatePlay(createBoardStateFromDom());
             if (!result.legal) return;
-            
+
             // Add play score to player's total score
             scoreYou += result.score;
-            
+
             // Lock all currently placed active tiles by setting active to 'false'
-            const activeCells = Array.from(cells).filter(c => c.dataset.occupied === 'true' && c.dataset.active === 'true');
-            const tilesPlayedCount = activeCells.length;
-            
-            activeCells.forEach(cell => {
-                cell.dataset.active = 'false';
-                // Remove visual grab cursor from locked tiles
-                const tile = cell.querySelector('.mmabble-tile');
-                if (tile) {
-                    tile.style.cursor = 'default';
-                }
-            });
-            
-            // Replenish the player's rack from the bag
-            const emptySlots = Array.from(slots).filter(slot => !slot.querySelector('.mmabble-tile'));
-            const slotsToReplenish = Math.min(emptySlots.length, tilesInBag);
-            
-            for (let i = 0; i < slotsToReplenish; i++) {
-                const slot = emptySlots[i];
-                const tile = document.createElement('div');
-                tile.className = 'mmabble-tile';
-                tile.id = `mmabble-tile-${Date.now()}-${Math.random()}`; // unique ID
-                tile.innerHTML = `
-                    <span class="mmabble-tile-letter">M</span>
-                    <span class="mmabble-tile-value">3</span>
-                `;
-                
-                // Add drag and drop listeners
-                tile.addEventListener('pointerdown', onTilePointerDown);
-                tile.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                });
-                
-                slot.appendChild(tile);
-            }
-            
-            // Decrement state variables
-            tilesInBag -= slotsToReplenish;
+            const tilesPlayedCount = lockActiveCells();
+            fillPlayerRackToMax();
             tilesRemaining -= tilesPlayedCount;
-            
+
             // Reset current play score to 0
             currentPlayScore = 0;
-            
-            // Check game over conditions
-            const playerRackTiles = Array.from(slots).filter(slot => slot.querySelector('.mmabble-tile')).length;
-            
-            let isGameOver = false;
-            let gameOverReason = ""; // "out" or "stalemate"
-            
-            if (playerRackTiles === 0) {
-                isGameOver = true;
-                gameOverReason = "out";
-            } else if (!checkLegalMovesExist()) {
-                isGameOver = true;
-                gameOverReason = "stalemate";
-            }
-            
-            if (isGameOver) {
-                gameOver = true;
-                
-                // Adjust scores according to international tournament rules
-                if (gameOverReason === "out") {
-                    // One side playing out
-                    scoreYou += 3 * aiTilesCount;
-                    scoreAi -= 3 * aiTilesCount;
-                } else {
-                    // Stalemate
-                    scoreYou -= 3 * playerRackTiles;
-                    scoreAi -= 3 * aiTilesCount;
-                }
-                
-                updateStatusDisplay();
-                updatePlayButtonState();
-                showGameOverOverlay();
-            } else {
-                // Update displays normal flow
-                updateStatusDisplay();
-                updatePlayButtonState();
-            }
+            updateStatusDisplay();
+            maybeAdvanceTurn('player');
         });
-    }
-
-    function checkLegalMovesExist() {
-        if (!cells) return false;
-        
-        // Count tiles on the player's rack
-        const playerRackTiles = Array.from(slots).filter(slot => slot.querySelector('.mmabble-tile')).length;
-        
-        // Count inactive cells on the board (locked tiles)
-        const inactiveCellsCount = Array.from(cells).filter(c => c.dataset.occupied === 'true' && c.dataset.active === 'false').length;
-        
-        // If empty board (first move), we need at least 2 tiles on the rack to make a legal move
-        if (inactiveCellsCount === 0) {
-            return playerRackTiles >= 2;
-        }
-        
-        // If not empty board, we need at least 1 tile on the rack to make any move
-        if (playerRackTiles < 1) {
-            return false;
-        }
-        
-        // Check all unoccupied squares: if placing a single tile there is legal
-        for (const cell of cells) {
-            if (cell.dataset.occupied === 'false') {
-                const originalOccupied = cell.dataset.occupied;
-                const originalActive = cell.dataset.active;
-                
-                // Temporarily place tile
-                cell.dataset.occupied = 'true';
-                cell.dataset.active = 'true';
-                
-                const result = evaluatePlay();
-                
-                // Restore
-                cell.dataset.occupied = originalOccupied;
-                cell.dataset.active = originalActive;
-                
-                if (result.legal) {
-                    return true;
-                }
-            }
-        }
-        
-        return false;
     }
 
     function showGameOverOverlay() {
         // Remove existing overlay if any
         const existing = board.querySelector('.mmabble-overlay');
         if (existing) existing.remove();
-        
+
         const overlay = document.createElement('div');
         overlay.className = 'mmabble-overlay';
-        
+
         let playerText = "";
         if (scoreYou > scoreAi) {
             playerText = "You win!";
@@ -745,7 +1060,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             playerText = "it's a tie!";
         }
-        
+
         overlay.textContent = `Game over, ${playerText}`;
         board.appendChild(overlay);
     }
