@@ -8,6 +8,7 @@
     <link rel="preload" href="fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css">
     <script src="connect4.js" defer></script>
+    <script src="mmabble.js" defer></script>
     <script>
         (function() {
             const fontTimeout = new Promise(resolve => setTimeout(resolve, 1500));
@@ -61,7 +62,67 @@
                 </div>
             </div>
         </div>
+
+        <!-- Section Divider -->
+        <hr class="section-divider">
+
+        <!-- MMabble Game Section -->
+        <div class="puzzles-layout mmabble-section fade-in-up">
+            <div class="puzzles-main-content">
+                <p>MMabble is an exciting 9x9 Scrabble variant that delivers fast-paced, strategic word-formation gameplay. Perfect for quick matches, the board features a curated layout of bonus squares designed to maximize scoring opportunities on a compact grid.</p>
+                <p>The pink starting square in the center offers a Double Word bonus to kickstart the game. From there, pathways of Double Letter (light blue) and Triple Letter (saturated blue) bonuses lead toward the outer edges, culminating in high-value Double Word (pink) and Triple Word (saturated red) multiplier squares at the corners.</p>
+                <p>Hover over any square for 1 second or click it to view its coordinate and score multiplier details in the tooltip.</p>
+            </div>
+
+            <div class="puzzles-sidebar">
+                <div class="mmabble-board-wrapper">
+                    <!-- MMabble Scoreboard -->
+                    <div class="mmabble-scoreboard-container">
+                        <span>You: <span id="mmabble-score-you" class="mmabble-scoreboard-number">0</span> &nbsp; AI: <span id="mmabble-score-ai" class="mmabble-scoreboard-number">0</span></span>
+                        <span class="mmabble-divider">|</span>
+                        <span>Play scores: <span id="mmabble-play-points" class="mmabble-scoreboard-number">0</span></span>
+                    </div>
+
+                    <div id="mmabble-board" class="mmabble-grid"></div>
+
+                    <!-- MMabble Player Rack -->
+                    <div class="mmabble-rack-container">
+                        <div class="mmabble-rack-tiles" id="mmabble-rack">
+                            <div class="mmabble-rack-slot" data-index="0"></div>
+                            <div class="mmabble-rack-slot" data-index="1"></div>
+                            <div class="mmabble-rack-slot" data-index="2"></div>
+                            <div class="mmabble-rack-slot" data-index="3"></div>
+                            <div class="mmabble-rack-slot" data-index="4"></div>
+                            <div class="mmabble-rack-slot" data-index="5"></div>
+                            <div class="mmabble-rack-slot" data-index="6"></div>
+                        </div>
+                        <div class="mmabble-rack-body"></div>
+                        <div class="mmabble-rack-lip"></div>
+                    </div>
+
+                    <!-- MMabble Rack Status & Reset Button -->
+                    <div class="mmabble-status-container">
+                        <span>Tiles left: <span id="mmabble-remaining" class="mmabble-status-number">40</span></span>
+                        <span>Tiles in bag: <span id="mmabble-bag" class="mmabble-status-number">26</span></span>
+                        <button id="mmabble-play-btn" class="mmabble-play-btn" aria-label="Play Move" disabled>
+                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                                <!-- Handdrawn-like checkmark symbol -->
+                                <path d="M 22 54 C 30 62, 36 70, 42 76 C 53 54, 66 28, 78 18" />
+                            </svg>
+                        </button>
+                        <button id="mmabble-reset-btn" class="mmabble-reset-btn" aria-label="Reset Board">
+                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M 88 63 C 86 78, 68 89, 48 89 C 28 89, 11 70, 11 48 C 11 27, 29 11, 51 11 C 62 11, 73 15, 77 23 L 94 41" />
+                                <path d="M 93 18 L 94 41 L 72 43" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
+
+    <!-- Client-side MMabble Grid Generation and Interactivity is now handled in mmabble.js -->
 </body>
 
 </html>

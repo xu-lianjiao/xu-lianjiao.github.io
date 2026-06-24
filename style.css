@@ -759,3 +759,363 @@ p {
         gap: 20px;
     }
 }
+
+/* ==========================================
+   MMabble Game Styles
+   ========================================== */
+.section-divider {
+    border: none;
+    border-top: 2px solid #1d2d44;
+    margin: 50px 0;
+    opacity: 0.2;
+}
+
+.mmabble-scoreboard-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0 auto 15px auto;
+    width: 100%;
+    max-width: 320px;
+    font-family: 'JXH', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 20px; /* relatively large font */
+    color: #1d2d44;
+    font-weight: bold;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+.mmabble-scoreboard-container .mmabble-divider {
+    color: #cbd5e1;
+    font-weight: normal;
+}
+
+.mmabble-scoreboard-number {
+    display: inline-block;
+    min-width: 12px;
+    text-align: center;
+}
+
+.mmabble-board-wrapper {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 320px;
+    margin: 0 auto;
+    padding-bottom: 6px; /* Spacing at the bottom to prevent subpixel layout clipping */
+    container-type: inline-size; /* Enable container query inline size units */
+    --tile-size: calc((100cqi - 6px) / 9); /* Resolves accurately everywhere including child elements */
+}
+
+.mmabble-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Apply aspect ratio directly to the grid itself */
+    border: 3px solid #1d2d44;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.mmabble-cell {
+    background-color: #ffffff;
+    border: 1px solid #1d2d44;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default; /* changed from pointer (arrow cursor when over empty cell) */
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    position: relative;
+    user-select: none;
+}
+
+/* Color schemes for special cells - beautiful pastel shades */
+.mmabble-cell.tw {
+    background-color: #df5e5a; /* Saturated Red / Triple Word */
+}
+
+.mmabble-cell.dw {
+    background-color: #ffb3c1; /* Light Red (Pink) / Double Word */
+}
+
+.mmabble-cell.tl {
+    background-color: #7b8cf8; /* Saturated Blue / Triple Letter */
+}
+
+.mmabble-cell.dl {
+    background-color: #b4d2f0; /* Light Blue / Double Letter */
+}
+
+.mmabble-cell.start {
+    background-color: #ffb3c1; /* Light Red (Pink) for center double word */
+}
+
+.mmabble-cell:not(.tw):not(.dw):not(.tl):not(.dl):not(.start):hover {
+    background-color: #f0f0f0; /* Light gray shadow highlight for normal cells */
+}
+
+/* White overlay for bonus cell hover to make them slightly lighter */
+.mmabble-cell::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    z-index: 1; /* Explicit stack order beneath cell contents (z-index 2) */
+}
+
+.mmabble-cell.tw:hover::after,
+.mmabble-cell.dw:hover::after,
+.mmabble-cell.tl:hover::after,
+.mmabble-cell.dl:hover::after,
+.mmabble-cell.start:hover::after {
+    opacity: 0.25; /* Layer white shade at 25% opacity */
+}
+
+/* Center star icon style */
+.mmabble-cell .start-star {
+    width: 65%;
+    height: 65%;
+    display: block;
+    pointer-events: none;
+    position: relative;
+    z-index: 2; /* Keeps star above the white hover overlay */
+}
+
+/* Cell multiplier label style */
+.mmabble-cell-label {
+    font-family: 'JXH', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #1d2d44;
+    position: relative;
+    z-index: 2; /* Keeps text above the white hover overlay */
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ==========================================
+   MMabble Player Rack and Tiles Styles
+   ========================================== */
+.mmabble-rack-container {
+    margin: 10px auto 0 auto; /* Moved up by 25px (was 35px margin-top) */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mmabble-rack-tiles {
+    display: flex;
+    justify-content: center;
+    gap: calc(var(--tile-size) * 0.1);
+    width: 100%;
+    position: relative;
+    z-index: 2; /* Tiles are at z-index 2 (between body and lip) */
+}
+
+.mmabble-rack-slot {
+    width: var(--tile-size);
+    height: var(--tile-size);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.mmabble-rack-body {
+    width: calc(7.6 * var(--tile-size) + 12px);
+    height: 24px;
+    background-color: #6c9373; /* Sage pastel green */
+    border: 2px solid #1d2d44; /* Thickened gray border */
+    border-bottom: none;
+    box-sizing: border-box;
+    margin-top: calc(-1 * var(--tile-size) + 10px); /* Tiles overhang by 10px */
+    position: relative;
+    z-index: 1; /* Body is behind tiles (z-index 1) */
+}
+
+.mmabble-rack-lip {
+    width: calc(7.6 * var(--tile-size) + 20px);
+    height: 8px;
+    background-color: #6c9373; /* Sage pastel green */
+    border: 2px solid #1d2d44; /* Thickened gray border */
+    box-sizing: border-box;
+    position: relative;
+    z-index: 3; /* Lip is over the tiles (z-index 3), creating 3D shelf effect */
+}
+
+.mmabble-tile {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #e3caa5; /* Pale wood brown */
+    border: 2px solid #1d2d44; /* Thicken the border of the tiles by 100% (was 1px) */
+    box-sizing: border-box;
+    border-radius: 3px;
+    z-index: 5; /* sit above the grid hover overlays when on the board */
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    touch-action: none; /* prevent scrolling when dragging tiles on mobile */
+    cursor: grab; /* default cursor for tiles on the rack is the open hand */
+}
+
+/* Tile when placed inside a board cell: make borders overlap flush with grid lines and use default arrow cursor */
+.mmabble-cell .mmabble-tile {
+    cursor: default;
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+}
+
+.mmabble-tile:active {
+    cursor: grabbing;
+}
+
+.mmabble-tile-letter {
+    font-family: 'JXH', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: calc(var(--tile-size) * 0.60); /* 10% larger than 0.55 (0.55 * 1.1 = 0.605) */
+    font-weight: bold;
+    color: #1d2d44;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+.mmabble-tile-value {
+    font-family: 'JXH', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: calc(var(--tile-size) * 0.22); /* small point value */
+    font-weight: bold;
+    color: #1d2d44;
+    position: absolute;
+    bottom: 3px;
+    right: 4px;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+.mmabble-tile:hover {
+    background-color: #ebd7bd; /* slightly lighter pale brown on hover */
+    box-shadow: 0 4px 8px rgba(29, 45, 68, 0.2);
+}
+
+/* MMabble status display (tiles remaining, bag count, reset button) styling */
+.mmabble-status-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* tuned gap to fit all text and buttons inside 320px width */
+    margin: 15px auto 0 auto;
+    width: 100%;
+    max-width: 320px;
+    font-family: 'JXH', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 17px; /* ~13% bigger than original 15px, adjusted to prevent boundary overflow */
+    color: #1d2d44;
+    font-weight: bold;
+    user-select: none;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.mmabble-status-number {
+    display: inline-block;
+    width: 18px; /* fixed width to prevent text/button shift on value change, sized for 17px font */
+    text-align: center;
+}
+
+.mmabble-reset-btn,
+.mmabble-play-btn {
+    background: #ffffff;
+    border: 2px solid #1d2d44;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #1d2d44;
+    transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease, color 0.2s ease;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.mmabble-reset-btn:hover,
+.mmabble-play-btn:not(:disabled):hover {
+    background-color: #f0f0f0;
+}
+
+.mmabble-reset-btn:active,
+.mmabble-play-btn:not(:disabled):active {
+    background-color: #e2e8f0;
+}
+
+.mmabble-reset-btn svg,
+.mmabble-play-btn svg {
+    width: 15px;
+    height: 15px;
+    display: block;
+}
+
+/* Grayed out and unclickable disabled state for the Play Move button */
+.mmabble-play-btn:disabled {
+    background-color: #f8fafc;
+    border-color: #cbd5e1;
+    color: #cbd5e1;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Inactive/locked tiles: darker pale wood brown background, default cursor, and no hover effects */
+.mmabble-cell[data-active="false"] .mmabble-tile {
+    background-color: #cbb28d;
+    cursor: default;
+}
+
+.mmabble-cell[data-active="false"] .mmabble-tile:hover {
+    background-color: #cbb28d;
+    box-shadow: none;
+    transform: none;
+}
+
+/* MMabble Game Over Overlay */
+.mmabble-overlay {
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background-color: rgba(224, 231, 255, 0.95); /* slightly blue box with opacity */
+    border: 3px solid #1d2d44; /* gray border */
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'JXH', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #1d2d44;
+    z-index: 20; /* above all cells and tiles */
+    box-sizing: border-box;
+    padding: 20px;
+    user-select: none;
+}
