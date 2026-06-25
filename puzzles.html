@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="style.css">
     <script src="connect4.js" defer></script>
     <script src="mmabble.js" defer></script>
+    <script src="mumble.js" defer></script>
     <script>
-        (function() {
+        (function () {
             const fontTimeout = new Promise(resolve => setTimeout(resolve, 1500));
             const resourcesLoaded = Promise.all([
                 document.fonts.ready,
@@ -37,7 +38,8 @@
 
         <div class="puzzles-layout">
             <div class="puzzles-main-content">
-                <p>Welcome to the puzzles page! More puzzles will be coming soon. In the meantime, try your hand at Connect Four against our minimax AI.</p>
+                <p>Welcome to the puzzles page! More puzzles will be coming soon. In the meantime, try your hand at
+                    Connect Four against our minimax AI.</p>
             </div>
 
             <div class="puzzles-sidebar">
@@ -51,9 +53,11 @@
 
                     <div class="game-controls">
                         <button id="reset-btn" class="c4-reset-btn" aria-label="Reset Game">
-                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <!-- Smoothed hand-drawn-ish bezier clockwise path -->
-                                <path d="M 88 63 C 86 78, 68 89, 48 89 C 28 89, 11 70, 11 48 C 11 27, 29 11, 51 11 C 62 11, 73 15, 77 23 L 94 41" />
+                                <path
+                                    d="M 88 63 C 86 78, 68 89, 48 89 C 28 89, 11 70, 11 48 C 11 27, 29 11, 51 11 C 62 11, 73 15, 77 23 L 94 41" />
                                 <!-- Smoothed hand-drawn-ish arrowhead -->
                                 <path d="M 93 18 L 94 41 L 72 43" />
                             </svg>
@@ -70,13 +74,12 @@
         <div class="puzzles-layout mmabble-section fade-in-up">
             <div class="puzzles-main-content">
                 <p>
-                    MMabble is a silly game. It's 9x9 Scrabble, and the only letter is M.
-                    According to Collins and Merriam-Webster, the only legal words in this game are MM and MMM.
-                    No fake words allowed, no passing allowed,
-                    and the other rules are the same as tournament Scrabble.
+                    MMabble is 9x9 Scrabble where the only letter is M.
+                    As per tournament Scrabble rules, the only legal words in this game are MM and MMM.
+                    No passing and no fake words!
                 </p>
                 <p>
-                    Watch for bonus squares, and note that playing overlaps is quite lucrative, 
+                    Watch for bonus squares, and note that playing overlaps is quite lucrative,
                     since you get points for every new word you form.
                     Game ends at a stalemate, or when one player plays all tiles on their rack.
                 </p>
@@ -86,10 +89,13 @@
                 <div class="mmabble-board-wrapper">
                     <!-- MMabble Scoreboard -->
                     <div class="mmabble-scoreboard-container">
-                        <span>You: <span id="mmabble-score-you" class="mmabble-scoreboard-number">0</span> &nbsp; AI: <span id="mmabble-score-ai" class="mmabble-scoreboard-number">0</span></span>
+                        <span>You: <span id="mmabble-score-you" class="mmabble-scoreboard-number">0</span> &nbsp; AI:
+                            <span id="mmabble-score-ai" class="mmabble-scoreboard-number">0</span></span>
                         <span class="mmabble-divider">|</span>
-                        <span>Play scores: <span id="mmabble-play-points" class="mmabble-scoreboard-number">0</span></span>
+                        <span>This move scores: <span id="mmabble-play-points"
+                                class="mmabble-scoreboard-number">0</span></span>
                     </div>
+                    <div id="mmabble-ai-score-notice" class="mmabble-ai-notice"></div>
 
                     <div id="mmabble-board" class="mmabble-grid"></div>
 
@@ -113,14 +119,95 @@
                         <span>Tiles left: <span id="mmabble-remaining" class="mmabble-status-number">40</span></span>
                         <span>Tiles in bag: <span id="mmabble-bag" class="mmabble-status-number">26</span></span>
                         <button id="mmabble-play-btn" class="mmabble-play-btn" aria-label="Play Move" disabled>
-                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <!-- Handdrawn-like checkmark symbol -->
                                 <path d="M 22 54 C 30 62, 36 70, 42 76 C 53 54, 66 28, 78 18" />
                             </svg>
                         </button>
                         <button id="mmabble-reset-btn" class="mmabble-reset-btn" aria-label="Reset Board">
-                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M 88 63 C 86 78, 68 89, 48 89 C 28 89, 11 70, 11 48 C 11 27, 29 11, 51 11 C 62 11, 73 15, 77 23 L 94 41" />
+                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M 88 63 C 86 78, 68 89, 48 89 C 28 89, 11 70, 11 48 C 11 27, 29 11, 51 11 C 62 11, 73 15, 77 23 L 94 41" />
+                                <path d="M 93 18 L 94 41 L 72 43" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Section Divider -->
+        <hr class="section-divider">
+
+        <!-- Mumble Game Section -->
+        <div class="puzzles-layout mumble-section fade-in-up">
+            <div class="puzzles-main-content">
+                <h2>Mumble</h2>
+                <p>
+                    Mumble is 11x11 Scrabble with 40 Ms and 20 Us.
+                    As per the international Scrabble dictionary, there are ten legal words in this game:
+                    MM, MU, UM, MMM, MUM, UMM, UMU, MUMM, MUMU, and MUUMUU.
+                </p>
+                <p>
+                    You can swap tiles with the bag if the bag has at least 7 tiles left.
+                    I wouldn't recommend it tbh
+                </p>
+            </div>
+
+            <div class="puzzles-sidebar">
+                <div class="mumble-board-wrapper">
+                    <!-- Mumble Scoreboard -->
+                    <div class="mumble-scoreboard-container">
+                        <span>You: <span id="mumble-score-you" class="mumble-scoreboard-number">0</span> &nbsp; AI:
+                            <span id="mumble-score-ai" class="mumble-scoreboard-number">0</span></span>
+                        <span class="mumble-divider">|</span>
+                        <span>This move scores: <span id="mumble-play-points"
+                                class="mumble-scoreboard-number">0</span></span>
+                    </div>
+                    <div id="mumble-ai-score-notice" class="mumble-ai-notice"></div>
+
+                    <div id="mumble-board" class="mumble-grid"></div>
+
+                    <!-- Mumble Player Rack -->
+                    <div class="mmabble-rack-container">
+                        <div class="mmabble-rack-tiles" id="mumble-rack">
+                            <div class="mmabble-rack-slot" data-index="0"></div>
+                            <div class="mmabble-rack-slot" data-index="1"></div>
+                            <div class="mmabble-rack-slot" data-index="2"></div>
+                            <div class="mmabble-rack-slot" data-index="3"></div>
+                            <div class="mmabble-rack-slot" data-index="4"></div>
+                            <div class="mmabble-rack-slot" data-index="5"></div>
+                            <div class="mmabble-rack-slot" data-index="6"></div>
+                        </div>
+                        <div class="mmabble-rack-body"></div>
+                        <div class="mmabble-rack-lip"></div>
+                    </div>
+
+                    <!-- Mumble Rack Status & Buttons -->
+                    <div class="mumble-status-container">
+                        <span>Tiles unseen: M x <span id="mumble-unseen-m" class="mumble-status-number">40</span>, U x
+                            <span id="mumble-unseen-u" class="mumble-status-number">20</span></span>
+                        <button id="mumble-swap-btn" class="mumble-swap-btn" aria-label="Swap Tiles" disabled>
+                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <!-- Handdrawn-like antiparallel horizontal arrows -->
+                                <path d="M 20 35 L 80 35 M 80 35 L 60 20 M 80 35 L 60 50" />
+                                <path d="M 80 65 L 20 65 M 20 65 L 40 50 M 20 65 L 40 80" />
+                            </svg>
+                        </button>
+                        <button id="mumble-play-btn" class="mumble-play-btn" aria-label="Play Move" disabled>
+                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <!-- Handdrawn-like checkmark symbol -->
+                                <path d="M 22 54 C 30 62, 36 70, 42 76 C 53 54, 66 28, 78 18" />
+                            </svg>
+                        </button>
+                        <button id="mumble-reset-btn" class="mumble-reset-btn" aria-label="Reset Board">
+                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M 88 63 C 86 78, 68 89, 48 89 C 28 89, 11 70, 11 48 C 11 27, 29 11, 51 11 C 62 11, 73 15, 77 23 L 94 41" />
                                 <path d="M 93 18 L 94 41 L 72 43" />
                             </svg>
                         </button>

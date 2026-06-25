@@ -910,6 +910,10 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePlayButtonState();
 
         if (currentTurn === 'ai') {
+            const noticeEl = document.getElementById('mmabble-ai-score-notice');
+            if (noticeEl) {
+                noticeEl.style.visibility = 'hidden';
+            }
             window.setTimeout(runAiTurn, 100);
         }
     }
@@ -946,6 +950,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         commitAiMove(search.move);
+        const noticeEl = document.getElementById('mmabble-ai-score-notice');
+        if (noticeEl) {
+            noticeEl.textContent = `AI scored ${search.move.score} points`;
+            noticeEl.style.visibility = 'visible';
+        }
         updateStatusDisplay();
         currentTurn = 'player';
         maybeAdvanceTurn('ai');
@@ -1014,6 +1023,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const overlay = board.querySelector('.mmabble-overlay');
             if (overlay) {
                 overlay.remove();
+            }
+
+            const noticeEl = document.getElementById('mmabble-ai-score-notice');
+            if (noticeEl) {
+                noticeEl.style.visibility = 'hidden';
             }
 
             updateStatusDisplay();

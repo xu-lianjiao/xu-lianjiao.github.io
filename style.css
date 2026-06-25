@@ -770,12 +770,13 @@ p {
     opacity: 0.2;
 }
 
-.mmabble-scoreboard-container {
+.mmabble-scoreboard-container,
+.mumble-scoreboard-container {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-    margin: 0 auto 15px auto;
+    margin: -10px auto 10px auto;
     width: 100%;
     max-width: 320px;
     font-family: 'JXH', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -787,18 +788,35 @@ p {
     box-sizing: border-box;
 }
 
-.mmabble-scoreboard-container .mmabble-divider {
+.mmabble-scoreboard-container .mmabble-divider,
+.mumble-scoreboard-container .mumble-divider {
     color: #cbd5e1;
     font-weight: normal;
 }
 
-.mmabble-scoreboard-number {
+.mmabble-scoreboard-number,
+.mumble-scoreboard-number {
     display: inline-block;
     min-width: 12px;
     text-align: center;
 }
 
-.mmabble-board-wrapper {
+.mmabble-ai-notice,
+.mumble-ai-notice {
+    text-align: center;
+    font-family: 'JXH', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #df5e5a; /* Saturated red/pink color */
+    margin: 5px auto 5px auto;
+    height: 24px;
+    line-height: 24px;
+    user-select: none;
+    visibility: hidden;
+}
+
+.mmabble-board-wrapper,
+.mumble-board-wrapper {
     position: relative;
     width: 100%;
     box-sizing: border-box;
@@ -808,8 +826,19 @@ p {
     /* Spacing at the bottom to prevent subpixel layout clipping */
     container-type: inline-size;
     /* Enable container query inline size units */
+}
+
+.mmabble-board-wrapper {
     --tile-size: calc((100cqi - 6px) / 9);
     /* Resolves accurately everywhere including child elements */
+}
+
+.mumble-board-wrapper {
+    --tile-size: calc((100cqi - 6px) / 11);
+}
+
+.mumble-board-wrapper .mmabble-tile-value {
+    font-size: calc(var(--tile-size) * 0.27);
 }
 
 .mmabble-grid {
@@ -819,6 +848,18 @@ p {
     width: 100%;
     aspect-ratio: 1 / 1;
     /* Apply aspect ratio directly to the grid itself */
+    border: 3px solid #1d2d44;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.mumble-grid {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: repeat(11, 1fr);
+    width: 100%;
+    aspect-ratio: 1 / 1;
     border: 3px solid #1d2d44;
     background-color: #ffffff;
     box-sizing: border-box;
@@ -954,7 +995,7 @@ p {
 
 .mmabble-rack-body {
     width: calc(7.6 * var(--tile-size) + 12px);
-    height: 24px;
+    height: calc(var(--tile-size) - 11px);
     background-color: #6c9373;
     /* Sage pastel green */
     border: 2px solid #1d2d44;
@@ -1051,7 +1092,8 @@ p {
 }
 
 /* MMabble status display (tiles remaining, bag count, reset button) styling */
-.mmabble-status-container {
+.mmabble-status-container,
+.mumble-status-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1070,7 +1112,8 @@ p {
     white-space: nowrap;
 }
 
-.mmabble-status-number {
+.mmabble-status-number,
+.mumble-status-number {
     display: inline-block;
     width: 18px;
     /* fixed width to prevent text/button shift on value change, sized for 17px font */
@@ -1078,7 +1121,10 @@ p {
 }
 
 .mmabble-reset-btn,
-.mmabble-play-btn {
+.mmabble-play-btn,
+.mumble-reset-btn,
+.mumble-play-btn,
+.mumble-swap-btn {
     background: #ffffff;
     border: 2px solid #1d2d44;
     border-radius: 50%;
@@ -1095,24 +1141,35 @@ p {
 }
 
 .mmabble-reset-btn:hover,
-.mmabble-play-btn:not(:disabled):hover {
+.mmabble-play-btn:not(:disabled):hover,
+.mumble-reset-btn:hover,
+.mumble-play-btn:not(:disabled):hover,
+.mumble-swap-btn:not(:disabled):hover {
     background-color: #f0f0f0;
 }
 
 .mmabble-reset-btn:active,
-.mmabble-play-btn:not(:disabled):active {
+.mmabble-play-btn:not(:disabled):active,
+.mumble-reset-btn:active,
+.mumble-play-btn:not(:disabled):active,
+.mumble-swap-btn:not(:disabled):active {
     background-color: #e2e8f0;
 }
 
 .mmabble-reset-btn svg,
-.mmabble-play-btn svg {
+.mmabble-play-btn svg,
+.mumble-reset-btn svg,
+.mumble-play-btn svg,
+.mumble-swap-btn svg {
     width: 15px;
     height: 15px;
     display: block;
 }
 
 /* Grayed out and unclickable disabled state for the Play Move button */
-.mmabble-play-btn:disabled {
+.mmabble-play-btn:disabled,
+.mumble-play-btn:disabled,
+.mumble-swap-btn:disabled {
     background-color: #f8fafc;
     border-color: #cbd5e1;
     color: #cbd5e1;
@@ -1120,14 +1177,19 @@ p {
     opacity: 0.6;
 }
 
+.mmabble-tile.selected {
+    outline: 3px solid #df5e5a;
+    box-shadow: 0 0 10px rgba(223, 94, 90, 0.8);
+}
+
 /* Inactive/locked tiles: darker pale wood brown background, default cursor, and no hover effects */
 .mmabble-cell[data-active="false"] .mmabble-tile {
-    background-color: #cbb28d;
+    background-color: #a78b66;
     cursor: default;
 }
 
 .mmabble-cell[data-active="false"] .mmabble-tile:hover {
-    background-color: #cbb28d;
+    background-color: #a78b66;
     box-shadow: none;
     transform: none;
 }
