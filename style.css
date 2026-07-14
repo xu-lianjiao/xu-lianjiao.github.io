@@ -285,16 +285,19 @@ p {
 
 /* Subpage Navigation Bar */
 .subpage-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
     background-color: #ffffff;
     border-bottom: 1px solid #eeeeee;
     padding: 20px 0;
     position: sticky;
     top: 0;
     z-index: 100;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
 }
 
 .subpage-nav a {
@@ -318,16 +321,113 @@ p {
     font-weight: bold;
 }
 
+.menu-toggle {
+    display: none;
+}
+
 @media (max-width: 768px) {
     .subpage-nav {
-        gap: 15px;
-        padding: 12px 10px;
-        flex-wrap: wrap;
+        height: 60px;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
     }
-    .subpage-nav a {
-        font-size: 16px;
+
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        color: #1d2d44;
+        width: 44px;
+        height: 44px;
+        z-index: 110;
+        transition: color 0.2s ease;
+    }
+
+    .menu-toggle:hover {
+        color: #000000;
+    }
+
+    .menu-toggle svg {
+        width: 32px;
+        height: 32px;
+        transition: transform 0.3s ease;
+    }
+
+    /* Hand-drawn SVG hamburger lines morphing transition */
+    .menu-toggle path {
+        transition: d 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+
+    .subpage-nav.menu-open .menu-toggle svg {
+        transform: rotate(90deg);
+    }
+
+    .subpage-nav.menu-open .line-top {
+        d: path("M 22 22 C 35 35, 65 65, 78 78");
+    }
+
+    .subpage-nav.menu-open .line-middle {
+        opacity: 0;
+    }
+
+    .subpage-nav.menu-open .line-bottom {
+        d: path("M 22 78 C 35 65, 65 35, 78 22");
+    }
+
+    /* Dropdown Overlay Menu */
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        border-bottom: 2px solid #1d2d44;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        padding: 10px 0;
+        z-index: 99;
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+        visibility: hidden;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .subpage-nav.menu-open .nav-links {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        visibility: visible;
+    }
+
+    .subpage-nav .nav-links a {
+        width: 100%;
+        padding: 15px 30px;
+        font-size: 18px;
+        border-bottom: none;
+        box-sizing: border-box;
+        text-align: left;
+    }
+
+    .subpage-nav .nav-links a:hover {
+        background-color: #f0f0f0;
+    }
+
+    .subpage-nav .nav-links a.active {
+        background-color: #f8fafc;
+        border-left: 4px solid #0000ee;
+        padding-left: 26px;
     }
 }
+
 
 
 /* JXXW Alternate Glyph Variant Classes */

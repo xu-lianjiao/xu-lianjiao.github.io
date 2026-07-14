@@ -2,6 +2,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const animatingElement = document.querySelector('.main-layout, .container');
     if (!animatingElement) return;
 
+    // Toggle Mobile Navigation Menu
+    const menuToggle = document.querySelector('.menu-toggle');
+    const subpageNav = document.querySelector('.subpage-nav');
+    if (menuToggle && subpageNav) {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = subpageNav.classList.toggle('menu-open');
+            menuToggle.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Close menu when clicking outside of the nav bar
+        document.addEventListener('click', (e) => {
+            if (subpageNav.classList.contains('menu-open') && !subpageNav.contains(e.target)) {
+                subpageNav.classList.remove('menu-open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
     document.body.addEventListener('click', (e) => {
         const link = e.target.closest('a');
         if (!link) return;
