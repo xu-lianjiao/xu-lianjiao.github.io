@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap');
+
 @font-face {
     font-family: 'JXH';
     src: url('fonts/jxh3.woff2') format('woff2'),
@@ -184,16 +186,33 @@ h1 {
     margin-bottom: 20px;
 }
 
+.signature-header {
+    display: block;
+    margin: 0 0 20px 0;
+    max-width: 80%;
+    height: auto;
+}
+
+p, .left-panel h2, .left-panel ul {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    letter-spacing: -0.01em;
+}
+
 p {
     font-size: 1.1em;
     margin-bottom: 25px;
 }
 
+.left-panel h2 {
+    font-size: 22pt;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
 .left-panel ul {
-    font-size: 25.33px;
-    /* Decreased by 2pt (to 19pt) */
+    font-size: 17pt;
     padding-left: 20px;
-    /* Reduced indent by 20px */
 }
 
 .back-link {
@@ -248,6 +267,20 @@ p {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     margin: 20px 0;
     display: block;
+}
+
+.about-profile-img {
+    float: right;
+    width: 45%;
+    margin: 0 0 20px 30px;
+}
+
+@media (max-width: 768px) {
+    .about-profile-img {
+        float: none;
+        width: 100%;
+        margin: 20px 0;
+    }
 }
 
 /* Subpage Navigation Bar */
@@ -316,7 +349,58 @@ p {
 }
 
 .fonts-loaded .fade-in-up {
-    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Page transition: Quick fade out to below */
+@keyframes fadeOutDown {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+.fade-out-down {
+    animation: fadeOutDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+/* Dock transition keyframes */
+@keyframes dockFadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes dockFadeOutUp {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* Apply entry transition when active */
+.dock-animate-entry .subpage-nav {
+    opacity: 0;
+    animation: dockFadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Apply exit transition */
+.dock-fade-out-up {
+    animation: dockFadeOutUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
 }
 
 /* ==========================================

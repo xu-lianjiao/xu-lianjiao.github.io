@@ -7,6 +7,23 @@
     <title>About Me</title>
     <link rel="preload" href="fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css">
+    <script>
+        (function () {
+            if (sessionStorage.getItem('navigated_from_index') === 'true') {
+                document.documentElement.classList.add('dock-animate-entry');
+                sessionStorage.removeItem('navigated_from_index');
+            }
+
+            const fontTimeout = new Promise(resolve => setTimeout(resolve, 1500));
+            const resourcesLoaded = Promise.all([
+                document.fonts.ready,
+                new Promise(resolve => window.addEventListener('load', resolve))
+            ]);
+            Promise.race([resourcesLoaded, fontTimeout]).then(() => {
+                document.documentElement.classList.add('fonts-loaded');
+            });
+        })();
+    </script>
 </head>
 
 <body>
@@ -18,11 +35,23 @@
         <a href="pursuits.html">Other</a>
         <a href="contact.html">Contact</a>
     </nav>
-    <main class="container">
+    <main class="container fade-in-up">
         <h1>About Me</h1>
-        <img src="images/me-rome-filter.JPG" alt="Julian in Rome" class="profile-img">
-        <p>Hey there, thanks for checking out my website! I'm from the </p>
+        <img src="images/me-rome-filter.JPG" alt="Julian in Rome" class="profile-img about-profile-img">
+        <p>Hi there, and thanks for stopping by! I'm Julian (he/him), and I'll be entering my final year of Mathematics
+            and Computer Science at the University of Oxford.</p>
+        <p>I grew up in the San Francisco Bay Area, where I developed an interest in maths, computing, and tackling
+            difficult problems. Moving to Oxford gave me the chance to build a rigorous foundation in both subjects
+            while exploring topics ranging from probability theory to machine learning and its applications. This year,
+            I'll be continuing in those areas through my master's project on neural-network surrogates for Gaussian
+            processes.</p>
+        <p>What I enjoy most is turning what I've learned into something others can use or enjoy. Solving crosswords
+            led me to writing them. Competing in maths contests led me to helping start one. Learning machine learning
+            led me to building research tools and open-source projects. Looking back, that's been a common thread
+            through most of the things I've enjoyed doing, and it's something I hope to keep doing in whatever comes
+            next.</p>
     </main>
+    <script src="transitions.js"></script>
 </body>
 
 </html>

@@ -7,6 +7,23 @@
     <title>Other Pursuits</title>
     <link rel="preload" href="fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css">
+    <script>
+        (function () {
+            if (sessionStorage.getItem('navigated_from_index') === 'true') {
+                document.documentElement.classList.add('dock-animate-entry');
+                sessionStorage.removeItem('navigated_from_index');
+            }
+
+            const fontTimeout = new Promise(resolve => setTimeout(resolve, 1500));
+            const resourcesLoaded = Promise.all([
+                document.fonts.ready,
+                new Promise(resolve => window.addEventListener('load', resolve))
+            ]);
+            Promise.race([resourcesLoaded, fontTimeout]).then(() => {
+                document.documentElement.classList.add('fonts-loaded');
+            });
+        })();
+    </script>
 </head>
 
 <body>
@@ -18,10 +35,11 @@
         <a href="pursuits.html" class="active">Other</a>
         <a href="contact.html">Contact</a>
     </nav>
-    <main class="container">
+    <main class="container fade-in-up">
         <h1>Other Pursuits</h1>
         <!-- Content goes here -->
     </main>
+    <script src="transitions.js"></script>
 </body>
 
 </html>

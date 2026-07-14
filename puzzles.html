@@ -12,6 +12,11 @@
     <script src="mumble.js" defer></script>
     <script>
         (function () {
+            if (sessionStorage.getItem('navigated_from_index') === 'true') {
+                document.documentElement.classList.add('dock-animate-entry');
+                sessionStorage.removeItem('navigated_from_index');
+            }
+
             const fontTimeout = new Promise(resolve => setTimeout(resolve, 1500));
             const resourcesLoaded = Promise.all([
                 document.fonts.ready,
@@ -33,12 +38,19 @@
         <a href="pursuits.html">Other</a>
         <a href="contact.html">Contact</a>
     </nav>
-    <main class="container">
+    <main class="container fade-in-up">
         <h1>Puzzles</h1>
 
-        <div class="video-section fade-in-up">
+        <p>Puzzles are a big enough part of who I am that they deserve their own page.
+
+            Here's a look at some of my favourite puzzles I've made.</p>
+
+        <div class="video-section">
             <div class="video-player-wrapper">
-                <iframe src="https://www.youtube.com/embed/i-43ItpF73k?si=IYyFcnqOFqt0rHZ2&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/i-43ItpF73k?si=IYyFcnqOFqt0rHZ2&amp;controls=1"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
         </div>
 
@@ -49,7 +61,7 @@
             </div>
 
             <div class="puzzles-sidebar">
-                <div class="connect4-game fade-in-up">
+                <div class="connect4-game">
                     <div class="confetti-container" id="confetti-container"></div>
                     <div class="connect4-container">
                         <div class="tokens-container" id="tokens-container"></div>
@@ -77,7 +89,7 @@
         <hr class="section-divider">
 
         <!-- MMabble Game Section -->
-        <div class="puzzles-layout mmabble-section fade-in-up">
+        <div class="puzzles-layout mmabble-section">
             <div class="puzzles-main-content">
                 <p>
                     MMabble is 9x9 Scrabble where the only letter is M.
@@ -147,7 +159,7 @@
         <hr class="section-divider">
 
         <!-- Mumble Game Section -->
-        <div class="puzzles-layout mumble-section fade-in-up">
+        <div class="puzzles-layout mumble-section">
             <div class="puzzles-main-content">
                 <h2>Mumble</h2>
                 <p>
@@ -224,6 +236,7 @@
     </main>
 
     <!-- Client-side MMabble Grid Generation and Interactivity is now handled in mmabble.js -->
+    <script src="transitions.js"></script>
 </body>
 
 </html>
