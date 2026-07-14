@@ -318,6 +318,18 @@ p {
     font-weight: bold;
 }
 
+@media (max-width: 768px) {
+    .subpage-nav {
+        gap: 15px;
+        padding: 12px 10px;
+        flex-wrap: wrap;
+    }
+    .subpage-nav a {
+        font-size: 16px;
+    }
+}
+
+
 /* JXXW Alternate Glyph Variant Classes */
 .variant-1 {
     font-feature-settings: "ss01" 0, "ss02" 0;
