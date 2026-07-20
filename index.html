@@ -29,7 +29,7 @@
                 <aside class="left-panel">
                         <img src="images/signature2.png" alt="Julian Xiao" class="signature-header">
                         <h2>
-                                Mathematics & Computer Science
+                                Maths & Computer Science
                                 @ University of Oxford
                         </h2>
                         <p>
@@ -420,6 +420,48 @@
                                         <div class="cell"><span class="cell-letter">M</span></div>
                                         <div class="cell"><span class="cell-letter">S</span></div>
 
+                                        <!-- Highlighter Overlay Elements -->
+                                        <div class="word-highlight" data-word="about">
+                                                <svg viewBox="0 0 700 100" preserveAspectRatio="none">
+                                                        <path d="M 15,12 L 675,12 C 673,38 676,68 670,88 L 10,88 C 14,68 8,38 15,12 Z"
+                                                                fill="var(--highlighter-color)" opacity="0.3"></path>
+                                                        <path d="M 675,12 L 692,12 C 694,38 691,68 688,88 L 670,88 C 676,68 673,38 675,12 Z"
+                                                                fill="var(--highlighter-color)" opacity="0.7"></path>
+                                                </svg>
+                                        </div>
+                                        <div class="word-highlight" data-word="work">
+                                                <svg viewBox="0 0 1300 100" preserveAspectRatio="none">
+                                                        <path d="M 8,10 L 1272,10 C 1270,35 1271,65 1268,90 L 12,90 C 9,65 11,35 8,10 Z"
+                                                                fill="var(--highlighter-color)" opacity="0.3"></path>
+                                                        <path d="M 1272,10 L 1290,10 C 1292,35 1289,65 1286,90 L 1268,90 C 1271,65 1270,35 1272,10 Z"
+                                                                fill="var(--highlighter-color)" opacity="0.7"></path>
+                                                </svg>
+                                        </div>
+                                        <div class="word-highlight" data-word="puzzles">
+                                                <svg viewBox="0 0 700 100" preserveAspectRatio="none">
+                                                        <path d="M 18,14 L 672,14 C 674,40 670,70 668,86 L 12,86 C 10,70 14,40 18,14 Z"
+                                                                fill="var(--highlighter-color)" opacity="0.3"></path>
+                                                        <path d="M 672,14 L 690,14 C 688,40 691,70 687,86 L 668,86 C 670,70 674,40 672,14 Z"
+                                                                fill="var(--highlighter-color)" opacity="0.7"></path>
+                                                </svg>
+                                        </div>
+                                        <div class="word-highlight" data-word="pursuits">
+                                                <svg viewBox="0 0 1300 100" preserveAspectRatio="none">
+                                                        <path d="M 10,11 L 1274,11 C 1271,37 1275,67 1270,89 L 14,89 C 9,67 13,37 10,11 Z"
+                                                                fill="var(--highlighter-color)" opacity="0.3"></path>
+                                                        <path d="M 1274,11 L 1292,11 C 1290,37 1293,67 1288,89 L 1270,89 C 1275,67 1271,37 1274,11 Z"
+                                                                fill="var(--highlighter-color)" opacity="0.7"></path>
+                                                </svg>
+                                        </div>
+                                        <div class="word-highlight" data-word="contact">
+                                                <svg viewBox="0 0 700 100" preserveAspectRatio="none">
+                                                        <path d="M 14,13 L 673,13 C 671,39 673,69 669,87 L 11,87 C 7,69 10,39 14,13 Z"
+                                                                fill="var(--highlighter-color)" opacity="0.3"></path>
+                                                        <path d="M 673,13 L 691,13 C 689,39 692,69 687,87 L 669,87 C 673,69 671,39 673,13 Z"
+                                                                fill="var(--highlighter-color)" opacity="0.7"></path>
+                                                </svg>
+                                        </div>
+
                                 </div>
                                 <!-- Handdrawn arrow pointing to the grid -->
                                 <div class="arrow-decoration">
@@ -445,12 +487,20 @@
                                 document.querySelectorAll(`.crossword-link[data-word="${word}"]`).forEach(c => {
                                         c.classList.add('highlight');
                                 });
+                                const highlight = document.querySelector(`.word-highlight[data-word="${word}"]`);
+                                if (highlight) {
+                                        highlight.classList.add('active');
+                                }
                         });
 
                         cell.addEventListener('mouseleave', () => {
                                 document.querySelectorAll(`.crossword-link[data-word="${word}"]`).forEach(c => {
                                         c.classList.remove('highlight');
                                 });
+                                const highlight = document.querySelector(`.word-highlight[data-word="${word}"]`);
+                                if (highlight) {
+                                        highlight.classList.remove('active');
+                                }
                         });
                 });
 

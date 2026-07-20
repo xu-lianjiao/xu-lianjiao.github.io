@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=National+Park:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --highlighter-color: #ffb703;
+    /* Yellow-orange color for the hand-drawn highlights */
+}
 
 @font-face {
     font-family: 'JXH';
@@ -79,6 +84,8 @@ body {
     /* Outer border */
     background-color: #ffffff;
     box-sizing: border-box;
+    position: relative;
+    /* Added for absolute positioned highlights */
 }
 
 /* Handdrawn Arrow Decoration */
@@ -125,6 +132,8 @@ body {
     /* Prevents content from expanding cell row height */
     overflow: hidden;
     /* Prevents subpixel text height overflow */
+    transition: background-color 0.2s ease;
+    /* Fade-in/out transition for cell background hover effects */
 }
 
 .cell.black {
@@ -167,10 +176,72 @@ body {
     font-weight: bold;
 }
 
-/* Entire word highlighted yellow on hover */
-.crossword-link.highlight {
-    background-color: #fef08a;
-    /* Soft highlighter yellow */
+/* Entire word highlighted yellow on hover (no longer sets background color directly,
+   as we use the SVG word-highlight overlay instead) */
+.crossword-link.highlight {}
+
+/* Highlighter-pen overlay for crossword links */
+.word-highlight {
+    --highlighter-color: #ffb703;
+    /* Default yellow-orange */
+    position: absolute;
+    pointer-events: none;
+    opacity: 1;
+    /* Always visible */
+    z-index: 2;
+    mix-blend-mode: multiply;
+}
+
+.word-highlight.active {
+    --highlighter-color: #ff7b00;
+    /* Slightly darker yellow-orange (more orange) when hovered */
+}
+
+.word-highlight svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.word-highlight path {
+    fill: var(--highlighter-color);
+    transition: fill 0.2s ease;
+    /* Transition the color change smoothly */
+}
+
+.word-highlight[data-word="about"] {
+    top: 6.6667%;
+    left: 53.3333%;
+    width: 46.6667%;
+    height: 6.6667%;
+}
+
+.word-highlight[data-word="work"] {
+    top: 26.6667%;
+    left: 13.3333%;
+    width: 86.6667%;
+    height: 6.6667%;
+}
+
+.word-highlight[data-word="puzzles"] {
+    top: 46.6667%;
+    left: 26.6667%;
+    width: 46.6667%;
+    height: 6.6667%;
+}
+
+.word-highlight[data-word="pursuits"] {
+    top: 66.6667%;
+    left: 0%;
+    width: 86.6667%;
+    height: 6.6667%;
+}
+
+.word-highlight[data-word="contact"] {
+    top: 86.6667%;
+    left: 0%;
+    width: 46.6667%;
+    height: 6.6667%;
 }
 
 /* Highlight standard cells on hover (excluding black cells and link cells) */
@@ -193,8 +264,10 @@ h1 {
     height: auto;
 }
 
-p, .left-panel h2, .left-panel ul {
-    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+p,
+.left-panel h2,
+.left-panel ul {
+    font-family: 'National Park', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     letter-spacing: -0.01em;
 }
 
@@ -271,8 +344,9 @@ p {
 
 .about-profile-img {
     float: right;
-    width: 45%;
-    margin: 0 0 20px 30px;
+    width: 42.75%;
+    margin: 0 20px 20px 30px;
+    border-radius: 6px;
 }
 
 @media (max-width: 768px) {
@@ -487,6 +561,7 @@ p {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -498,6 +573,7 @@ p {
         opacity: 1;
         transform: translateY(0);
     }
+
     to {
         opacity: 0;
         transform: translateY(-20px);
@@ -541,6 +617,106 @@ p {
     }
 
     .puzzles-sidebar {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+}
+
+/* ==========================================
+   Technical Projects Page Layout Styles
+   ========================================== */
+.project-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.project-main-content {
+    flex: 1;
+}
+
+.project-main-content h2 {
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #1d2d44;
+}
+
+.project-media {
+    width: 320px;
+    flex-shrink: 0;
+}
+
+.project-media img {
+    width: 100%;
+    height: auto;
+    border: 2px solid #1d2d44;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(87, 93, 104, 0.15);
+    display: block;
+}
+
+/* Expandable content styling */
+.project-read-more-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, margin-top 0.4s ease;
+    opacity: 0;
+}
+
+.project-read-more-content.expanded {
+    max-height: 1000px;
+    opacity: 1;
+    margin-top: 15px;
+}
+
+/* Plus button for read-more toggle */
+.project-toggle-btn {
+    background: #ffffff;
+    border: 2px solid #1d2d44;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #1d2d44;
+    transition: background-color 0.2s ease, transform 0.3s ease;
+    padding: 0;
+    box-sizing: border-box;
+    margin-top: 15px;
+}
+
+.project-toggle-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.project-toggle-btn:active {
+    background-color: #e2e8f0;
+}
+
+.project-toggle-btn svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.project-toggle-btn.expanded svg {
+    transform: rotate(45deg);
+}
+
+@media (max-width: 768px) {
+    .project-layout {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .project-media {
         width: 100%;
         max-width: 320px;
         margin: 0 auto;
@@ -825,7 +1001,7 @@ p {
     border: 2px solid #1d2d44;
     border-radius: 0;
     padding: 12px 16px;
-    font-family: 'JXH', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'National Park', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 20px;
     background-color: #ffffff;
     color: #333333;
@@ -838,8 +1014,8 @@ p {
 .form-group input::placeholder,
 .form-group textarea::placeholder {
     color: #999999;
-    font-family: 'JXH', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-style: italic;
+    font-family: 'National Park', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-style: normal;
     opacity: 0.7;
 }
 
@@ -851,8 +1027,7 @@ p {
 
 .form-group input:focus,
 .form-group textarea:focus {
-    background-color: #fef08a;
-    /* Highlighter yellow on focus (from crossword link hover!) */
+    background-color: #ffffff;
     border-color: #0000ee;
     /* Navy/blue accent matching link colors on focus */
 }
@@ -866,6 +1041,7 @@ p {
 
 /* Error message styling */
 .error-message {
+    font-family: 'National Park', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 16px;
     color: #e04c4c;
     min-height: 20px;
@@ -889,7 +1065,7 @@ p {
     padding: 12px 30px;
     cursor: pointer;
     color: #1d2d44;
-    font-family: 'JXH', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'National Park', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 20px;
     font-weight: bold;
     text-transform: uppercase;
@@ -939,7 +1115,7 @@ p {
     padding: 10px 20px;
     cursor: pointer;
     color: #1d2d44;
-    font-family: 'JXH', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'National Park', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 18px;
     transition: background-color 0.2s ease;
 }
@@ -1003,7 +1179,8 @@ p {
     font-family: 'JXH', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 20px;
     font-weight: bold;
-    color: #df5e5a; /* Saturated red/pink color */
+    color: #df5e5a;
+    /* Saturated red/pink color */
     margin: 5px auto 5px auto;
     height: 24px;
     line-height: 24px;
@@ -1432,7 +1609,8 @@ p {
 .video-player-wrapper {
     width: 100%;
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    padding-bottom: 56.25%;
+    /* 16:9 Aspect Ratio */
     height: 0;
     border: 3px solid #1d2d44;
     border-radius: 8px;
@@ -1452,4 +1630,144 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+/* ==========================================
+   NYT Crossword Grid Gallery Styles
+   ========================================== */
+.nyt-section {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.nyt-section h2 {
+    font-size: 1.8em;
+    color: #1d2d44;
+    margin-bottom: 15px;
+}
+
+.nyt-gallery-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.nyt-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    font-size: 36px;
+    font-family: inherit;
+    color: #1d2d44;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    user-select: none;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+    padding: 0;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.nyt-nav-btn:active {
+    transform: scale(0.9);
+}
+
+.nyt-viewport {
+    flex: 1;
+    overflow: hidden;
+}
+
+.nyt-grids-track {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 100%;
+}
+
+.nyt-grid-slide {
+    width: calc((100% - 30px) / 2);
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
+}
+
+@media (max-width: 860px) {
+    .nyt-gallery-wrapper {
+        gap: 10px;
+    }
+
+    .nyt-nav-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 28px;
+    }
+
+    .nyt-grids-track {
+        gap: 15px;
+    }
+
+    .nyt-grid-slide {
+        width: 100%;
+    }
+}
+
+#nyt-grid-1 .cell-letter,
+#nyt-grid-2 .cell-letter,
+#nyt-grid-3 .cell-letter,
+#nyt-grid-4 .cell-letter {
+    font-size: clamp(8.64px, 2.52cqi, 18.72px);
+}
+
+.nyt-grid-caption {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #1d2d44;
+}
+
+/* Spoiler Grid Feature Styles */
+.nyt-crossword-grid.spoiler-hidden .cell:not(.black) {
+    background-color: #f0f0f0;
+}
+
+.nyt-crossword-grid.spoiler-hidden .cell-letter {
+    opacity: 0;
+}
+
+.spoiler-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.spoiler-overlay:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.spoiler-message {
+    color: rgba(255, 255, 255, 0.95);
+    font-family: 'National Park', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 1.1em;
+    font-weight: normal;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.8);
+    background: rgba(29, 45, 68, 0.75);
+    padding: 8px 16px;
+    border-radius: 0;
+    pointer-events: none;
+    letter-spacing: -0.01em;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
 }
