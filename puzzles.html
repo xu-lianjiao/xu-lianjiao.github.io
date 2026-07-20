@@ -7,9 +7,6 @@
     <title>Puzzles</title>
     <link rel="preload" href="fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css">
-    <script src="connect4.js" defer></script>
-    <script src="mmabble.js" defer></script>
-    <script src="mumble.js" defer></script>
     <script>
         (function () {
             if (sessionStorage.getItem('navigated_from_index') === 'true') {
@@ -32,7 +29,8 @@
 <body>
     <nav class="subpage-nav">
         <button class="menu-toggle" aria-label="Toggle Navigation" aria-expanded="false">
-            <svg class="hamburger-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round">
+            <svg class="hamburger-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
+                stroke-linecap="round">
                 <path class="line-top" d="M 15 28 C 35 25, 65 31, 85 28" />
                 <path class="line-middle" d="M 12 50 C 42 53, 58 47, 88 50" />
                 <path class="line-bottom" d="M 18 72 C 38 69, 68 75, 82 72" />
@@ -50,9 +48,1015 @@
     <main class="container fade-in-up">
         <h1>Puzzles</h1>
 
-        <p>Puzzles are a big enough part of who I am that they deserve their own page.
+        <p>This page doesn't come close to showing all the puzzles I've made, but I've tried to include my favourites!
+        </p>
 
-            Here's a look at some of my favourite puzzles I've made.</p>
+        <!--  Published Crosswords Section -->
+        <div class="nyt-section">
+            <h2>Published Crosswords</h2>
+            <p>My specialty is making wide-open themeless crosswords, which are the most difficult puzzles
+                that newspapers offer. This is my favourite type of crossword to create, since the grids turn out so
+                beautiful. I can't reproduce the
+                clues for licensing reasons, but I can show you the grids. Enjoy!
+            </p>
+            <div class="nyt-gallery-wrapper">
+                <button class="nyt-nav-btn prev-btn" aria-label="Previous Grid">&lt;</button>
+                <div class="nyt-viewport">
+                    <div class="nyt-grids-track">
+                        <div class="nyt-grid-slide">
+                            <div class="crossword-grid nyt-crossword-grid" id="nyt-grid-1">
+                                <!-- Row 1 -->
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">b</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">k</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">h</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <!-- Row 2 -->
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">H</span></div>
+                                <div class="cell"><span class="cell-letter">u</span></div>
+                                <div class="cell"><span class="cell-letter">M</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">p</span></div>
+                                <div class="cell"><span class="cell-letter">Y</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">m</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell black"></div>
+                                <!-- Row 3 -->
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">h</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">m</span></div>
+                                <!-- Row 4 -->
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">Z</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">g</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <!-- Row 5 -->
+                                <div class="cell"><span class="cell-letter">w</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">y</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <!-- Row 6 -->
+                                <div class="cell"><span class="cell-letter">L</span></div>
+                                <div class="cell"><span class="cell-letter">u</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">C</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <!-- Row 7 -->
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">p</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">p</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">G</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">G</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <!-- Row 8 -->
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">h</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">D</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">G</span></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">h</span></div>
+                                <div class="cell"><span class="cell-letter">U</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <!-- Row 9 -->
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">f</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">D</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <!-- Row 10 -->
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">B</span></div>
+                                <div class="cell"><span class="cell-letter">f</span></div>
+                                <div class="cell"><span class="cell-letter">F</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">M</span></div>
+                                <div class="cell"><span class="cell-letter">p</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <!-- Row 11 -->
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">W</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell"><span class="cell-letter">C</span></div>
+                                <div class="cell"><span class="cell-letter">u</span></div>
+                                <div class="cell"><span class="cell-letter">L</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <!-- Row 12 -->
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">M</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">L</span></div>
+                                <div class="cell"><span class="cell-letter">u</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <!-- Row 13 -->
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">y</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">F</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">U</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">L</span></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">V</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell black"></div>
+                                <!-- Row 14 -->
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">y</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell"><span class="cell-letter">B</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">u</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <!-- Row 15 -->
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell"><span class="cell-letter">Y</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                            </div>
+                            <div class="nyt-grid-caption">NYT Saturday Jan 6 2024</div>
+                        </div>
+                        <div class="nyt-grid-slide">
+                            <div class="crossword-grid nyt-crossword-grid" id="nyt-grid-2">
+                                <!-- Row 1 -->
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">C</span></div>
+                                <div class="cell"><span class="cell-letter">u</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">b</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <!-- Row 2 -->
+                                <div class="cell"><span class="cell-letter">U</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">p</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell"><span class="cell-letter">H</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell black"></div>
+                                <!-- Row 3 -->
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">C</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <!-- Row 4 -->
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">C</span></div>
+                                <div class="cell"><span class="cell-letter">k</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <!-- Row 5 -->
+                                <div class="cell"><span class="cell-letter">g</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">C</span></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">P</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <!-- Row 6 -->
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell"><span class="cell-letter">H</span></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">h</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">g</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">P</span></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">C</span></div>
+                                <!-- Row 7 -->
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">y</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">u</span></div>
+                                <div class="cell"><span class="cell-letter">G</span></div>
+                                <div class="cell"><span class="cell-letter">h</span></div>
+                                <!-- Row 8 -->
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">H</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">M</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">h</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">f</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell black"></div>
+                                <!-- Row 9 -->
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">W</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">h</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">y</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <!-- Row 10 -->
+                                <div class="cell"><span class="cell-letter">L</span></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">M</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">U</span></div>
+                                <div class="cell"><span class="cell-letter">m</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <!-- Row 11 -->
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">P</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">D</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">g</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">p</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <!-- Row 12 -->
+                                <div class="cell"><span class="cell-letter">H</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">P</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">p</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">k</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <!-- Row 13 -->
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">L</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">k</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">U</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <!-- Row 14 -->
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">k</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <!-- Row 15 -->
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">k</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">m</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                            </div>
+                            <div class="nyt-grid-caption">NYT Friday Mar 1 2024</div>
+                        </div>
+                        <div class="nyt-grid-slide">
+                            <div class="crossword-grid nyt-crossword-grid spoiler-hidden" id="nyt-grid-3">
+                                <!-- Row 1 -->
+                                <div class="cell"><span class="cell-letter">j</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">G</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">W</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <!-- Row 2 -->
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">u</span></div>
+                                <div class="cell"><span class="cell-letter">G</span></div>
+                                <div class="cell"><span class="cell-letter">u</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">m</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">v</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <!-- Row 3 -->
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">L</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">V</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <!-- Row 4 -->
+                                <div class="cell"><span class="cell-letter">G</span></div>
+                                <div class="cell"><span class="cell-letter">m</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">L</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">w</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <!-- Row 5 -->
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">j</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">u</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <!-- Row 6 -->
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">H</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">p</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <!-- Row 7 -->
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">m</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">g</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <!-- Row 8 -->
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">L</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">P</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">g</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <!-- Row 9 -->
+                                <div class="cell"><span class="cell-letter">p</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">G</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">v</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">g</span></div>
+                                <!-- Row 10 -->
+                                <div class="cell"><span class="cell-letter">U</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">H</span></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">g</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">v</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <!-- Row 11 -->
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">L</span></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">k</span></div>
+                                <div class="cell"><span class="cell-letter">Y</span></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">g</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <!-- Row 12 -->
+                                <div class="cell"><span class="cell-letter">H</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">C</span></div>
+                                <div class="cell"><span class="cell-letter">k</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">U</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">m</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <!-- Row 13 -->
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">k</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">g</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">m</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <!-- Row 14 -->
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">v</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell"><span class="cell-letter">U</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <!-- Row 15 -->
+                                <div class="cell"><span class="cell-letter">y</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">P</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="spoiler-overlay">
+                                    <div class="spoiler-message">Click to reveal</div>
+                                </div>
+                            </div>
+                            <div class="nyt-grid-caption">Coming soon!</div>
+                        </div>
+                        <div class="nyt-grid-slide">
+                            <div class="crossword-grid nyt-crossword-grid spoiler-hidden" id="nyt-grid-4">
+                                <!-- Row 1 -->
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">H</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">D</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">C</span></div>
+                                <div class="cell"><span class="cell-letter">h</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">p</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <!-- Row 2 -->
+                                <div class="cell"><span class="cell-letter">C</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">M</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">h</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">r</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">x</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">y</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <!-- Row 3 -->
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">W</span></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">w</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">h</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <!-- Row 4 -->
+                                <div class="cell"><span class="cell-letter">M</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">D</span></div>
+                                <!-- Row 5 -->
+                                <div class="cell"><span class="cell-letter">p</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <!-- Row 6 -->
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">M</span></div>
+                                <div class="cell"><span class="cell-letter">u</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">D</span></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">w</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <!-- Row 7 -->
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">P</span></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell black"></div>
+                                <!-- Row 8 -->
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">C</span></div>
+                                <div class="cell"><span class="cell-letter">h</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">H</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <!-- Row 9 -->
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">H</span></div>
+                                <div class="cell"><span class="cell-letter">u</span></div>
+                                <div class="cell"><span class="cell-letter">M</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">u</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <!-- Row 10 -->
+                                <div class="cell"><span class="cell-letter">W</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">T</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">M</span></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">L</span></div>
+                                <!-- Row 11 -->
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">L</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell"><span class="cell-letter">U</span></div>
+                                <div class="cell"><span class="cell-letter">b</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">h</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">i</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <!-- Row 12 -->
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">w</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">L</span></div>
+                                <div class="cell"><span class="cell-letter">c</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">w</span></div>
+                                <div class="cell"><span class="cell-letter">R</span></div>
+                                <div class="cell"><span class="cell-letter">o</span></div>
+                                <div class="cell"><span class="cell-letter">N</span></div>
+                                <div class="cell"><span class="cell-letter">g</span></div>
+                                <div class="cell"><span class="cell-letter">S</span></div>
+                                <!-- Row 13 -->
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell"><span class="cell-letter">U</span></div>
+                                <div class="cell"><span class="cell-letter">d</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">a</span></div>
+                                <div class="cell"><span class="cell-letter">U</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">t</span></div>
+                                <div class="cell"><span class="cell-letter">U</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell"><span class="cell-letter">s</span></div>
+                                <!-- Row 14 -->
+                                <div class="cell"><span class="cell-letter">O</span></div>
+                                <div class="cell"><span class="cell-letter">v</span></div>
+                                <div class="cell"><span class="cell-letter">U</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">Z</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="cell"><span class="cell-letter">I</span></div>
+                                <div class="cell"><span class="cell-letter">l</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <!-- Row 15 -->
+                                <div class="cell"><span class="cell-letter">m</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">p</span></div>
+                                <div class="cell"><span class="cell-letter">L</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">D</span></div>
+                                <div class="cell"><span class="cell-letter">g</span></div>
+                                <div class="cell"><span class="cell-letter">E</span></div>
+                                <div class="cell black"></div>
+                                <div class="cell"><span class="cell-letter">D</span></div>
+                                <div class="cell"><span class="cell-letter">e</span></div>
+                                <div class="cell"><span class="cell-letter">A</span></div>
+                                <div class="cell"><span class="cell-letter">n</span></div>
+                                <div class="spoiler-overlay">
+                                    <div class="spoiler-message">Click to reveal</div>
+                                </div>
+                            </div>
+                            <div class="nyt-grid-caption">Coming soon!</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="nyt-nav-btn next-btn" aria-label="Next Grid">&gt;</button>
+            </div>
+        </div>
+
+        <!-- Section Divider -->
+        <hr class="section-divider">
 
         <div class="video-section">
             <div class="video-player-wrapper">
@@ -63,186 +1067,123 @@
             </div>
         </div>
 
-        <div class="puzzles-layout">
-            <div class="puzzles-main-content">
-                <p>Welcome to the puzzles page! More puzzles will be coming soon. In the meantime, try your hand at
-                    Connect Four against our minimax AI.</p>
-            </div>
-
-            <div class="puzzles-sidebar">
-                <div class="connect4-game">
-                    <div class="confetti-container" id="confetti-container"></div>
-                    <div class="connect4-container">
-                        <div class="tokens-container" id="tokens-container"></div>
-                        <div class="board-frame" id="board-frame"></div>
-                        <div class="columns-container" id="columns-container"></div>
-                    </div>
-
-                    <div class="game-controls">
-                        <button id="reset-btn" class="c4-reset-btn" aria-label="Reset Game">
-                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <!-- Smoothed hand-drawn-ish bezier clockwise path -->
-                                <path
-                                    d="M 88 63 C 86 78, 68 89, 48 89 C 28 89, 11 70, 11 48 C 11 27, 29 11, 51 11 C 62 11, 73 15, 77 23 L 94 41" />
-                                <!-- Smoothed hand-drawn-ish arrowhead -->
-                                <path d="M 93 18 L 94 41 L 72 43" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section Divider -->
-        <hr class="section-divider">
-
-        <!-- MMabble Game Section -->
-        <div class="puzzles-layout mmabble-section">
-            <div class="puzzles-main-content">
-                <p>
-                    MMabble is 9x9 Scrabble where the only letter is M.
-                    As per tournament Scrabble rules, the only legal words in this game are MM and MMM.
-                    No passing and no fake words!
-                </p>
-                <p>
-                    Watch for bonus squares, and note that playing overlaps is quite lucrative,
-                    since you get points for every new word you form.
-                    Game ends at a stalemate, or when one player plays all tiles on their rack.
-                </p>
-            </div>
-
-            <div class="puzzles-sidebar">
-                <div class="mmabble-board-wrapper">
-                    <!-- MMabble Scoreboard -->
-                    <div class="mmabble-scoreboard-container">
-                        <span>You: <span id="mmabble-score-you" class="mmabble-scoreboard-number">0</span> &nbsp; AI:
-                            <span id="mmabble-score-ai" class="mmabble-scoreboard-number">0</span></span>
-                        <span class="mmabble-divider">|</span>
-                        <span>This move scores: <span id="mmabble-play-points"
-                                class="mmabble-scoreboard-number">0</span></span>
-                    </div>
-                    <div id="mmabble-ai-score-notice" class="mmabble-ai-notice"></div>
-
-                    <div id="mmabble-board" class="mmabble-grid"></div>
-
-                    <!-- MMabble Player Rack -->
-                    <div class="mmabble-rack-container">
-                        <div class="mmabble-rack-tiles" id="mmabble-rack">
-                            <div class="mmabble-rack-slot" data-index="0"></div>
-                            <div class="mmabble-rack-slot" data-index="1"></div>
-                            <div class="mmabble-rack-slot" data-index="2"></div>
-                            <div class="mmabble-rack-slot" data-index="3"></div>
-                            <div class="mmabble-rack-slot" data-index="4"></div>
-                            <div class="mmabble-rack-slot" data-index="5"></div>
-                            <div class="mmabble-rack-slot" data-index="6"></div>
-                        </div>
-                        <div class="mmabble-rack-body"></div>
-                        <div class="mmabble-rack-lip"></div>
-                    </div>
-
-                    <!-- MMabble Rack Status & Reset Button -->
-                    <div class="mmabble-status-container">
-                        <span>Tiles left: <span id="mmabble-remaining" class="mmabble-status-number">40</span></span>
-                        <span>Tiles in bag: <span id="mmabble-bag" class="mmabble-status-number">26</span></span>
-                        <button id="mmabble-play-btn" class="mmabble-play-btn" aria-label="Play Move" disabled>
-                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <!-- Handdrawn-like checkmark symbol -->
-                                <path d="M 22 54 C 30 62, 36 70, 42 76 C 53 54, 66 28, 78 18" />
-                            </svg>
-                        </button>
-                        <button id="mmabble-reset-btn" class="mmabble-reset-btn" aria-label="Reset Board">
-                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M 88 63 C 86 78, 68 89, 48 89 C 28 89, 11 70, 11 48 C 11 27, 29 11, 51 11 C 62 11, 73 15, 77 23 L 94 41" />
-                                <path d="M 93 18 L 94 41 L 72 43" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Section Divider -->
-        <hr class="section-divider">
-
-        <!-- Mumble Game Section -->
-        <div class="puzzles-layout mumble-section">
-            <div class="puzzles-main-content">
-                <h2>Mumble</h2>
-                <p>
-                    Mumble is 11x11 Scrabble with 40 Ms and 20 Us.
-                    As per the international Scrabble dictionary, there are ten legal words in this game:
-                    MM, MU, UM, MMM, MUM, UMM, UMU, MUMM, MUMU, and MUUMUU.
-                </p>
-                <p>
-                    You can swap tiles with the bag if the bag has at least 7 tiles left.
-                    I wouldn't recommend it tbh
-                </p>
-            </div>
-
-            <div class="puzzles-sidebar">
-                <div class="mumble-board-wrapper">
-                    <!-- Mumble Scoreboard -->
-                    <div class="mumble-scoreboard-container">
-                        <span>You: <span id="mumble-score-you" class="mumble-scoreboard-number">0</span> &nbsp; AI:
-                            <span id="mumble-score-ai" class="mumble-scoreboard-number">0</span></span>
-                        <span class="mumble-divider">|</span>
-                        <span>This move scores: <span id="mumble-play-points"
-                                class="mumble-scoreboard-number">0</span></span>
-                    </div>
-                    <div id="mumble-ai-score-notice" class="mumble-ai-notice"></div>
-
-                    <div id="mumble-board" class="mumble-grid"></div>
-
-                    <!-- Mumble Player Rack -->
-                    <div class="mmabble-rack-container">
-                        <div class="mmabble-rack-tiles" id="mumble-rack">
-                            <div class="mmabble-rack-slot" data-index="0"></div>
-                            <div class="mmabble-rack-slot" data-index="1"></div>
-                            <div class="mmabble-rack-slot" data-index="2"></div>
-                            <div class="mmabble-rack-slot" data-index="3"></div>
-                            <div class="mmabble-rack-slot" data-index="4"></div>
-                            <div class="mmabble-rack-slot" data-index="5"></div>
-                            <div class="mmabble-rack-slot" data-index="6"></div>
-                        </div>
-                        <div class="mmabble-rack-body"></div>
-                        <div class="mmabble-rack-lip"></div>
-                    </div>
-
-                    <!-- Mumble Rack Status & Buttons -->
-                    <div class="mumble-status-container">
-                        <span>Tiles unseen: M x <span id="mumble-unseen-m" class="mumble-status-number">40</span>, U x
-                            <span id="mumble-unseen-u" class="mumble-status-number">20</span></span>
-                        <button id="mumble-swap-btn" class="mumble-swap-btn" aria-label="Swap Tiles" disabled>
-                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <!-- Handdrawn-like antiparallel horizontal arrows -->
-                                <path d="M 20 35 L 80 35 M 80 35 L 60 20 M 80 35 L 60 50" />
-                                <path d="M 80 65 L 20 65 M 20 65 L 40 50 M 20 65 L 40 80" />
-                            </svg>
-                        </button>
-                        <button id="mumble-play-btn" class="mumble-play-btn" aria-label="Play Move" disabled>
-                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <!-- Handdrawn-like checkmark symbol -->
-                                <path d="M 22 54 C 30 62, 36 70, 42 76 C 53 54, 66 28, 78 18" />
-                            </svg>
-                        </button>
-                        <button id="mumble-reset-btn" class="mumble-reset-btn" aria-label="Reset Board">
-                            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path
-                                    d="M 88 63 C 86 78, 68 89, 48 89 C 28 89, 11 70, 11 48 C 11 27, 29 11, 51 11 C 62 11, 73 15, 77 23 L 94 41" />
-                                <path d="M 93 18 L 94 41 L 72 43" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Generate 15x15 blank grids
+            document.querySelectorAll('.nyt-crossword-grid').forEach(grid => {
+                if (grid.children.length === 0) {
+                    for (let i = 0; i < 225; i++) {
+                        const cell = document.createElement('div');
+                        cell.className = 'cell';
+                        grid.appendChild(cell);
+                    }
+                }
+            });
+
+            // Gallery logic
+            let currentGridIdx = 0;
+            const track = document.querySelector('.nyt-grids-track');
+            const slides = document.querySelectorAll('.nyt-grid-slide');
+            const prevBtn = document.querySelector('.nyt-gallery-wrapper .prev-btn');
+            const nextBtn = document.querySelector('.nyt-gallery-wrapper .next-btn');
+
+            function getVisibleCount() {
+                return window.innerWidth <= 860 ? 1 : 2;
+            }
+
+            function updateCarousel() {
+                if (!slides.length || !track) return;
+                const visibleCount = getVisibleCount();
+                const maxIdx = slides.length - visibleCount;
+                if (currentGridIdx > maxIdx) {
+                    currentGridIdx = maxIdx;
+                }
+                const slideWidth = slides[0].getBoundingClientRect().width;
+                const style = window.getComputedStyle(track);
+                const gap = parseFloat(style.columnGap) || parseFloat(style.gap) || 0;
+
+                const offset = -currentGridIdx * (slideWidth + gap);
+                track.style.transform = `translateX(${offset}px)`;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                const visibleCount = getVisibleCount();
+                const maxIdx = slides.length - visibleCount;
+                if (currentGridIdx > 0) {
+                    currentGridIdx--;
+                } else {
+                    currentGridIdx = maxIdx;
+                }
+                updateCarousel();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                const visibleCount = getVisibleCount();
+                const maxIdx = slides.length - visibleCount;
+                if (currentGridIdx < maxIdx) {
+                    currentGridIdx++;
+                } else {
+                    currentGridIdx = 0;
+                }
+                updateCarousel();
+            });
+
+            // Touch Swipe gestures
+            let touchStartX = 0;
+            let touchEndX = 0;
+            const viewport = document.querySelector('.nyt-viewport');
+
+            viewport.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            viewport.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const visibleCount = getVisibleCount();
+                const maxIdx = slides.length - visibleCount;
+                if (touchStartX - touchEndX > swipeThreshold) {
+                    if (currentGridIdx < maxIdx) {
+                        currentGridIdx++;
+                    } else {
+                        currentGridIdx = 0;
+                    }
+                    updateCarousel();
+                } else if (touchEndX - touchStartX > swipeThreshold) {
+                    if (currentGridIdx > 0) {
+                        currentGridIdx--;
+                    } else {
+                        currentGridIdx = maxIdx;
+                    }
+                    updateCarousel();
+                }
+            }
+
+            // Spoiler reveal logic
+            document.querySelectorAll('.nyt-crossword-grid.spoiler-hidden').forEach(grid => {
+                grid.addEventListener('click', function onClick() {
+                    grid.classList.remove('spoiler-hidden');
+                    const overlay = grid.querySelector('.spoiler-overlay');
+                    if (overlay) {
+                        overlay.remove();
+                    }
+                    grid.removeEventListener('click', onClick);
+                });
+            });
+
+            // Window resize handler
+            window.addEventListener('resize', updateCarousel);
+
+            // Run initial update
+            updateCarousel();
+        });
+    </script>
 
     <!-- Client-side MMabble Grid Generation and Interactivity is now handled in mmabble.js -->
     <script src="transitions.js"></script>
