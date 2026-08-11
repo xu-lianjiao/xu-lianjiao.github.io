@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact</title>
-    <link rel="preload" href="fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="../fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../style.css">
     <script>
         (function () {
             if (sessionStorage.getItem('navigated_from_index') === 'true') {
@@ -37,17 +37,27 @@
             </svg>
         </button>
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="work.html">Work</a>
-            <a href="puzzles.html">Puzzles</a>
-            <a href="pursuits.html">Other</a>
-            <a href="contact.html" class="active">Contact</a>
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/work/">Work</a>
+            <a href="/puzzles/">Puzzles</a>
+            <a href="/other/">Other</a>
+            <a href="/contact/" class="active">Contact</a>
         </div>
     </nav>
     <main class="container fade-in-up">
-        <h1>Contact</h1>
-        <p class="contact-intro">I'll get back to you as soon as possible!</p>
+        <div class="contact-header-container">
+            <h1>Contact</h1>
+            <a href="https://www.linkedin.com/in/julian-xiao/" class="linkedin-contact-link" target="_blank"
+                rel="noopener noreferrer">
+                <svg class="linkedin-contact-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                </svg>
+                <span>https://www.linkedin.com/in/julian-xiao/</span>
+            </a>
+        </div>
+        <p class="contact-intro">You've reached the end. Thanks for stopping by :)</p>
 
         <!-- 
             PROTOTYPE NOTE:
@@ -80,7 +90,7 @@
                     required></textarea>
                 <span class="error-message" id="message-error"></span>
             </div>
-            <button type="submit" class="contact-submit-btn">Send Message</button>
+            <button type="submit" class="contact-submit-btn">Send</button>
         </form>
 
         <!-- Success Message (hidden by default) -->
@@ -91,9 +101,9 @@
                     <path d="M 22 51 C 28 58, 33 66, 40 73 C 54 55, 68 37, 80 25" />
                 </svg>
             </div>
-            <h2>Message Sent!</h2>
-            <p>Thank you for reaching out. I'll get back to you as soon as possible.</p>
-            <button type="button" class="contact-reset-btn" id="new-message-btn">Send another message</button>
+            <h2>Message sent!</h2>
+            <p>This goes right to my inbox. I'll get back to you soon!</p>
+            <button type="button" class="contact-reset-btn" id="new-message-btn">Back</button>
         </div>
     </main>
 
@@ -255,7 +265,7 @@
             });
         }
     </script>
-    <script src="transitions.js"></script>
+    <script src="../transitions.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Work</title>
+    <link rel="preload" href="../fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../style.css?v=7">
+    <style>
+        /* Coursework Section Styles */
+        .coursework-section {
+            margin-top: 30px;
+            margin-bottom: 40px;
+            font-family: 'National Park', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        }
+
+        .coursework-section h2 {
+            font-family: 'JXH', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+            font-size: 1.8em;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #1d2d44;
+            text-align: left !important;
+        }
+
+        .coursework-lists {
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: space-between !important;
+            gap: 40px !important;
+            width: 100% !important;
+        }
+
+        .coursework-column {
+            flex: 1 !important;
+            text-align: center !important;
+        }
+
+        .coursework-column h3 {
+            font-family: 'JXH', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+            font-size: 1.3em;
+            margin-top: 0;
+            margin-bottom: 4px;
+            color: #1d2d44;
+            text-align: center !important;
+        }
+
+        .coursework-column ul {
+            font-family: 'National Park', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+            font-size: 1.1em;
+            margin: 0;
+            line-height: 1.5;
+            padding: 0 0 0 20px !important;
+            display: inline-block !important;
+            text-align: left !important;
+        }
+
+        .coursework-column ul li {
+            font-family: 'National Park', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+            margin-bottom: 3px;
+        }
+    </style>
+    <script>
+        (function () {
+            if (sessionStorage.getItem('navigated_from_index') === 'true') {
+                document.documentElement.classList.add('dock-animate-entry');
+                sessionStorage.removeItem('navigated_from_index');
+            }
+
+            const fontTimeout = new Promise(resolve => setTimeout(resolve, 1500));
+            const resourcesLoaded = Promise.all([
+                document.fonts.ready,
+                new Promise(resolve => window.addEventListener('load', resolve))
+            ]);
+            Promise.race([resourcesLoaded, fontTimeout]).then(() => {
+                document.documentElement.classList.add('fonts-loaded');
+            });
+        })();
+    </script>
+</head>
+
+<body>
+    <nav class="subpage-nav">
+        <button class="menu-toggle" aria-label="Toggle Navigation" aria-expanded="false">
+            <svg class="hamburger-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
+                stroke-linecap="round">
+                <path class="line-top" d="M 15 28 C 35 25, 65 31, 85 28" />
+                <path class="line-middle" d="M 12 50 C 42 53, 58 47, 88 50" />
+                <path class="line-bottom" d="M 18 72 C 38 69, 68 75, 82 72" />
+            </svg>
+        </button>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/work/" class="active">Work</a>
+            <a href="/puzzles/">Puzzles</a>
+            <a href="/other/">Other</a>
+            <a href="/contact/">Contact</a>
+        </div>
+    </nav>
+    <main class="container fade-in-up">
+        <h1>Technical Work</h1>
+
+        <!-- Recent Coursework Section -->
+        <div class="coursework-section">
+            <h2>Recent Coursework</h2>
+            <div class="coursework-lists">
+                <div class="coursework-column">
+                    <h3>Maths</h3>
+                    <ul>
+                        <li>Probability measures and martingales</li>
+                        <li>Continuous martingales and stochastic calculus</li>
+                        <li>Information theory</li>
+                        <li>Financial derivatives (self-study)</li>
+                    </ul>
+                </div>
+                <div class="coursework-column">
+                    <h3>Comp Sci</h3>
+                    <ul>
+                        <li>Artificial intelligence</li>
+                        <li>Physics-informed neural networks</li>
+                        <li>Deep learning in healthcare</li>
+                        <li>Concurrency</li>
+                        <li>Lambda calculus</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Divider -->
+        <hr class="section-divider">
+
+        <!-- Project 1: With Read-More Option -->
+        <div class="project-layout" style="display: block;">
+            <div class="project-media" style="float: right; width: 510px; margin: 0 0 20px 25px;">
+                <img src="../images/hard-c-demo-2.png" alt="Hard C Demo Image">
+            </div>
+            <h2>Hard C</h2>
+            <p>Hard C is my personal crossword engine designed to create New York Times-style themeless puzzle grids.
+                Free crossword
+                software is
+                available online, but they can take crazy amounts of
+                RAM and battery, and grid-filling operations can take hours to complete if my grid is very wide open.
+                I created Hard C to counter those weaknesses in speed and power.
+            </p>
+
+            <!-- Read More Section -->
+            <div class="project-read-more-content">
+                <p>Filling a crossword is an NP-complete problem, so my saves in efficiency came from exploiting
+                    domain-specific patterns. I developed a heuristic called "proximity"
+                    which outperforms other standard choices for CSPs when applied to themeless grids. Hard
+                    C gives me greater control of the number of concurrent threads and how much they interact, so I can
+                    control how lightweight my engine is if I plan to just let it run in the background. Hard C is
+                    built off of an open-source Rust project called Ingrid, by Ryan Fitzgerald.</p>
+            </div>
+
+            <button class="project-toggle-btn" aria-label="Read more about Hard C" aria-expanded="false">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round">
+                    <line class="line-v" x1="50" y1="20" x2="50" y2="80" />
+                    <line class="line-h" x1="20" y1="50" x2="80" y2="50" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Section Divider -->
+        <hr class="section-divider">
+
+        <!-- Project 2: Without Read-More Option (Demonstrates easy customizability) -->
+        <div class="project-layout" style="display: block;">
+            <div class="project-media" style="float: right; width: 320px; margin: 0 0 20px 25px;">
+                <img src="../images/favicon.ico" alt="Project Two Placeholder Image">
+            </div>
+            <h2>Foornal</h2>
+            <p>Short for "food journal", this mobile app lets users track their nutrition just by taking pictures of
+                their meals.
+            </p>
+        </div>
+
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const toggleButtons = document.querySelectorAll('.project-toggle-btn');
+                toggleButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const container = btn.closest('.project-layout') || btn.closest('.project-main-content');
+                        if (container) {
+                            const content = container.querySelector('.project-read-more-content');
+                            if (content) {
+                                const isExpanded = content.classList.toggle('expanded');
+                                btn.classList.toggle('expanded', isExpanded);
+                                btn.setAttribute('aria-expanded', isExpanded);
+                                if (isExpanded) {
+                                    content.style.maxHeight = content.scrollHeight + 'px';
+                                } else {
+                                    content.style.maxHeight = '0px';
+                                }
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+    </main>
+    <script src="../transitions.js"></script>
+</body>
+
+</html>

@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technical Work</title>
-    <link rel="preload" href="fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="style.css">
-    <script src="connect4.js" defer></script>
-    <script src="mmabble.js" defer></script>
-    <script src="mumble.js" defer></script>
+    <title>Other Pursuits</title>
+    <link rel="preload" href="../fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../connect4.js" defer></script>
+    <script src="../mmabble.js" defer></script>
+    <script src="../mumble.js" defer></script>
     <script>
         (function () {
             if (sessionStorage.getItem('navigated_from_index') === 'true') {
@@ -39,52 +39,21 @@
             </svg>
         </button>
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="work.html" class="active">Work</a>
-            <a href="puzzles.html">Puzzles</a>
-            <a href="pursuits.html">Other</a>
-            <a href="contact.html">Contact</a>
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/work/">Work</a>
+            <a href="/puzzles/">Puzzles</a>
+            <a href="/other/" class="active">Other</a>
+            <a href="/contact/">Contact</a>
         </div>
     </nav>
     <main class="container fade-in-up">
-        <h1>Technical Work</h1>
-        <!-- Project 1: With Read-More Option -->
-        <div class="project-layout">
-            <div class="project-main-content">
-                <h2>Project Title One</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                
-                <!-- Read More Section -->
-                <div class="project-read-more-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
-
-                <button class="project-toggle-btn" aria-label="Read more about Project One" aria-expanded="false">
-                    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round">
-                        <line x1="50" y1="20" x2="50" y2="80" />
-                        <line x1="20" y1="50" x2="80" y2="50" />
-                    </svg>
-                </button>
-            </div>
-            <div class="project-media">
-                <img src="images/favicon.ico" alt="Project One Placeholder Image">
-            </div>
-        </div>
-
-        <!-- Section Divider -->
-        <hr class="section-divider">
-
-        <!-- Project 2: Without Read-More Option (Demonstrates easy customizability) -->
-        <div class="project-layout">
-            <div class="project-main-content">
-                <h2>Project Title Two</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            </div>
-            <div class="project-media">
-                <img src="images/favicon.ico" alt="Project Two Placeholder Image">
-            </div>
-        </div>
+        <h1>Other Pursuits</h1>
+        <p>The things I spend time on outside of my degree aren't really separate from how I think—they're just different expressions of the same curiosity.</p>
+        <p>One of the most rewarding has been mathematics education. I serve on the organising committee of the Oxford Mathematics Team Challenge (OMTC), a fully student-run national competition that brings sixth form students from across the UK to Oxford. As one of the first competitions of its kind, it gives students the opportunity to compete inside the Exam Schools and experience university mathematics in a way that isn't usually accessible at school. Helping organise an event on this scale has been incredibly fulfilling, not just because of the logistics involved, but because I get to see hundreds of students discover the same excitement for mathematics that drew me to it in the first place.</p>
+        <p>That interest extends beyond OMTC. I tutor mathematics, have volunteered with Mathleague competitions, and have written my own problem sheets and worksheets for students. I've always enjoyed finding ways to explain difficult ideas clearly, and designing problems that teach a concept rather than simply test it. Seeing someone have that "click" moment is every bit as satisfying as solving the problem yourself.</p>
+        <p>Music has been the other constant in my life. I grew up playing classical piano and still perform regularly in college recitals and soirées. More recently I've found myself drawn to jazz and funk, playing keyboard in a combo with friends and performing gigs in local bars. Before university I also sang bass in an English church choir, including as a soloist, and I'm currently teaching myself both bass guitar and electric guitar.</p>
+        <p>What I enjoy most about music is how different it feels from mathematics while rewarding many of the same instincts. Whether I'm interpreting a Chopin nocturne, improvising over a jazz progression, or learning a new instrument from scratch, the process is one of continual refinement—listening carefully, experimenting, making mistakes, and gradually building intuition. It's a reminder that there are many different ways to learn, create, and communicate.</p>
 
         <!-- Section Divider -->
         <hr class="section-divider">
@@ -192,6 +161,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Section Divider -->
         <hr class="section-divider">
 
@@ -270,27 +240,8 @@
                 </div>
             </div>
         </div>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const toggleButtons = document.querySelectorAll('.project-toggle-btn');
-                toggleButtons.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const container = btn.closest('.project-main-content');
-                        if (container) {
-                            const content = container.querySelector('.project-read-more-content');
-                            if (content) {
-                                const isExpanded = content.classList.toggle('expanded');
-                                btn.classList.toggle('expanded', isExpanded);
-                                btn.setAttribute('aria-expanded', isExpanded);
-                            }
-                        }
-                    });
-                });
-            });
-        </script>
     </main>
-    <script src="transitions.js"></script>
+    <script src="../transitions.js"></script>
 </body>
 
 </html>

@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me</title>
-    <link rel="preload" href="fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="../fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../style.css">
     <script>
         (function () {
             if (sessionStorage.getItem('navigated_from_index') === 'true') {
@@ -37,32 +37,28 @@
             </svg>
         </button>
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html" class="active">About</a>
-            <a href="work.html">Work</a>
-            <a href="puzzles.html">Puzzles</a>
-            <a href="pursuits.html">Other</a>
-            <a href="contact.html">Contact</a>
+            <a href="/">Home</a>
+            <a href="/about/" class="active">About</a>
+            <a href="/work/">Work</a>
+            <a href="/puzzles/">Puzzles</a>
+            <a href="/other/">Other</a>
+            <a href="/contact/">Contact</a>
         </div>
     </nav>
     <main class="container fade-in-up">
-        <img src="images/me-rome-filter.JPG" alt="Julian in Rome" class="profile-img about-profile-img">
+        <img src="../images/me-rome-filter-2.JPG" alt="Julian in Rome" class="profile-img about-profile-img">
         <h1>About Me</h1>
-        <p>Hey there, thanks for stopping by! I'm Julian (he/him), and I'll be entering my final year of Maths
-            and Computer Science at the University of Oxford.</p>
+        <p>Hey there! I'm Julian (he/him), and I'll be entering my final year of the Integrated Master's in Maths
+            and Comp Sci at the University of Oxford.</p>
         <p>I grew up in the San Francisco Bay Area, surrounded by STEM. Moving to
-            Oxford allowed me to study my two favourite subjects full-time, to a level of rigour not offered anywhere
-            else.
-            I have a keen interest in probability theory, machine learning, and their applications. This year,
-            I'll be continuing in those areas through my master's project on neural-network surrogates for Gaussian
-            processes.</p>
-        <p>What I enjoy most is turning what I've learned into something others can use or enjoy. Solving crosswords
-            led me to writing them. Competing in maths contests led me to helping start one. Learning machine learning
-            led me to building research tools and open-source projects. Looking back, that's been a common thread
-            through most of the things I've enjoyed doing, and it's something I hope to keep doing in whatever comes
-            next.</p>
+            Oxford allowed me to study my two favourite subjects full-time, to a level of rigour unlike anything else.
+            I'm interestedi in probability theory, machine learning, and their applications.
+            My upcoming Master's research project is on adaptive clinical trials, where we model accumulating evidence
+            as a betting martingale. This will allow researchers at any point to continue the trial or stop early
+            while preserving statistical validity.
+        </p>
     </main>
-    <script src="transitions.js"></script>
+    <script src="../transitions.js"></script>
 </body>
 
 </html>

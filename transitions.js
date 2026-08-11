@@ -50,12 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
         animatingElement.classList.add('fade-out-down');
 
         // Set sessionStorage flag if exiting from index.html so the subpage dock animates
-        const isFromIndex = window.location.pathname.includes('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/');
+        const isFromIndex = !['/about/', '/contact/', '/other/', '/puzzles/', '/work/'].some(p => window.location.pathname.includes(p));
         if (isFromIndex) {
             sessionStorage.setItem('navigated_from_index', 'true');
         }
 
-        const isTargetIndex = href.includes('index.html') || new URL(link.href).pathname === '/' || new URL(link.href).pathname.endsWith('/');
+        const targetPath = new URL(link.href).pathname;
+        const isTargetIndex = !['/about/', '/contact/', '/other/', '/puzzles/', '/work/'].some(p => targetPath.includes(p));
         if (isTargetIndex) {
             const dock = document.querySelector('.subpage-nav');
             if (dock) {

@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puzzles</title>
-    <link rel="preload" href="fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="../fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../style.css">
     <script>
         (function () {
             if (sessionStorage.getItem('navigated_from_index') === 'true') {
@@ -37,27 +37,27 @@
             </svg>
         </button>
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="work.html">Work</a>
-            <a href="puzzles.html" class="active">Puzzles</a>
-            <a href="pursuits.html">Other</a>
-            <a href="contact.html">Contact</a>
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/work/">Work</a>
+            <a href="/puzzles/" class="active">Puzzles</a>
+            <a href="/other/">Other</a>
+            <a href="/contact/">Contact</a>
         </div>
     </nav>
     <main class="container fade-in-up">
         <h1>Puzzles</h1>
 
-        <p>This page doesn't come close to showing all the puzzles I've made, but I've tried to include my favourites!
+        <p>These are just a few puzzles that I've made, not at all a comprehensive list!
         </p>
 
         <!--  Published Crosswords Section -->
         <div class="nyt-section">
             <h2>Published Crosswords</h2>
-            <p>My specialty is making wide-open themeless crosswords, which are the most difficult puzzles
+            <p>I specialise in constructing wide-open themeless crosswords, the most difficult puzzles
                 that newspapers offer. This is my favourite type of crossword to create, since the grids turn out so
                 beautiful. I can't reproduce the
-                clues for licensing reasons, but I can show you the grids. Enjoy!
+                clues due to licensing reasons, but I can show you the grids. Enjoy!
             </p>
             <div class="nyt-gallery-wrapper">
                 <button class="nyt-nav-btn prev-btn" aria-label="Previous Grid">&lt;</button>
@@ -795,9 +795,11 @@
                                 <div class="cell"><span class="cell-letter">n</span></div>
                                 <div class="cell"><span class="cell-letter">T</span></div>
                                 <div class="cell"><span class="cell-letter">s</span></div>
+                                <!--
                                 <div class="spoiler-overlay">
-                                    <div class="spoiler-message">Click to reveal</div>
+                                    <div class="spoiler-message">Click to see spoilers!</div>
                                 </div>
+                                -->
                             </div>
                             <div class="nyt-grid-caption">Coming soon!</div>
                         </div>
@@ -1043,9 +1045,11 @@
                                 <div class="cell"><span class="cell-letter">e</span></div>
                                 <div class="cell"><span class="cell-letter">A</span></div>
                                 <div class="cell"><span class="cell-letter">n</span></div>
+                                <!--
                                 <div class="spoiler-overlay">
-                                    <div class="spoiler-message">Click to reveal</div>
+                                    <div class="spoiler-message">Click to see spoilers!</div>
                                 </div>
+                                -->
                             </div>
                             <div class="nyt-grid-caption">Coming soon!</div>
                         </div>
@@ -1053,12 +1057,37 @@
                 </div>
                 <button class="nyt-nav-btn next-btn" aria-label="Next Grid">&gt;</button>
             </div>
+            <div class="nyt-articles">
+                <p class="nyt-articles-header">See the NYT's articles discussing these puzzles!</p>
+                <div class="nyt-articles-links">
+                    <div><a href="https://www.nytimes.com/2024/01/05/crosswords/daily-puzzle-2024-01-06.html"
+                            target="_blank" rel="noopener noreferrer">Saturday January 6 2024</a></div>
+                    <div><a href="https://www.nytimes.com/2024/02/29/crosswords/daily-puzzle-2024-03-01.html"
+                            target="_blank" rel="noopener noreferrer">Friday March 1 2024</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Divider -->
+        <hr class="section-divider">
+
+        <!-- Variety Puzzles Section -->
+        <div class="variety-section">
+            <h2>Variety Puzzles</h2>
+            <p>In addition to traditional crosswords, I also enjoy creating variety puzzles. Here you can find a
+                selection of wordplay, logic puzzles, and custom novelty grids that I have designed.
+            </p>
+            <div class="variety-links">
+                <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer">Access my shared Google
+                    Folder with variety puzzle PDFs</a>
+            </div>
         </div>
 
         <!-- Section Divider -->
         <hr class="section-divider">
 
         <div class="video-section">
+            <h2>Bonus Video!</h2>
             <div class="video-player-wrapper">
                 <iframe src="https://www.youtube.com/embed/i-43ItpF73k?si=IYyFcnqOFqt0rHZ2&amp;controls=1"
                     title="YouTube video player" frameborder="0"
@@ -1165,7 +1194,8 @@
                 }
             }
 
-            // Spoiler reveal logic
+            // Spoiler reveal logic (disabled for now)
+            /*
             document.querySelectorAll('.nyt-crossword-grid.spoiler-hidden').forEach(grid => {
                 grid.addEventListener('click', function onClick() {
                     grid.classList.remove('spoiler-hidden');
@@ -1176,6 +1206,7 @@
                     grid.removeEventListener('click', onClick);
                 });
             });
+            */
 
             // Window resize handler
             window.addEventListener('resize', updateCarousel);
@@ -1186,7 +1217,7 @@
     </script>
 
     <!-- Client-side MMabble Grid Generation and Interactivity is now handled in mmabble.js -->
-    <script src="transitions.js"></script>
+    <script src="../transitions.js"></script>
 </body>
 
 </html>
