@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact</title>
     <link rel="preload" href="../fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" id="main-stylesheet" href="../style.css?v=12">
+    <script>
+        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+            const s = document.getElementById('main-stylesheet');
+            if (s) s.href = s.getAttribute('href').split('?')[0] + '?t=' + Date.now();
+        }
+    </script>
     <script>
         (function () {
             if (sessionStorage.getItem('navigated_from_index') === 'true') {
@@ -31,9 +37,9 @@
         <button class="menu-toggle" aria-label="Toggle Navigation" aria-expanded="false">
             <svg class="hamburger-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
                 stroke-linecap="round">
-                <path class="line-top" d="M 15 28 C 35 25, 65 31, 85 28" />
-                <path class="line-middle" d="M 12 50 C 42 53, 58 47, 88 50" />
-                <path class="line-bottom" d="M 18 72 C 38 69, 68 75, 82 72" />
+                <path class="line-top" d="M 15 28 L 85 28" />
+                <path class="line-middle" d="M 15 50 L 85 50" />
+                <path class="line-bottom" d="M 15 72 L 85 72" />
             </svg>
         </button>
         <div class="nav-links">
@@ -86,8 +92,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <textarea id="message" name="message" placeholder="Message" aria-label="Message" rows="4"
-                    required></textarea>
+                <textarea id="message" name="message" placeholder="Message (this goes right to my inbox)"
+                    aria-label="Message" rows="4" required></textarea>
                 <span class="error-message" id="message-error"></span>
             </div>
             <button type="submit" class="contact-submit-btn">Send</button>
@@ -102,7 +108,7 @@
                 </svg>
             </div>
             <h2>Message sent!</h2>
-            <p>This goes right to my inbox. I'll get back to you soon!</p>
+            <p>I'll get back to you soon!</p>
             <button type="button" class="contact-reset-btn" id="new-message-btn">Back</button>
         </div>
     </main>
@@ -265,7 +271,7 @@
             });
         }
     </script>
-    <script src="../transitions.js"></script>
+    <script src="../transitions.js?v=13"></script>
 </body>
 
 </html>

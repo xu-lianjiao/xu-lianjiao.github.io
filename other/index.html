@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Other Pursuits</title>
     <link rel="preload" href="../fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" id="main-stylesheet" href="../style.css?v=12">
+    <script>
+        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+            const s = document.getElementById('main-stylesheet');
+            if (s) s.href = s.getAttribute('href').split('?')[0] + '?t=' + Date.now();
+        }
+    </script>
     <script src="../connect4.js" defer></script>
     <script src="../mmabble.js" defer></script>
     <script src="../mumble.js" defer></script>
@@ -33,9 +39,9 @@
     <nav class="subpage-nav">
         <button class="menu-toggle" aria-label="Toggle Navigation" aria-expanded="false">
             <svg class="hamburger-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round">
-                <path class="line-top" d="M 15 28 C 35 25, 65 31, 85 28" />
-                <path class="line-middle" d="M 12 50 C 42 53, 58 47, 88 50" />
-                <path class="line-bottom" d="M 18 72 C 38 69, 68 75, 82 72" />
+                <path class="line-top" d="M 15 28 L 85 28" />
+                <path class="line-middle" d="M 15 50 L 85 50" />
+                <path class="line-bottom" d="M 15 72 L 85 72" />
             </svg>
         </button>
         <div class="nav-links">
@@ -241,7 +247,7 @@
             </div>
         </div>
     </main>
-    <script src="../transitions.js"></script>
+    <script src="../transitions.js?v=13"></script>
 </body>
 
 </html>

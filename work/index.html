@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Technical Work</title>
     <link rel="preload" href="../fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../style.css?v=7">
+    <link rel="stylesheet" id="main-stylesheet" href="../style.css?v=12">
+    <script>
+        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+            const s = document.getElementById('main-stylesheet');
+            if (s) s.href = s.getAttribute('href').split('?')[0] + '?t=' + Date.now();
+        }
+    </script>
     <style>
         /* Coursework Section Styles */
         .coursework-section {
@@ -85,9 +91,9 @@
         <button class="menu-toggle" aria-label="Toggle Navigation" aria-expanded="false">
             <svg class="hamburger-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
                 stroke-linecap="round">
-                <path class="line-top" d="M 15 28 C 35 25, 65 31, 85 28" />
-                <path class="line-middle" d="M 12 50 C 42 53, 58 47, 88 50" />
-                <path class="line-bottom" d="M 18 72 C 38 69, 68 75, 82 72" />
+                <path class="line-top" d="M 15 28 L 85 28" />
+                <path class="line-middle" d="M 15 50 L 85 50" />
+                <path class="line-bottom" d="M 15 72 L 85 72" />
             </svg>
         </button>
         <div class="nav-links">
@@ -107,25 +113,52 @@
             <h2>Recent Coursework</h2>
             <div class="coursework-lists">
                 <div class="coursework-column">
-                    <h3>Maths</h3>
+                    <h3>Mathematics</h3>
                     <ul>
-                        <li>Probability measures and martingales</li>
-                        <li>Continuous martingales and stochastic calculus</li>
-                        <li>Information theory</li>
-                        <li>Financial derivatives (self-study)</li>
+                        <li>Probability Measures and Martingales</li>
+                        <li>Continuous Martingales and Stochastic Calculus</li>
+                        <li>Information Theory</li>
+                        <li>Financial Derivatives (self-study)</li>
                     </ul>
                 </div>
                 <div class="coursework-column">
-                    <h3>Comp Sci</h3>
+                    <h3>Computer Science</h3>
                     <ul>
-                        <li>Artificial intelligence</li>
-                        <li>Physics-informed neural networks</li>
-                        <li>Deep learning in healthcare</li>
+                        <li>Artificial Intelligence</li>
+                        <li>Physics-Informed Neural Networks</li>
+                        <li>Deep Learning in Healthcare</li>
                         <li>Concurrency</li>
-                        <li>Lambda calculus</li>
+                        <li>Lambda Calculus</li>
                     </ul>
                 </div>
             </div>
+        </div>
+
+        <!-- Section Divider -->
+        <hr class="section-divider">
+
+        <!-- Sample Project Section -->
+        <div class="project-layout" style="display: block;">
+            <div class="project-media" style="float: right; width: 510px; margin: 0 0 20px 25px;">
+                <img src="../images/hard-c-demo-2.png" alt="Sample Project Image">
+            </div>
+            <h2>Trading Bots</h2>
+            <p>
+            </p>
+
+            <!-- Read More Section -->
+            <div class="project-read-more-content">
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                    anim id est laborum.</p>
+            </div>
+
+            <button class="project-toggle-btn" aria-label="Read more about Lorem Ipsum" aria-expanded="false">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round">
+                    <line class="line-v" x1="50" y1="20" x2="50" y2="80" />
+                    <line class="line-h" x1="20" y1="50" x2="80" y2="50" />
+                </svg>
+            </button>
         </div>
 
         <!-- Section Divider -->
@@ -166,15 +199,65 @@
         <!-- Section Divider -->
         <hr class="section-divider">
 
+        <!-- Sample Project Section (UCSF) -->
+        <div class="project-layout" style="display: block;">
+            <div class="project-media" style="float: right; width: 450px; margin: 0 0 20px 25px;">
+                <img src="../images/ucsf-work.png" alt="UCSF Work Image">
+            </div>
+            <h2>MRSI Brain Scans</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat.
+            </p>
+
+            <!-- Read More Section -->
+            <div class="project-read-more-content">
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                    anim id est laborum.</p>
+            </div>
+
+            <button class="project-toggle-btn" aria-label="Read more about Lorem Ipsum" aria-expanded="false">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round">
+                    <line class="line-v" x1="50" y1="20" x2="50" y2="80" />
+                    <line class="line-h" x1="20" y1="50" x2="80" y2="50" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Section Divider -->
+        <hr class="section-divider">
+
         <!-- Project 2: Without Read-More Option (Demonstrates easy customizability) -->
         <div class="project-layout" style="display: block;">
-            <div class="project-media" style="float: right; width: 320px; margin: 0 0 20px 25px;">
-                <img src="../images/favicon.ico" alt="Project Two Placeholder Image">
+            <div class="project-media" style="float: right; margin: 0 0 20px 25px; width: auto;">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <img src="../images/foornal-2.png" alt="Foornal App Screenshot 2"
+                        style="height: 415px; width: auto;">
+                    <img src="../images/foornal-1.png" alt="Foornal App Screenshot 1"
+                        style="height: 415px; width: auto;">
+                </div>
             </div>
-            <h2>Foornal</h2>
-            <p>Short for "food journal", this mobile app lets users track their nutrition just by taking pictures of
-                their meals.
+            <h2>Foornal (1st place prize @ OxBIG Hackathon)</h2>
+            <p>Short for "food journal", this mobile app lets users effortlessly track their nutrition just by taking
+                photos of
+                their meals. Foornal's LLM-based backend predicts the
+                ingredients and nutritional value of each meal, then gives written feedback encouraging users to
+                achieve their nutrition goals.
             </p>
+
+            <!-- Read More Section -->
+            <div class="project-read-more-content">
+                <p>This was made in a hackathon hosted by Oxford Behavioural Insights Group, where projects use AI tools
+                    and behavioural science to improve lives.</p>
+            </div>
+
+            <button class="project-toggle-btn" aria-label="Read more about Foornal" aria-expanded="false">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round">
+                    <line class="line-v" x1="50" y1="20" x2="50" y2="80" />
+                    <line class="line-h" x1="20" y1="50" x2="80" y2="50" />
+                </svg>
+            </button>
         </div>
 
 
@@ -203,7 +286,7 @@
             });
         </script>
     </main>
-    <script src="../transitions.js"></script>
+    <script src="../transitions.js?v=13"></script>
 </body>
 
 </html>

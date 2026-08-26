@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+function initTransitions() {
     const animatingElement = document.querySelector('.main-layout, .container');
     if (!animatingElement) return;
 
@@ -47,6 +47,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         e.preventDefault();
 
+        const subpageNav = link.closest('.subpage-nav');
+        if (subpageNav) {
+            subpageNav.classList.add('nav-locked');
+            const navLink = link.closest('a');
+            if (navLink) {
+                subpageNav.querySelectorAll('a').forEach(a => {
+                    if (a !== navLink) {
+                        a.classList.remove('active');
+                    }
+                });
+                navLink.classList.add('clicked');
+            }
+        }
+
         animatingElement.classList.add('fade-out-down');
 
         // Set sessionStorage flag if exiting from index.html so the subpage dock animates
@@ -55,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sessionStorage.setItem('navigated_from_index', 'true');
         }
 
-        const targetPath = new URL(link.href).pathname;
+        const targetPath = new URL(link.href, window.location.href).pathname;
         const isTargetIndex = !['/about/', '/contact/', '/other/', '/puzzles/', '/work/'].some(p => targetPath.includes(p));
         if (isTargetIndex) {
             const dock = document.querySelector('.subpage-nav');
@@ -68,4 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = href;
         }, 600);
     });
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTransitions);
+} else {
+    initTransitions();
+}

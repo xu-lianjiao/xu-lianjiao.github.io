@@ -8,7 +8,13 @@
         <link rel="icon" href="images/favicon (4).ico">
         <link rel="preload" href="fonts/jxh3.woff2" as="font" type="font/woff2" crossorigin>
         <link rel="preload" href="fonts/jxxword-thick.woff2" as="font" type="font/woff2" crossorigin>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" id="main-stylesheet" href="style.css?v=12">
+        <script>
+                if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+                        const s = document.getElementById('main-stylesheet');
+                        if (s) s.href = s.getAttribute('href').split('?')[0] + '?t=' + Date.now();
+                }
+        </script>
         <script>
                 (function () {
                         const fontTimeout = new Promise(resolve => setTimeout(resolve, 1500));
@@ -35,7 +41,7 @@
                         </h2>
                         <p>
                         <ul>
-                                <li>Ranked in top 10 of Class of 2027</li>
+                                <li>Completed BA with First-Class Honours</li>
                                 <li>USAMO and USAPhO alum</li>
                                 <li>Published crosswords in New York Times</li>
                                 <li>Deep learning and data science research</li>
@@ -424,47 +430,48 @@
                                         <!-- Highlighter Overlay Elements -->
                                         <div class="word-highlight" data-word="about">
                                                 <svg viewBox="0 0 700 100" preserveAspectRatio="none">
-                                                        <path d="M 15,12 L 675,12 C 673,38 676,68 670,88 L 10,88 C 14,68 8,38 15,12 Z"
+                                                        <path d="M 15,12 L 681.8,12 C 677,35 677,65 677.2,88 L 10,88 C 14,68 8,38 15,12 Z"
                                                                 fill="var(--highlighter-color)" opacity="0.3"></path>
-                                                        <path d="M 675,12 L 692,12 C 694,38 691,68 688,88 L 670,88 C 676,68 673,38 675,12 Z"
+                                                        <path d="M 681.8,12 L 692,12 C 694,38 691,68 688,88 L 677.2,88 C 677,65 677,35 681.8,12 Z"
                                                                 fill="var(--highlighter-color)" opacity="0.7"></path>
                                                 </svg>
                                         </div>
                                         <div class="word-highlight" data-word="work">
                                                 <svg viewBox="0 0 1300 100" preserveAspectRatio="none">
-                                                        <path d="M 8,10 L 1272,10 C 1270,35 1271,65 1268,90 L 12,90 C 9,65 11,35 8,10 Z"
+                                                        <path d="M 8,10 L 1279.2,10 C 1274.5,35 1274.5,65 1275.2,90 L 12,90 C 9,65 11,35 8,10 Z"
                                                                 fill="var(--highlighter-color)" opacity="0.3"></path>
-                                                        <path d="M 1272,10 L 1290,10 C 1292,35 1289,65 1286,90 L 1268,90 C 1271,65 1270,35 1272,10 Z"
+                                                        <path d="M 1279.2,10 L 1290,10 C 1292,35 1289,65 1286,90 L 1275.2,90 C 1274.5,65 1274.5,35 1279.2,10 Z"
                                                                 fill="var(--highlighter-color)" opacity="0.7"></path>
                                                 </svg>
                                         </div>
                                         <div class="word-highlight" data-word="puzzles">
                                                 <svg viewBox="0 0 700 100" preserveAspectRatio="none">
-                                                        <path d="M 18,14 L 672,14 C 674,40 670,70 668,86 L 12,86 C 10,70 14,40 18,14 Z"
+                                                        <path d="M 18,14 L 679.2,14 C 674.8,38 674.8,62 675.6,86 L 12,86 C 10,70 14,40 18,14 Z"
                                                                 fill="var(--highlighter-color)" opacity="0.3"></path>
-                                                        <path d="M 672,14 L 690,14 C 688,40 691,70 687,86 L 668,86 C 670,70 674,40 672,14 Z"
+                                                        <path d="M 679.2,14 L 690,14 C 688,40 691,70 687,86 L 675.6,86 C 674.8,62 674.8,38 679.2,14 Z"
                                                                 fill="var(--highlighter-color)" opacity="0.7"></path>
                                                 </svg>
                                         </div>
                                         <div class="word-highlight" data-word="pursuits">
                                                 <svg viewBox="0 0 1300 100" preserveAspectRatio="none">
-                                                        <path d="M 10,11 L 1274,11 C 1271,37 1275,67 1270,89 L 14,89 C 9,67 13,37 10,11 Z"
+                                                        <path d="M 10,11 L 1281.2,11 C 1276.5,37 1276.5,63 1277.2,89 L 14,89 C 9,67 13,37 10,11 Z"
                                                                 fill="var(--highlighter-color)" opacity="0.3"></path>
-                                                        <path d="M 1274,11 L 1292,11 C 1290,37 1293,67 1288,89 L 1270,89 C 1275,67 1271,37 1274,11 Z"
+                                                        <path d="M 1281.2,11 L 1292,11 C 1290,37 1293,67 1288,89 L 1277.2,89 C 1276.5,63 1276.5,37 1281.2,11 Z"
                                                                 fill="var(--highlighter-color)" opacity="0.7"></path>
                                                 </svg>
                                         </div>
                                         <div class="word-highlight" data-word="contact">
                                                 <svg viewBox="0 0 700 100" preserveAspectRatio="none">
-                                                        <path d="M 14,13 L 673,13 C 671,39 673,69 669,87 L 11,87 C 7,69 10,39 14,13 Z"
+                                                        <path d="M 14,13 L 680.2,13 C 675.5,37 675.5,63 676.2,87 L 11,87 C 7,69 10,39 14,13 Z"
                                                                 fill="var(--highlighter-color)" opacity="0.3"></path>
-                                                        <path d="M 673,13 L 691,13 C 689,39 692,69 687,87 L 669,87 C 673,69 671,39 673,13 Z"
+                                                        <path d="M 680.2,13 L 691,13 C 689,39 692,69 687,87 L 676.2,87 C 675.5,63 675.5,37 680.2,13 Z"
                                                                 fill="var(--highlighter-color)" opacity="0.7"></path>
                                                 </svg>
                                         </div>
 
                                 </div>
-                                <!-- Handdrawn arrow pointing to the grid -->
+                                <!-- Handdrawn arrow pointing to the grid (commented out) -->
+                                <!--
                                 <div class="arrow-decoration">
                                         <svg class="handdrawn-arrow" viewBox="0 0 100 100" fill="none"
                                                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
@@ -474,6 +481,7 @@
                                         </svg>
                                         <span class="arrow-text">click around!</span>
                                 </div>
+                                -->
                         </div>
                 </main>
         </div>
@@ -515,6 +523,8 @@
                         }
                 }
 
+                // --- 2. Standard Cell Hover Tooltip --- (TEMPORARILY DISABLED FOR MVP)
+                /*
                 const numberMap = {};
                 let currentNumber = 1;
 
@@ -634,6 +644,7 @@
                                 tooltip.style.display = 'none';
                         });
                 });
+                */
 
                 // --- 3. Alternate Glyph Case Assignor ---
                 // only applicable for jxxword-thick
@@ -652,7 +663,7 @@
                         }
                 }
         </script>
-        <script src="transitions.js"></script>
+        <script src="transitions.js?v=13"></script>
 </body>
 
 </html>

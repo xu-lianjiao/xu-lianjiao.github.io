@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puzzles</title>
     <link rel="preload" href="../fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" id="main-stylesheet" href="../style.css?v=12">
+    <script>
+        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+            const s = document.getElementById('main-stylesheet');
+            if (s) s.href = s.getAttribute('href').split('?')[0] + '?t=' + Date.now();
+        }
+    </script>
     <script>
         (function () {
             if (sessionStorage.getItem('navigated_from_index') === 'true') {
@@ -31,9 +37,9 @@
         <button class="menu-toggle" aria-label="Toggle Navigation" aria-expanded="false">
             <svg class="hamburger-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
                 stroke-linecap="round">
-                <path class="line-top" d="M 15 28 C 35 25, 65 31, 85 28" />
-                <path class="line-middle" d="M 12 50 C 42 53, 58 47, 88 50" />
-                <path class="line-bottom" d="M 18 72 C 38 69, 68 75, 82 72" />
+                <path class="line-top" d="M 15 28 L 85 28" />
+                <path class="line-middle" d="M 15 50 L 85 50" />
+                <path class="line-bottom" d="M 15 72 L 85 72" />
             </svg>
         </button>
         <div class="nav-links">
@@ -54,17 +60,14 @@
         <!--  Published Crosswords Section -->
         <div class="nyt-section">
             <h2>Published Crosswords</h2>
-            <p>I specialise in constructing wide-open themeless crosswords, the most difficult puzzles
-                that newspapers offer. This is my favourite type of crossword to create, since the grids turn out so
-                beautiful. I can't reproduce the
-                clues due to licensing reasons, but I can show you the grids. Enjoy!
-            </p>
             <div class="nyt-gallery-wrapper">
                 <button class="nyt-nav-btn prev-btn" aria-label="Previous Grid">&lt;</button>
                 <div class="nyt-viewport">
                     <div class="nyt-grids-track">
                         <div class="nyt-grid-slide">
-                            <div class="crossword-grid nyt-crossword-grid" id="nyt-grid-1">
+                            <a class="crossword-grid nyt-crossword-grid nyt-clickable-grid" id="nyt-grid-1"
+                                href="https://www.nytimes.com/2024/01/05/crosswords/daily-puzzle-2024-01-06.html"
+                                target="_blank" rel="noopener noreferrer">
                                 <!-- Row 1 -->
                                 <div class="cell black"></div>
                                 <div class="cell black"></div>
@@ -305,11 +308,16 @@
                                 <div class="cell black"></div>
                                 <div class="cell black"></div>
                                 <div class="cell black"></div>
+                            </a>
+                            <div class="nyt-grid-caption">NYT, Saturday 6 Jan 2024. <a
+                                    href="https://www.crosserville.com/archive/puzzle/35684" target="_blank"
+                                    rel="noopener noreferrer">Archive</a>
                             </div>
-                            <div class="nyt-grid-caption">NYT Saturday Jan 6 2024</div>
                         </div>
                         <div class="nyt-grid-slide">
-                            <div class="crossword-grid nyt-crossword-grid" id="nyt-grid-2">
+                            <a class="crossword-grid nyt-crossword-grid nyt-clickable-grid" id="nyt-grid-2"
+                                href="https://www.nytimes.com/2024/02/29/crosswords/daily-puzzle-2024-03-01.html"
+                                target="_blank" rel="noopener noreferrer">
                                 <!-- Row 1 -->
                                 <div class="cell"><span class="cell-letter">c</span></div>
                                 <div class="cell"><span class="cell-letter">I</span></div>
@@ -550,8 +558,11 @@
                                 <div class="cell"><span class="cell-letter">t</span></div>
                                 <div class="cell"><span class="cell-letter">E</span></div>
                                 <div class="cell"><span class="cell-letter">r</span></div>
+                            </a>
+                            <div class="nyt-grid-caption">NYT, Friday 1 Mar 2024. <a
+                                    href="http://crosserville.com/archive/puzzle/36059" target="_blank"
+                                    rel="noopener noreferrer">Archive</a>
                             </div>
-                            <div class="nyt-grid-caption">NYT Friday Mar 1 2024</div>
                         </div>
                         <div class="nyt-grid-slide">
                             <div class="crossword-grid nyt-crossword-grid spoiler-hidden" id="nyt-grid-3">
@@ -801,7 +812,7 @@
                                 </div>
                                 -->
                             </div>
-                            <div class="nyt-grid-caption">Coming soon!</div>
+                            <div class="nyt-grid-caption">NYT, Friday 4 Sep 2026 (soon!)</div>
                         </div>
                         <div class="nyt-grid-slide">
                             <div class="crossword-grid nyt-crossword-grid spoiler-hidden" id="nyt-grid-4">
@@ -1057,15 +1068,13 @@
                 </div>
                 <button class="nyt-nav-btn next-btn" aria-label="Next Grid">&gt;</button>
             </div>
-            <div class="nyt-articles">
-                <p class="nyt-articles-header">See the NYT's articles discussing these puzzles!</p>
-                <div class="nyt-articles-links">
-                    <div><a href="https://www.nytimes.com/2024/01/05/crosswords/daily-puzzle-2024-01-06.html"
-                            target="_blank" rel="noopener noreferrer">Saturday January 6 2024</a></div>
-                    <div><a href="https://www.nytimes.com/2024/02/29/crosswords/daily-puzzle-2024-03-01.html"
-                            target="_blank" rel="noopener noreferrer">Friday March 1 2024</a></div>
-                </div>
-            </div>
+
+            <p>I began solving the daily New York Times crossword puzzles in high school, and I knew right away that I
+                wanted to construct and publish my own crosswords.
+                Despite the fierce competition among puzzle submissions, with some estimates putting their
+                acceptance rate at 3%, two years later I got my first puzzle into the NYT! I specialise in
+                making wide-open themeless crosswords, the more difficult puzzles in US newspapers. Have a look!
+            </p>
         </div>
 
         <!-- Section Divider -->
@@ -1073,13 +1082,44 @@
 
         <!-- Variety Puzzles Section -->
         <div class="variety-section">
-            <h2>Variety Puzzles</h2>
-            <p>In addition to traditional crosswords, I also enjoy creating variety puzzles. Here you can find a
-                selection of wordplay, logic puzzles, and custom novelty grids that I have designed.
-            </p>
-            <div class="variety-links">
-                <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer">Access my shared Google
-                    Folder with variety puzzle PDFs</a>
+            <h2>Cherwell Variety Puzzles</h2>
+            <p>In my second year at Oxford, I joined the student newspaper Cherwell as a puzzle writer
+                and became the Puzzles Deputy Editor during Trinity Term. I started Cherwell's practice of variety word
+                puzzles and logic puzzles, which often look like standard crosswords or sudoku but have a creative
+                twist. During Trinity Term, I workshopped and formatted all puzzles on the page.</p>
+            <p>Below are some of my favourites from my time at Cherwell. All pages I worked on as writer and Deputy
+                Editor can be seen <a
+                    href="https://drive.google.com/drive/folders/13UgNNxHBaPwagcYOu96mOI4KlnojyLK3?usp=sharing"
+                    target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+            <div class="cherwell-gallery-wrapper">
+                <button class="cherwell-nav-btn cherwell-prev-btn" aria-label="Previous Image">&lt;</button>
+                <div class="cherwell-viewport">
+                    <div class="cherwell-track">
+                        <div class="cherwell-slide">
+                            <img src="../images/cherwell/arithmetic-sudoku.png" alt="Arithmetic Sudoku">
+                        </div>
+                        <div class="cherwell-slide">
+                            <img src="../images/cherwell/crazy-eights.png" alt="Crazy Eights">
+                        </div>
+                        <div class="cherwell-slide">
+                            <img src="../images/cherwell/cryptogram.png" alt="Cryptogram">
+                        </div>
+                        <div class="cherwell-slide">
+                            <img src="../images/cherwell/double-duty.png" alt="Double Duty">
+                        </div>
+                        <div class="cherwell-slide">
+                            <img src="../images/cherwell/double-or-nothing.png" alt="Double or Nothing">
+                        </div>
+                        <div class="cherwell-slide">
+                            <img src="../images/cherwell/eddies.png" alt="Eddies">
+                        </div>
+                        <div class="cherwell-slide">
+                            <img src="../images/cherwell/vowelless.png" alt="Vowelless">
+                        </div>
+                    </div>
+                </div>
+                <button class="cherwell-nav-btn cherwell-next-btn" aria-label="Next Image">&gt;</button>
             </div>
         </div>
 
@@ -1087,7 +1127,14 @@
         <hr class="section-divider">
 
         <div class="video-section">
-            <h2>Bonus Video!</h2>
+            <h2>Explosive Low Ds</h2>
+            <p>My favourite quiz podcast, <i>Lateral with Tom Scott</i>, used a question I sent in. Pretty exciting!
+                Each question has an unusual premise, and guests inch towards the answer just with lateral
+                thinking.
+                This question is not strictly a "puzzle" like others on this page, but I designed it to be solvable
+                without much prior knowledge, just like my other puzzles. If you
+                have six minutes to spare, see if you can answer my question before the guests do!
+            </p>
             <div class="video-player-wrapper">
                 <iframe src="https://www.youtube.com/embed/i-43ItpF73k?si=IYyFcnqOFqt0rHZ2&amp;controls=1"
                     title="YouTube video player" frameborder="0"
@@ -1194,6 +1241,95 @@
                 }
             }
 
+            // Cherwell Gallery logic (Infinite Loop)
+            const cherwellTrack = document.querySelector('.cherwell-track');
+            const cherwellPrevBtn = document.querySelector('.cherwell-prev-btn');
+            const cherwellNextBtn = document.querySelector('.cherwell-next-btn');
+            const cherwellViewport = document.querySelector('.cherwell-viewport');
+
+            if (cherwellTrack) {
+                const originalSlides = Array.from(cherwellTrack.querySelectorAll('.cherwell-slide'));
+                if (originalSlides.length > 0) {
+                    const firstClone = originalSlides[0].cloneNode(true);
+                    const lastClone = originalSlides[originalSlides.length - 1].cloneNode(true);
+
+                    cherwellTrack.appendChild(firstClone);
+                    cherwellTrack.insertBefore(lastClone, originalSlides[0]);
+
+                    const totalSlides = cherwellTrack.querySelectorAll('.cherwell-slide');
+                    let currentCherwellIdx = 1; // start at arithmetic-sudoku (index 1)
+                    let isTransitioning = false;
+
+                    function setCherwellPosition(animated = true) {
+                        if (animated) {
+                            cherwellTrack.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+                            isTransitioning = true;
+                        } else {
+                            cherwellTrack.style.transition = 'none';
+                        }
+                        const offset = -currentCherwellIdx * 100;
+                        cherwellTrack.style.transform = `translateX(${offset}%)`;
+                    }
+
+                    // Initial positioning without animation
+                    setCherwellPosition(false);
+
+                    if (cherwellNextBtn) {
+                        cherwellNextBtn.addEventListener('click', () => {
+                            if (isTransitioning) return;
+                            currentCherwellIdx++;
+                            setCherwellPosition(true);
+                        });
+                    }
+
+                    if (cherwellPrevBtn) {
+                        cherwellPrevBtn.addEventListener('click', () => {
+                            if (isTransitioning) return;
+                            currentCherwellIdx--;
+                            setCherwellPosition(true);
+                        });
+                    }
+
+                    cherwellTrack.addEventListener('transitionend', () => {
+                        isTransitioning = false;
+                        if (currentCherwellIdx === totalSlides.length - 1) {
+                            currentCherwellIdx = 1;
+                            setCherwellPosition(false);
+                        } else if (currentCherwellIdx === 0) {
+                            currentCherwellIdx = totalSlides.length - 2;
+                            setCherwellPosition(false);
+                        }
+                    });
+
+                    // Touch Swipe gestures for Cherwell Carousel
+                    let cherwellTouchStartX = 0;
+                    let cherwellTouchEndX = 0;
+
+                    if (cherwellViewport) {
+                        cherwellViewport.addEventListener('touchstart', e => {
+                            cherwellTouchStartX = e.changedTouches[0].screenX;
+                        }, { passive: true });
+
+                        cherwellViewport.addEventListener('touchend', e => {
+                            cherwellTouchEndX = e.changedTouches[0].screenX;
+                            handleCherwellSwipe();
+                        }, { passive: true });
+                    }
+
+                    function handleCherwellSwipe() {
+                        const swipeThreshold = 50;
+                        if (isTransitioning) return;
+                        if (cherwellTouchStartX - cherwellTouchEndX > swipeThreshold) {
+                            currentCherwellIdx++;
+                            setCherwellPosition(true);
+                        } else if (cherwellTouchEndX - cherwellTouchStartX > swipeThreshold) {
+                            currentCherwellIdx--;
+                            setCherwellPosition(true);
+                        }
+                    }
+                }
+            }
+
             // Spoiler reveal logic (disabled for now)
             /*
             document.querySelectorAll('.nyt-crossword-grid.spoiler-hidden').forEach(grid => {
@@ -1217,7 +1353,7 @@
     </script>
 
     <!-- Client-side MMabble Grid Generation and Interactivity is now handled in mmabble.js -->
-    <script src="../transitions.js"></script>
+    <script src="../transitions.js?v=13"></script>
 </body>
 
 </html>

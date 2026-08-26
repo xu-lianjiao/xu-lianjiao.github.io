@@ -116,7 +116,7 @@ img {
 .arrow-text {
     font-family: "JXH", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 20px;
-    margin-top: 5px;
+    margin-top: -10px;
     white-space: nowrap;
 }
 
@@ -250,11 +250,12 @@ img {
     height: 6.6667%;
 }
 
-/* Highlight standard cells on hover (excluding black cells and link cells) */
+/* Highlight standard cells on hover (excluding black cells and link cells) - TEMPORARILY DISABLED FOR MVP */
+/*
 .cell:not(.black):not(.crossword-link):hover {
-    background-color: #f0f0f0;
-    /* Light gray highlight */
+    background-color: #e0e0e0;
 }
+*/
 
 /* Sidebar navigation */
 h1 {
@@ -373,7 +374,7 @@ p {
 .subpage-nav {
     background-color: #ffffff;
     border-bottom: 1px solid #eeeeee;
-    padding: 20px 0;
+    padding: 8px 0;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -383,7 +384,7 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 36px;
 }
 
 .subpage-nav a {
@@ -391,20 +392,71 @@ p {
     color: #555555;
     font-size: 20px;
     font-weight: 500;
-    transition: all 0.2s ease;
-    padding: 5px 0;
-    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease;
+    padding: 3px 10px;
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+}
+
+/* Highlighter overlay element for nav links */
+.subpage-nav a::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    left: -4px;
+    right: -6px;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    mix-blend-mode: multiply;
 }
 
 .subpage-nav a:hover {
-    color: #000000;
-    border-bottom-color: #555555;
+    color: #1d2d44;
 }
 
+/* Hover & active effect on other (non-active) page titles: Yellow highlighter */
+.subpage-nav a:hover:not(.active)::before,
+.subpage-nav a:active:not(.active)::before {
+    opacity: 1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 100' preserveAspectRatio='none'%3E%3Cpath d='M 15,12 L 666.5,12 C 661.5,35 661.5,65 661,88 L 10,88 C 14,68 8,38 15,12 Z' fill='%23ffb703' opacity='0.3'/%3E%3Cpath d='M 666.5,12 L 692,12 C 694,38 691,68 688,88 L 661,88 C 661.5,65 661.5,35 666.5,12 Z' fill='%23ffb703' opacity='0.7'/%3E%3C/svg%3E");
+}
+
+/* Current page active state: Orangish highlighter */
 .subpage-nav a.active {
-    color: #0000ee;
-    border-bottom-color: #0000ee;
-    font-weight: bold;
+    color: #1d2d44;
+    font-weight: 600;
+}
+
+.subpage-nav a.active::before {
+    opacity: 1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 100' preserveAspectRatio='none'%3E%3Cpath d='M 15,12 L 666.5,12 C 661.5,35 661.5,65 661,88 L 10,88 C 14,68 8,38 15,12 Z' fill='%23ff7b00' opacity='0.3'/%3E%3Cpath d='M 666.5,12 L 692,12 C 694,38 691,68 688,88 L 661,88 C 661.5,65 661.5,35 666.5,12 Z' fill='%23ff7b00' opacity='0.7'/%3E%3C/svg%3E");
+}
+
+/* Locked state during navigation reload */
+.subpage-nav.nav-locked a {
+    pointer-events: none;
+}
+
+.subpage-nav.nav-locked a:not(.clicked)::before {
+    opacity: 0 !important;
+}
+
+.subpage-nav a.clicked {
+    color: #1d2d44;
+}
+
+.subpage-nav a.clicked::before {
+    opacity: 1 !important;
+}
+
+.subpage-nav a.clicked:not(.active)::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 100' preserveAspectRatio='none'%3E%3Cpath d='M 15,12 L 666.5,12 C 661.5,35 661.5,65 661,88 L 10,88 C 14,68 8,38 15,12 Z' fill='%23ffb703' opacity='0.3'/%3E%3Cpath d='M 666.5,12 L 692,12 C 694,38 691,68 688,88 L 661,88 C 661.5,65 661.5,35 666.5,12 Z' fill='%23ffb703' opacity='0.7'/%3E%3C/svg%3E");
 }
 
 .menu-toggle {
@@ -445,32 +497,22 @@ p {
         transition: transform 0.3s ease;
     }
 
-    /* Hand-drawn SVG hamburger lines morphing transition */
+    /* SVG hamburger lines transition to minus sign */
     .menu-toggle path {
-        transition: d 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        transition: opacity 0.3s ease;
     }
 
-    .subpage-nav.menu-open .menu-toggle svg {
-        transform: rotate(90deg);
-    }
-
-    .subpage-nav.menu-open .line-top {
-        d: path("M 22 22 C 35 35, 65 65, 78 78");
-    }
-
-    .subpage-nav.menu-open .line-middle {
-        opacity: 0;
-    }
-
+    .subpage-nav.menu-open .line-top,
     .subpage-nav.menu-open .line-bottom {
-        d: path("M 22 78 C 35 65, 65 35, 78 22");
+        opacity: 0;
     }
 
     /* Dropdown Overlay Menu */
     .nav-links {
         display: flex;
         flex-direction: column;
-        gap: 0;
+        align-items: flex-start;
+        gap: 10px;
         position: absolute;
         top: 60px;
         left: 0;
@@ -478,7 +520,8 @@ p {
         background-color: #ffffff;
         border-bottom: 2px solid #1d2d44;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-        padding: 10px 0;
+        padding: 16px 30px;
+        box-sizing: border-box;
         z-index: 99;
         opacity: 0;
         transform: translateY(-10px);
@@ -495,22 +538,25 @@ p {
     }
 
     .subpage-nav .nav-links a {
-        width: 100%;
-        padding: 15px 30px;
+        width: fit-content;
+        display: inline-block;
+        padding: 4px 10px;
         font-size: 18px;
         border-bottom: none;
+        border-left: none;
+        background-color: transparent;
         box-sizing: border-box;
         text-align: left;
     }
 
     .subpage-nav .nav-links a:hover {
-        background-color: #f0f0f0;
+        background-color: transparent;
     }
 
     .subpage-nav .nav-links a.active {
-        background-color: #f8fafc;
-        border-left: 4px solid #0000ee;
-        padding-left: 26px;
+        background-color: transparent;
+        border-left: none;
+        padding-left: 10px;
     }
 }
 
@@ -686,7 +732,7 @@ p {
 .project-read-more-content.expanded {
     max-height: 1000px;
     opacity: 1;
-    margin-top: 15px;
+    margin-top: -25px;
 }
 
 /* Plus button for read-more toggle */
@@ -704,11 +750,11 @@ p {
     transition: background-color 0.2s ease, transform 0.3s ease;
     padding: 0;
     box-sizing: border-box;
-    margin-top: 15px;
+    margin-top: -25px;
 }
 
 .project-toggle-btn:hover {
-    background-color: #f0f0f0;
+    background-color: #e0e0e0;
 }
 
 .project-toggle-btn:active {
@@ -779,7 +825,7 @@ p {
 }
 
 .c4-reset-btn:hover {
-    background-color: #f0f0f0;
+    background-color: #e0e0e0;
     /* Same gray shade as crossword grid hovering gray */
 }
 
@@ -1042,7 +1088,7 @@ p {
 /* Hover/Focus states matching site aesthetic */
 .form-group input:hover,
 .form-group textarea:hover {
-    background-color: #f0f0f0;
+    background-color: #e0e0e0;
 }
 
 .form-group input:focus,
@@ -1094,7 +1140,7 @@ p {
 }
 
 .contact-submit-btn:hover {
-    background-color: #f0f0f0;
+    background-color: #e0e0e0;
 }
 
 .contact-submit-btn:active {
@@ -1141,7 +1187,7 @@ p {
 }
 
 .contact-reset-btn:hover {
-    background-color: #f0f0f0;
+    background-color: #e0e0e0;
 }
 
 .contact-header-container {
@@ -1337,7 +1383,7 @@ p {
 }
 
 .mmabble-cell:not(.tw):not(.dw):not(.tl):not(.dl):not(.start):hover {
-    background-color: #f0f0f0;
+    background-color: #e0e0e0;
     /* Light gray shadow highlight for normal cells */
 }
 
@@ -1575,7 +1621,7 @@ p {
 .mumble-reset-btn:hover,
 .mumble-play-btn:not(:disabled):hover,
 .mumble-swap-btn:not(:disabled):hover {
-    background-color: #f0f0f0;
+    background-color: #e0e0e0;
 }
 
 .mmabble-reset-btn:active,
@@ -1670,9 +1716,7 @@ p {
     max-width: 560px;
     margin: 0 auto;
     position: relative;
-    padding-bottom: 56.25%;
-    /* 16:9 Aspect Ratio */
-    height: 0;
+    aspect-ratio: 16 / 9;
     border: 3px solid #1d2d44;
     border-radius: 0;
     overflow: hidden;
@@ -1716,26 +1760,35 @@ p {
 }
 
 .nyt-nav-btn {
-    display: flex;
+    background: #ffffff;
+    border: 2px solid #1d2d44;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: none;
-    border: none;
-    font-size: 36px;
-    font-family: inherit;
-    color: #1d2d44;
     cursor: pointer;
-    width: 40px;
-    height: 40px;
+    color: #1d2d44;
+    font-family: 'National Park', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
     user-select: none;
-    transition: opacity 0.2s ease, transform 0.1s ease;
+    transition: background-color 0.2s ease, transform 0.1s ease;
     padding: 0;
     margin: 0;
     flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.nyt-nav-btn:hover {
+    background-color: #e0e0e0;
 }
 
 .nyt-nav-btn:active {
-    transform: scale(0.9);
+    background-color: #e2e8f0;
+    transform: scale(0.95);
 }
 
 .nyt-viewport {
@@ -1764,7 +1817,7 @@ p {
     .nyt-nav-btn {
         width: 32px;
         height: 32px;
-        font-size: 28px;
+        font-size: 18px;
     }
 
     .nyt-grids-track {
@@ -1783,6 +1836,17 @@ p {
     font-size: clamp(8.64px, 2.52cqi, 18.72px);
 }
 
+.nyt-clickable-grid {
+    display: grid;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nyt-clickable-grid:hover .cell:not(.black) {
+    background-color: #e0e0e0;
+}
+
 .nyt-grid-caption {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     text-align: center;
@@ -1791,9 +1855,20 @@ p {
     color: #1d2d44;
 }
 
+.nyt-grid-caption a {
+    color: #0000ee;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.nyt-grid-caption a:hover {
+    color: #000099;
+}
+
 /* Spoiler Grid Feature Styles */
 .nyt-crossword-grid.spoiler-hidden .cell:not(.black) {
-    background-color: #f0f0f0;
+    background-color: #e0e0e0;
 }
 
 .nyt-crossword-grid.spoiler-hidden .cell-letter {
@@ -1889,6 +1964,92 @@ p {
 
 .variety-links a:hover {
     color: #000099;
+}
+
+/* Cherwell Carousel Styles */
+.cherwell-gallery-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 25px;
+}
+
+.cherwell-nav-btn {
+    background: #ffffff;
+    border: 2px solid #1d2d44;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #1d2d44;
+    font-family: 'National Park', 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+    user-select: none;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    padding: 0;
+    margin: 0;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.cherwell-nav-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.cherwell-nav-btn:active {
+    background-color: #e2e8f0;
+    transform: scale(0.95);
+}
+
+.cherwell-viewport {
+    width: 75%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.cherwell-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cherwell-slide {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cherwell-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 860px) {
+    .cherwell-gallery-wrapper {
+        gap: 10px;
+    }
+
+    .cherwell-nav-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+    }
 }
 
 /* ==========================================
