@@ -38,7 +38,8 @@
 <body>
     <nav class="subpage-nav">
         <button class="menu-toggle" aria-label="Toggle Navigation" aria-expanded="false">
-            <svg class="hamburger-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round">
+            <svg class="hamburger-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8"
+                stroke-linecap="round">
                 <path class="line-top" d="M 15 28 L 85 28" />
                 <path class="line-middle" d="M 15 50 L 85 50" />
                 <path class="line-bottom" d="M 15 72 L 85 72" />
@@ -55,12 +56,56 @@
     </nav>
     <main class="container fade-in-up">
         <h1>Other Pursuits</h1>
-        <p>The things I spend time on outside of my degree aren't really separate from how I think—they're just different expressions of the same curiosity.</p>
-        <p>One of the most rewarding has been mathematics education. I serve on the organising committee of the Oxford Mathematics Team Challenge (OMTC), a fully student-run national competition that brings sixth form students from across the UK to Oxford. As one of the first competitions of its kind, it gives students the opportunity to compete inside the Exam Schools and experience university mathematics in a way that isn't usually accessible at school. Helping organise an event on this scale has been incredibly fulfilling, not just because of the logistics involved, but because I get to see hundreds of students discover the same excitement for mathematics that drew me to it in the first place.</p>
-        <p>That interest extends beyond OMTC. I tutor mathematics, have volunteered with Mathleague competitions, and have written my own problem sheets and worksheets for students. I've always enjoyed finding ways to explain difficult ideas clearly, and designing problems that teach a concept rather than simply test it. Seeing someone have that "click" moment is every bit as satisfying as solving the problem yourself.</p>
-        <p>Music has been the other constant in my life. I grew up playing classical piano and still perform regularly in college recitals and soirées. More recently I've found myself drawn to jazz and funk, playing keyboard in a combo with friends and performing gigs in local bars. Before university I also sang bass in an English church choir, including as a soloist, and I'm currently teaching myself both bass guitar and electric guitar.</p>
-        <p>What I enjoy most about music is how different it feels from mathematics while rewarding many of the same instincts. Whether I'm interpreting a Chopin nocturne, improvising over a jazz progression, or learning a new instrument from scratch, the process is one of continual refinement—listening carefully, experimenting, making mistakes, and gradually building intuition. It's a reminder that there are many different ways to learn, create, and communicate.</p>
+        <div class="omtc-section">
+            <div class="omtc-gallery-right">
+                <img src="../images/omtc-2.png" alt="OMTC 2">
+                <img src="../images/omtc-1.png" alt="OMTC 1">
+                <img src="../images/omtc-3.png" alt="OMTC 3">
+                <img src="../images/omtc-5.png" alt="OMTC 5">
+                <img src="../images/omtc-4.png" alt="OMTC 4">
+            </div>
+            <p>
+                I'm on the organising committee of the Oxford
+                Mathematics Team Challenge (OMTC), a fully student-run national competition for sixth-form students
+                across
+                the UK. My classmate and I both come from the SF Bay and did the Berkeley and Stanford tournaments as
+                kids,
+                and
+                we wanted to bring a similar spirit to the UK, where the demand for such an event was there but not the
+                supply. </p>
 
+            <p>
+                Thus we created OMTC in my second year, dedicated to sharing our love for high-level maths, open
+                to
+                any student for free. There aren't many opportunities for school students
+                to spend a day doing hard but low-stakes maths problems in a place like Oxford's Examination Schools. As
+                soon as we got all the logistics cleared, the reception from schools as soon as we began
+                marketing was immediate. The students really love doing this!
+            </p>
+            <p>
+                Here are some
+                pictures from the exciting day of! They don't reflect the half-year of work from the whole team of OMTC
+                volunteers that made this one day happen. For the month leading up to the event, my friends and I would
+                be
+                spending
+                more time on OMTC than on our degrees, so after it ends, we have two weeks of just locking in harder
+                than ever. Every bit of that struggle is worth it.
+            </p>
+        </div>
+        <p>
+            I also spend a ton of time making music. I play classical piano in college recitals and
+            soirées, funk/jazz keys in a combo that plays gigs in Oxford bar nights and parties, sing bass as a soloist
+            in an English church choir, and lately I've been teaching myself bass and fingerstyle guitar. Compared to
+            other technical skills, music is the one thing that I've not been too fussed about optimising. It's
+            nice to have an outlet, and I don't have to be a master of an instrument to consider myself a good
+            musician. At this point in my life, this is just something where I do what I please, when I feel like it.
+        </p>
+
+        <div class="music-gallery-row">
+            <img src="../images/piano.png" alt="Piano recital">
+            <img src="../images/bach-singing-bass-solo.JPG" alt="Bach bass singing solo">
+            <img src="../images/fuzz.png" alt="Fuzz band performance">
+        </div>
         <!-- Section Divider -->
         <hr class="section-divider">
 
@@ -68,7 +113,9 @@
         <div class="puzzles-layout">
             <div class="puzzles-main-content">
                 <h2>Connect Four</h2>
-                <p>Try your hand at Connect Four against our minimax AI.</p>
+                <p>I made this bot after learning about minimax in Artificial Intelligence. This bot's thinking depth is
+                    set to 7 moves, with a heuristic function maximising its 4-in-a-row
+                    opportunities in the board. It's a tough bot, but it can be tricked!</p>
             </div>
 
             <div class="puzzles-sidebar">
@@ -105,13 +152,14 @@
                 <h2>MMabble</h2>
                 <p>
                     MMabble is 9x9 Scrabble where the only letter is M.
-                    As per tournament Scrabble rules, the only legal words in this game are MM and MMM.
-                    No passing and no fake words!
+                    As per the Scrabble dictionary, the only legal words in this game are MM and MMM. The first move
+                    must
+                    cover the star.
                 </p>
                 <p>
                     Watch for bonus squares, and note that playing overlaps is quite lucrative,
-                    since you get points for every new word you form.
-                    Game ends at a stalemate, or when one player plays all tiles on their rack.
+                    since you get points for every word you form.
+                    Game ends at a stalemate, or when someone plays all off tiles on their rack.
                 </p>
             </div>
 
@@ -177,12 +225,12 @@
                 <h2>Mumble</h2>
                 <p>
                     Mumble is 11x11 Scrabble with 40 Ms and 20 Us.
-                    As per the international Scrabble dictionary, there are ten legal words in this game:
+                    As per the Collins Scrabble dictionary, there are ten legal words in this game:
                     MM, MU, UM, MMM, MUM, UMM, UMU, MUMM, MUMU, and MUUMUU.
                 </p>
                 <p>
                     You can swap tiles with the bag if the bag has at least 7 tiles left.
-                    I wouldn't recommend it tbh
+                    I wouldn't recommend it in this game though.
                 </p>
             </div>
 

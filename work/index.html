@@ -137,16 +137,15 @@
         <!-- Section Divider -->
         <hr class="section-divider">
 
-        <!-- Sample Project Section -->
+        <!-- Trading Bots Section (Commented Out)
         <div class="project-layout" style="display: block;">
             <div class="project-media" style="float: right; width: 510px; margin: 0 0 20px 25px;">
-                <img src="../images/hard-c-demo-2.png" alt="Sample Project Image">
+                <img src="../images/quant-notebook.png" alt="Sample Project Image">
             </div>
             <h2>Trading Bots</h2>
             <p>
             </p>
 
-            <!-- Read More Section -->
             <div class="project-read-more-content">
                 <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
                     pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
@@ -161,8 +160,8 @@
             </button>
         </div>
 
-        <!-- Section Divider -->
         <hr class="section-divider">
+        -->
 
         <!-- Project 1: With Read-More Option -->
         <div class="project-layout" style="display: block;">
@@ -205,16 +204,23 @@
                 <img src="../images/ucsf-work.png" alt="UCSF Work Image">
             </div>
             <h2>MRSI Brain Scans</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat.
+            <p>The summers of 2024 and 2025, I worked in the University of California at San Francisco (UCSF)
+                Department of Radiology, focused on a new form of imaging called MRSI. My task was a segmentation
+                problem to automate quality control of voxels, a task that would take several minutes per scan if done
+                manually. Here, I took the existing 1D conv neural net and
+                developed a 3D analogue. Then, when the project expanded, I then took on the task of making this quality
+                control pipeline perform the
+                same task on messier data.
             </p>
 
             <!-- Read More Section -->
             <div class="project-read-more-content">
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                    anim id est laborum.</p>
+                <p>Unlike MRI which records each voxel as an intensity value, MRSI records a spectrum at each voxel,
+                    hence the "S" in MRSI. I found this problem challenging since the lab's MRSI data was compiled
+                    from multiple different experiments, requiring heavy data cleaning to standardise. In addition,
+                    datasets were massive and high-dimensional, especially when considering multiple channels
+                    representing
+                    single coils.</p>
             </div>
 
             <button class="project-toggle-btn" aria-label="Read more about Lorem Ipsum" aria-expanded="false">
@@ -248,8 +254,11 @@
 
             <!-- Read More Section -->
             <div class="project-read-more-content">
-                <p>This was made in a hackathon hosted by Oxford Behavioural Insights Group, where projects use AI tools
-                    and behavioural science to improve lives.</p>
+                <p>This was made in a hackathon hosted by Oxford Behavioural Insights Group, where the theme was to use
+                    AI and behavioural science ideas to improve quality of life. My role on the team was to connect the
+                    Python backend to the LLM, and to fine-tune the AI agents to ensure safe, predictable behaviour
+                    using
+                    multishot prompts and RAG.</p>
             </div>
 
             <button class="project-toggle-btn" aria-label="Read more about Foornal" aria-expanded="false">

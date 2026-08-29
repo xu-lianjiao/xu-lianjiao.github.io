@@ -167,7 +167,8 @@ img {
     line-height: 1;
     margin-top: 0.25em;
     /* Shift letter further down */
-    font-feature-settings: "ss01" 1, "ss02" 0;
+    font-feature-settings: "ss01" 0, "ss02" 0;
+    text-transform: uppercase;
 }
 
 /* Crossword Link Cells */
@@ -362,11 +363,76 @@ p {
     clip-path: inset(4.5% 4.5% 4.5% 4.5%);
 }
 
+.omtc-section::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.omtc-gallery-right {
+    float: right;
+    width: 30%;
+    margin: 6px 0 20px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.omtc-gallery-right img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: none;
+    border-radius: 0 !important;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+
 @media (max-width: 768px) {
     .about-profile-img {
         float: none;
         width: 100%;
         margin: 20px 0;
+    }
+
+    .omtc-gallery-right {
+        float: none;
+        width: 100%;
+        margin: 20px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+.music-gallery-row {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: 25px 0 30px 0;
+    width: 100%;
+}
+
+.music-gallery-row img {
+    height: 190px;
+    flex: 1 1 0;
+    width: 0;
+    object-fit: cover;
+    display: block;
+    border: none;
+    border-radius: 0 !important;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .music-gallery-row {
+        gap: 10px;
+        margin: 20px 0;
+    }
+
+    .music-gallery-row img {
+        height: 130px;
     }
 }
 
@@ -1243,6 +1309,7 @@ p {
     border-top: 2px solid #1d2d44;
     margin: 50px 0;
     opacity: 0.2;
+    clear: both;
 }
 
 .mmabble-scoreboard-container,
