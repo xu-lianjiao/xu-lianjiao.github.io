@@ -6,8 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Technical Work</title>
     <link rel="icon" href="../images/favicon (4).ico">
-    <link rel="preload" href="../fonts/jxhandwriting.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" id="main-stylesheet" href="../style.css?v=12">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="../fonts/jxh3.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../fonts/jxxword-thick.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=National+Park:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" id="main-stylesheet" href="../style.css?v=13">
     <script>
         if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
             const s = document.getElementById('main-stylesheet');
@@ -167,7 +172,7 @@
         <!-- Project 1: With Read-More Option -->
         <div class="project-layout" style="display: block;">
             <div class="project-media" style="float: right; width: 510px; margin: 0 0 20px 25px;">
-                <img src="../images/hard-c-demo-2.png" alt="Hard C Demo Image">
+                <img src="../images/hard-c-demo-2.png" alt="Hard C Demo Image" loading="lazy" decoding="async">
             </div>
             <h2>Hard C</h2>
             <p>Hard C is my personal crossword engine designed to create New York Times-style themeless puzzle grids.
@@ -202,7 +207,7 @@
         <!-- Sample Project Section (UCSF) -->
         <div class="project-layout" style="display: block;">
             <div class="project-media" style="float: right; width: 450px; margin: 0 0 20px 25px;">
-                <img src="../images/ucsf-work.png" alt="UCSF Work Image">
+                <img src="../images/ucsf-work.jpg" alt="UCSF Work Image" loading="lazy" decoding="async">
             </div>
             <h2>MRSI Brain Scans</h2>
             <p>The summers of 2024 and 2025, I worked in the University of California at San Francisco (UCSF)
@@ -239,13 +244,13 @@
         <div class="project-layout" style="display: block;">
             <div class="project-media" style="float: right; margin: 0 0 20px 25px; width: auto;">
                 <div style="display: flex; gap: 10px; align-items: center;">
-                    <img src="../images/foornal-2.png" alt="Foornal App Screenshot 2"
-                        style="height: 415px; width: auto;">
-                    <img src="../images/foornal-1.png" alt="Foornal App Screenshot 1"
-                        style="height: 415px; width: auto;">
+                    <img src="../images/foornal-2.jpg" alt="Foornal App Screenshot 2"
+                        style="height: 415px; width: auto;" loading="lazy" decoding="async">
+                    <img src="../images/foornal-1.jpg" alt="Foornal App Screenshot 1"
+                        style="height: 415px; width: auto;" loading="lazy" decoding="async">
                 </div>
             </div>
-            <h2>Foornal (1st place prize @ OxBIG Hackathon)</h2>
+            <h2>Foornal (1st place @ OxBIG Hackathon)</h2>
             <p>Short for "food journal", this mobile app lets users effortlessly track their nutrition just by taking
                 photos of
                 their meals. Foornal's LLM-based backend predicts the
